@@ -1,0 +1,30 @@
+{
+  "block.emberphoenix.scarlet_dirt":"猩红壤",
+  "block.emberphoenix.scarlet_stone":"猩红岩",
+  "block.emberphoenix.hard_slate":"坚层岩",
+  "block.emberphoenix.scarlet_coal_ore":"赤鸢煤矿石",
+  "block.emberphoenix.scarlet_copper_ore":"赤鸢铜矿石",
+  "block.emberphoenix.scarlet_iron_ore":"赤鸢铁矿石",
+  "block.emberphoenix.scarlet_gold_ore":"赤鸢金矿石",
+  "block.emberphoenix.scarlet_silver_ore":"赤鸢银矿石",
+  "block.emberphoenix.scarlet_diamond_ore":"赤鸢钻石矿石",
+  "block.emberphoenix.scarlet_coal_block":"赤鸢煤块",
+  "block.emberphoenix.scarlet_copper_block":"赤鸢铜块",
+  "block.emberphoenix.scarlet_iron_block":"赤鸢铁块",
+  "block.emberphoenix.scarlet_gold_block":"赤鸢金块",
+  "block.emberphoenix.scarlet_silver_block":"赤鸢银块",
+  "block.emberphoenix.scarlet_diamond_block":"赤鸢钻石块",
+  "block.emberphoenix.raw_silver_block":"粗银块",
+  "block.emberphoenix.silver_block":"银块",
+  "block.emberphoenix.emberium_block":"余烬金属块",
+
+  "item.emberphoenix.scarlet_coal":"赤鸢煤炭",
+  "item.emberphoenix.scarlet_copper_ingot":"赤鸢铜锭",
+  "item.emberphoenix.scarlet_iron_ingot":"赤鸢铁锭",
+  "item.emberphoenix.scarlet_gold_ingot":"赤鸢金锭",
+  "item.emberphoenix.scarlet_silver_ingot":"赤鸢银锭",
+  "item.emberphoenix.scarlet_diamond_ingot":"赤鸢钻石",
+  "item.emberphoenix.emberium_ingot":"余烬钢锭",
+
+  "itemGroup.ep_tab": "赤鸢的余烬"
+}

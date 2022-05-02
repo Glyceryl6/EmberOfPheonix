@@ -1,0 +1,30 @@
+{
+  "block.emberphoenix.scarlet_dirt":"Scarlet Dirt",
+  "block.emberphoenix.scarlet_stone":"Scarlet Stone",
+  "block.emberphoenix.hard_slate":"Hard Slate",
+  "block.emberphoenix.scarlet_coal_ore":"Scarlet Coal Ore",
+  "block.emberphoenix.scarlet_copper_ore":"Scarlet Copper Ore",
+  "block.emberphoenix.scarlet_iron_ore":"Scarlet Iron Ore",
+  "block.emberphoenix.scarlet_gold_ore":"Scarlet Gold Ore",
+  "block.emberphoenix.scarlet_silver_ore":"Scarlet Silver Ore",
+  "block.emberphoenix.scarlet_diamond_ore":"Scarlet Diamond Ore",
+  "block.emberphoenix.scarlet_coal_block":"Scarlet Coal Block",
+  "block.emberphoenix.scarlet_copper_block":"Scarlet Copper Block",
+  "block.emberphoenix.scarlet_iron_block":"Scarlet Iron Block",
+  "block.emberphoenix.scarlet_gold_block":"Scarlet Gold Block",
+  "block.emberphoenix.scarlet_silver_block":"Scarlet Silver Block",
+  "block.emberphoenix.scarlet_diamond_block":"Scarlet Diamond Block",
+  "block.emberphoenix.raw_silver_block":"Raw Silver Block",
+  "block.emberphoenix.silver_block":"Silver Block",
+  "block.emberphoenix.emberium_block":"Emberium Block",
+
+  "item.emberphoenix.scarlet_coal":"Scarlet Coal",
+  "item.emberphoenix.scarlet_copper_ingot":"Scarlet Copper Ingot",
+  "item.emberphoenix.scarlet_iron_ingot":"Scarlet Iron Ingot",
+  "item.emberphoenix.scarlet_gold_ingot":"Scarlet Gold Ingot",
+  "item.emberphoenix.scarlet_silver_ingot":"Scarlet Silver Ingot",
+  "item.emberphoenix.scarlet_diamond_ingot":"Scarlet Diamond",
+  "item.emberphoenix.emberium_ingot":"Emberium Steel Ingot",
+
+  "itemGroup.ep_tab": "Ember of Phoenix"
+}

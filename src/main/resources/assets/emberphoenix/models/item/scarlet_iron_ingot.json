@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "emberphoenix:item/scarlet_iron_ingot"
+  }
+}
