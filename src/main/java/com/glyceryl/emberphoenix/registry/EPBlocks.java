@@ -38,11 +38,16 @@ public class EPBlocks {
     //Registry the normal block but with cutting.
     public static final RegistryObject<Block> CHISELED_SCARLET_STONE = normal("chiseled_scarlet_stone", Blocks.STONE);
     public static final RegistryObject<Block> POLISHED_SCARLET_STONE = normal("polished_scarlet_stone", Blocks.STONE);
-    public static final RegistryObject<Block> SMOOTH_SCARLET_STONE = normal("smooth_scarlet_stone", Blocks.STONE);
-    //Registry the stair blocks.
-    public static final RegistryObject<Block> SCARLET_STONE_STAIR = stair("scarlet_stone_stair", SCARLET_STONE, Blocks.STONE);
+    public static final RegistryObject<Block> CHISELED_HARD_SLATE = normal("chiseled_scarlet_stone", Blocks.STONE);
+    public static final RegistryObject<Block> POLISHED_HARD_SLATE = normal("polished_scarlet_stone", Blocks.STONE);
+    public static final RegistryObject<Block> HARD_SLATE_BRICKS = normal("hardslate_bricks", Blocks.STONE);
+    public static final RegistryObject<Block> CRACKED_HARD_SLATE_BRICKS = normal("cracked_hardslate_bricks", Blocks.STONE);
+    public static final RegistryObject<Block> HARD_SLATE_TILES = normal("hardslate_tiles", Blocks.STONE);
+    public static final RegistryObject<Block> CRACKED_HARD_SLATE_TILES = normal("cracked_hardslate_tiles", Blocks.STONE);
     //Registry the slab blocks.
     public static final RegistryObject<Block> SCARLET_STONE_SLAB = slab("scarlet_stone_slab", Blocks.STONE);
+    //Registry the stair blocks.
+    public static final RegistryObject<Block> SCARLET_STONE_STAIR = stair("scarlet_stone_stair", SCARLET_STONE, Blocks.STONE);
 
     private static RegistryObject<Block> normal(String name, BlockBehaviour behaviour) {
         return EPBase.registerBlock(name, () -> new Block(BlockBehaviour.Properties.copy(behaviour)), EPBase.EP_TAB);
