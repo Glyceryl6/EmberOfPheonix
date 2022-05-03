@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/wall_inventory",
+  "textures": {
+    "wall": "emberphoenix:block/hardslate_tiles"
+  }
+}

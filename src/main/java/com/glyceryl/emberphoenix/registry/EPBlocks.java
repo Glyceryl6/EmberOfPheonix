@@ -40,24 +40,24 @@ public class EPBlocks {
     public static final RegistryObject<Block> POLISHED_SCARLET_STONE = special("polished_scarlet_stone", BlockBehaviour.Properties.of(Material.STONE).strength(3.0F, 6.0F));
     public static final RegistryObject<Block> CHISELED_HARD_SLATE = special("chiseled_hardslate", BlockBehaviour.Properties.of(Material.STONE).strength(3.5F, 8.0F));
     public static final RegistryObject<Block> POLISHED_HARD_SLATE = special("polished_hardslate", BlockBehaviour.Properties.of(Material.STONE).strength(3.5F, 8.0F));
-    public static final RegistryObject<Block> HARD_SLATE_BRICKS = special("hardslate_bricks", BlockBehaviour.Properties.of(Material.STONE).strength(3.5F, 8.0F));
-    public static final RegistryObject<Block> CRACKED_HARD_SLATE_BRICKS = special("cracked_hardslate_bricks", BlockBehaviour.Properties.of(Material.STONE).strength(3.5F, 8.0F));
+    public static final RegistryObject<Block> HARD_SLATE_BRICKS = special("hardslate_brick", BlockBehaviour.Properties.of(Material.STONE).strength(3.5F, 8.0F));
+    public static final RegistryObject<Block> CRACKED_HARD_SLATE_BRICKS = special("cracked_hardslate_brick", BlockBehaviour.Properties.of(Material.STONE).strength(3.5F, 8.0F));
     public static final RegistryObject<Block> HARD_SLATE_TILES = special("hardslate_tiles", BlockBehaviour.Properties.of(Material.STONE).strength(3.5F, 8.0F));
     public static final RegistryObject<Block> CRACKED_HARD_SLATE_TILES = special("cracked_hardslate_tiles", BlockBehaviour.Properties.of(Material.STONE).strength(3.5F, 8.0F));
     public static final RegistryObject<Block> DENSE_GLOWSTONE = special("dense_glowstone", BlockBehaviour.Properties.of(Material.STONE).strength(4.5F, 8.0F));
     //Registry the wall blocks.
-    public static final RegistryObject<Block> HARD_SLATE_BRICKS_WALL = wall("hardslate_bricks_wall", BlockBehaviour.Properties.of(Material.STONE).strength(3.5F, 8.0F));
-    public static final RegistryObject<Block> HARD_SLATE_TILES_WALL = wall("hardslate_tiles_wall", BlockBehaviour.Properties.of(Material.STONE).strength(3.5F, 8.0F));
+    public static final RegistryObject<Block> HARD_SLATE_BRICKS_WALL = wall("hardslate_brick_wall", BlockBehaviour.Properties.of(Material.STONE).strength(3.5F, 8.0F));
+    public static final RegistryObject<Block> HARD_SLATE_TILES_WALL = wall("hardslate_tile_wall", BlockBehaviour.Properties.of(Material.STONE).strength(3.5F, 8.0F));
     //Registry the slab blocks.
     public static final RegistryObject<Block> POLISHED_SCARLET_STONE_SLAB = slab("polished_scarlet_stone_slab", BlockBehaviour.Properties.of(Material.STONE).strength(3.0F, 6.0F));
     public static final RegistryObject<Block> POLISHED_HARD_SLATE_SLAB = slab("polished_hardslate_slab", BlockBehaviour.Properties.of(Material.STONE).strength(3.5F, 8.0F));
-    public static final RegistryObject<Block> HARD_SLATE_BRICKS_SLAB = slab("hardslate_bricks_slab", BlockBehaviour.Properties.of(Material.STONE).strength(3.5F, 8.0F));
-    public static final RegistryObject<Block> HARD_SLATE_TILES_SLAB = slab("hardslate_tiles_slab", BlockBehaviour.Properties.of(Material.STONE).strength(3.5F, 8.0F));
+    public static final RegistryObject<Block> HARD_SLATE_BRICKS_SLAB = slab("hardslate_brick_slab", BlockBehaviour.Properties.of(Material.STONE).strength(3.5F, 8.0F));
+    public static final RegistryObject<Block> HARD_SLATE_TILES_SLAB = slab("hardslate_tile_slab", BlockBehaviour.Properties.of(Material.STONE).strength(3.5F, 8.0F));
     //Registry the stair blocks.
     public static final RegistryObject<Block> POLISHED_SCARLET_STONE_STAIR = stair("polished_scarlet_stone_stair", SCARLET_STONE, BlockBehaviour.Properties.of(Material.STONE).strength(3.0F, 6.0F));
     public static final RegistryObject<Block> POLISHED_HARD_SLATE_STAIR = stair("polished_hardslate_stair", POLISHED_HARD_SLATE, BlockBehaviour.Properties.of(Material.STONE).strength(3.5F, 8.0F));
-    public static final RegistryObject<Block> HARD_SLATE_BRICKS_STAIR = stair("hardslate_bricks_stair", HARD_SLATE_BRICKS, BlockBehaviour.Properties.of(Material.STONE).strength(3.5F, 8.0F));
-    public static final RegistryObject<Block> HARD_SLATE_TILES_STAIR = stair("hardslate_tiles_stair", HARD_SLATE_TILES, BlockBehaviour.Properties.of(Material.STONE).strength(3.5F, 8.0F));
+    public static final RegistryObject<Block> HARD_SLATE_BRICKS_STAIR = stair("hardslate_brick_stair", HARD_SLATE_BRICKS, BlockBehaviour.Properties.of(Material.STONE).strength(3.5F, 8.0F));
+    public static final RegistryObject<Block> HARD_SLATE_TILES_STAIR = stair("hardslate_tile_stair", HARD_SLATE_TILES, BlockBehaviour.Properties.of(Material.STONE).strength(3.5F, 8.0F));
 
     private static RegistryObject<Block> normal(String name, BlockBehaviour behaviour) {
         return EPBase.registerBlock(name, () -> new Block(BlockBehaviour.Properties.copy(behaviour)), EPBase.EP_TAB);
