@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "emberphoenix:block/polished_hardslate",
+    "top": "emberphoenix:block/polished_hardslate",
+    "side": "emberphoenix:block/polished_hardslate"
+  }
+}

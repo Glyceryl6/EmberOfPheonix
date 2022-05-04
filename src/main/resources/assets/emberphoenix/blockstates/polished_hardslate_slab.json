@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "emberphoenix:block/polished_hardslate_slab"
+    },
+    "type=double": {
+      "model": "emberphoenix:block/polished_hardslate"
+    },
+    "type=top": {
+      "model": "emberphoenix:block/polished_hardslate_slab_top"
+    }
+  }
+}
