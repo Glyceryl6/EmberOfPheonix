@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/cube_all",
-  "textures": {
-    "all": "emberphoenix:block/scarlet_copper_block"
-  }
-}

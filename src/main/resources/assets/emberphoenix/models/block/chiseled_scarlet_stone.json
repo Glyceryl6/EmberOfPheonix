@@ -1,6 +1,7 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "parent": "minecraft:block/cube_column",
   "textures": {
-    "all": "emberphoenix:block/chiseled_scarlet_stone"
+    "end": "emberphoenix:block/chiseled_scarlet_stone_side_top",
+    "side": "emberphoenix:block/chiseled_scarlet_stone_side"
   }
 }

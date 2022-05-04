@@ -17,7 +17,7 @@ public class EPBlocks {
     //Registry base blocks.
     public static final RegistryObject<Block> SCARLET_DIRT = normal("scarlet_dirt", Blocks.DIRT);
     public static final RegistryObject<Block> SCARLET_STONE = special("scarlet_stone", STRENGTH_SCARLET_STONE);
-    public static final RegistryObject<Block> HARD_SLATE = special("hard_slate", STRENGTH_HARD_SLATE);
+    public static final RegistryObject<Block> HARD_SLATE = special("hardslate", STRENGTH_HARD_SLATE);
     //Registry some block with special functions.
     public static final RegistryObject<AshBlock> ASH_BLOCK = EPBase.registerBlock("ash_block",
             () -> new AshBlock(BlockBehaviour.Properties.of(Material.SNOW).strength(20.0F, 3.0F).sound(SoundType.SAND)), EPBase.EP_TAB);
@@ -29,12 +29,6 @@ public class EPBlocks {
     public static final RegistryObject<Block> SCARLET_SILVER_ORE = normal("scarlet_silver_ore", Blocks.IRON_ORE);
     public static final RegistryObject<Block> SCARLET_DIAMOND_ORE = normal("scarlet_diamond_ore", Blocks.DIAMOND_ORE);
     //Registry the block of some ore materials.
-    public static final RegistryObject<Block> SCARLET_COAL_BLOCK = normal("scarlet_coal_block", Blocks.COAL_BLOCK);
-    public static final RegistryObject<Block> SCARLET_COPPER_BLOCK = normal("scarlet_copper_block", Blocks.COPPER_BLOCK);
-    public static final RegistryObject<Block> SCARLET_IRON_BLOCK = normal("scarlet_iron_block", Blocks.IRON_BLOCK);
-    public static final RegistryObject<Block> SCARLET_GOLD_BLOCK = normal("scarlet_gold_block", Blocks.GOLD_BLOCK);
-    public static final RegistryObject<Block> SCARLET_SILVER_BLOCK = normal("scarlet_silver_block", Blocks.IRON_BLOCK);
-    public static final RegistryObject<Block> SCARLET_DIAMOND_BLOCK = normal("scarlet_diamond_block", Blocks.DIAMOND_BLOCK);
     public static final RegistryObject<Block> RAW_SILVER_BLOCK = special("raw_silver_block", BlockBehaviour.Properties.of(Material.METAL).strength(5.0F, 6.0F));
     public static final RegistryObject<Block> SILVER_BLOCK = special("silver_block", BlockBehaviour.Properties.of(Material.METAL).strength(5.0F, 6.0F));
     public static final RegistryObject<Block> EMBERIUM_BLOCK = special("emberium_block", BlockBehaviour.Properties.of(Material.METAL).strength(5.0F, 6.0F));

@@ -1,8 +1,8 @@
 {
   "parent": "minecraft:block/inner_stairs",
   "textures": {
-    "bottom": "emberphoenix:block/hardslate_brick_stair",
-    "top": "emberphoenix:block/hardslate_brick_stair",
-    "side": "emberphoenix:block/hardslate_brick_stair"
+    "bottom": "emberphoenix:block/hardslate_bricks",
+    "top": "emberphoenix:block/hardslate_bricks",
+    "side": "emberphoenix:block/hardslate_bricks"
   }
 }

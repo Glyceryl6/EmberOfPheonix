@@ -8,13 +8,9 @@ import net.minecraftforge.registries.RegistryObject;
 public class EPItems {
 
     //Registry ingot and other ore materials.
-    public static final RegistryObject<Item> SCARLET_COAL = EPBase.ITEMS.register("scarlet_coal", () -> new Item(defaultBuilder()));
-    public static final RegistryObject<Item> SCARLET_COPPER_INGOT = EPBase.ITEMS.register("scarlet_copper_ingot", () -> new Item(defaultBuilder()));
-    public static final RegistryObject<Item> SCARLET_IRON_INGOT = EPBase.ITEMS.register("scarlet_iron_ingot", () -> new Item(defaultBuilder()));
-    public static final RegistryObject<Item> SCARLET_GOLD_INGOT = EPBase.ITEMS.register("scarlet_gold_ingot", () -> new Item(defaultBuilder()));
-    public static final RegistryObject<Item> SCARLET_SILVER_INGOT = EPBase.ITEMS.register("scarlet_silver_ingot", () -> new Item(defaultBuilder()));
-    public static final RegistryObject<Item> SCARLET_DIAMOND_INGOT = EPBase.ITEMS.register("scarlet_diamond", () -> new Item(defaultBuilder()));
     public static final RegistryObject<Item> EMBERIUM_INGOT = EPBase.ITEMS.register("emberium_ingot", () -> new Item(defaultBuilder()));
+    public static final RegistryObject<Item> SILVER_INGOT = EPBase.ITEMS.register("silver_ingot", () -> new Item(defaultBuilder()));
+    public static final RegistryObject<Item> RAW_SILVER = EPBase.ITEMS.register("raw_silver", () -> new Item(defaultBuilder()));
     //Registry the new tools.
 
     //Registry the special items.

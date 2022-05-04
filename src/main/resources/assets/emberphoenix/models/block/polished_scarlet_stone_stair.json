@@ -1,8 +1,8 @@
 {
   "parent": "minecraft:block/stairs",
   "textures": {
-    "bottom": "emberphoenix:block/polished_scarlet_stone_stair",
-    "top": "emberphoenix:block/polished_scarlet_stone_stair",
-    "side": "emberphoenix:block/polished_scarlet_stone_stair"
+    "bottom": "emberphoenix:block/polished_scarlet_stone",
+    "top": "emberphoenix:block/polished_scarlet_stone",
+    "side": "emberphoenix:block/polished_scarlet_stone"
   }
 }

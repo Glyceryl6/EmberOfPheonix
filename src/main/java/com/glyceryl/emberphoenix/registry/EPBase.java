@@ -33,7 +33,7 @@ public class EPBase {
     public static final CreativeModeTab EP_TAB = new CreativeModeTab("ep_tab") {
         @Override
         public ItemStack makeIcon() {
-            return new ItemStack(Items.LAVA_BUCKET);
+            return new ItemStack(EPItems.EMBERIUM_INGOT.get());
         }
     };
 }

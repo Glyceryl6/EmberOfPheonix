@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "emberphoenix:item/scarlet_diamond_ingot"
+    "layer0": "emberphoenix:item/raw_silver"
   }
 }
