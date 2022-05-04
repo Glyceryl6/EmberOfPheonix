@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "emberphoenix:block/polished_scarlet_stone_slab"
+    },
+    "type=double": {
+      "model": "emberphoenix:block/polished_scarlet_stone"
+    },
+    "type=top": {
+      "model": "emberphoenix:block/polished_scarlet_stone_slab_top"
+    }
+  }
+}

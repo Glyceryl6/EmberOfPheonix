@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "bottom": "emberphoenix:block/polished_scarlet_stone_stair",
+    "top": "emberphoenix:block/polished_scarlet_stone_stair",
+    "side": "emberphoenix:block/polished_scarlet_stone_stair"
+  }
+}
