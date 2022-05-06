@@ -20,8 +20,6 @@ public class EPBase {
     public static final DeferredRegister<EntityType<?>> ENTITY = create(ForgeRegistries.ENTITIES);
     public static final DeferredRegister<BlockEntityType<?>> CONTAINER = create(ForgeRegistries.BLOCK_ENTITIES);
 
-    public static final Material ASH = (new Material.Builder(MaterialColor.NETHER)).build();
-
     private static <B extends IForgeRegistryEntry<B>> DeferredRegister<B> create(IForgeRegistry<B> reg) {
         return DeferredRegister.create(reg, EmberOfPhoenix.MOD_ID);
     }
