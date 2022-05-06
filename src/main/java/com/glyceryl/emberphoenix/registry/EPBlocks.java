@@ -20,7 +20,7 @@ public class EPBlocks {
     public static final RegistryObject<Block> HARD_SLATE = special("hardslate", STRENGTH_HARD_SLATE);
     //Registry some block with special functions.
     public static final RegistryObject<AshBlock> ASH_BLOCK = EPBase.registerBlock("ash_block",
-            () -> new AshBlock(BlockBehaviour.Properties.of(Material.SNOW).strength(20.0F, 3.0F).sound(SoundType.SAND)), EPBase.EP_TAB);
+            () -> new AshBlock(BlockBehaviour.Properties.of(EPBase.ASH).strength(20.0F, 3.0F).sound(SoundType.SAND)), EPBase.EP_TAB);
     //Registry ore blocks.
     public static final RegistryObject<Block> SCARLET_COAL_ORE = normal("scarlet_coal_ore", Blocks.COAL_ORE);
     public static final RegistryObject<Block> SCARLET_COPPER_ORE = normal("scarlet_copper_ore", Blocks.COPPER_ORE);
