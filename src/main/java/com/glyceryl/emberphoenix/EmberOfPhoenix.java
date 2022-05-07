@@ -1,6 +1,6 @@
 package com.glyceryl.emberphoenix;
 
-import com.glyceryl.emberphoenix.common.world.registration.EPBiomesKeys;
+import com.glyceryl.emberphoenix.registry.EPBiomes;
 import com.glyceryl.emberphoenix.registry.EPBlocks;
 import com.glyceryl.emberphoenix.registry.EPEntity;
 import com.glyceryl.emberphoenix.registry.EPItems;
@@ -22,13 +22,13 @@ public class EmberOfPhoenix {
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
         EPItems.register(eventBus);
         EPBlocks.register(eventBus);
+        EPBiomes.register(eventBus);
         EPEntity.register(eventBus);
         eventBus.addListener(this::setup);
         MinecraftForge.EVENT_BUS.register(this);
     }
 
     private void setup(final FMLCommonSetupEvent event) {
-        EPBiomesKeys.addBiomes();
     }
 
     public static ResourceLocation prefix(String name) {

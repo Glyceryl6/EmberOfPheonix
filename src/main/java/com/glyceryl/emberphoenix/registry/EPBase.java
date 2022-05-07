@@ -8,6 +8,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.registries.*;
 
 import java.util.function.Supplier;
@@ -38,6 +40,11 @@ public class EPBase {
         @Override
         public ItemStack makeIcon() {
             return new ItemStack(EPItems.SPARK.get());
+        }
+
+        @Override
+        public boolean hasSearchBar() {
+            return true;
         }
     };
 }

@@ -29,6 +29,7 @@ public class EPItems {
 
     //Registry special items.
     public static final RegistryObject<Item> SPARK = EPBase.ITEMS.register("spark", () -> new Spark(defaultBuilder()));
+
     private static Item.Properties defaultBuilder() {
         return new Item.Properties().tab(EPBase.EP_TAB);
     }
