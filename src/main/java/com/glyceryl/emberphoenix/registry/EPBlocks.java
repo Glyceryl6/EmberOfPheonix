@@ -4,6 +4,7 @@ import com.glyceryl.emberphoenix.common.blocks.AshBlock;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MaterialColor;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.RegistryObject;
 
@@ -18,9 +19,10 @@ public class EPBlocks {
     public static final RegistryObject<Block> SCARLET_DIRT = normal("scarlet_dirt", Blocks.DIRT);
     public static final RegistryObject<Block> SCARLET_STONE = special("scarlet_stone", STRENGTH_SCARLET_STONE);
     public static final RegistryObject<Block> HARD_SLATE = special("hardslate", STRENGTH_HARD_SLATE);
-    //Registry some block with special functions.
+    //Registry new block with special functions.
     public static final RegistryObject<AshBlock> ASH_BLOCK = EPBase.registerBlock("ash_block",
-            () -> new AshBlock(BlockBehaviour.Properties.of(Material.STONE).strength(20.0F, 3.0F).sound(SoundType.SAND)), EPBase.EP_TAB);
+            () -> new AshBlock(BlockBehaviour.Properties.of(Material.SAND, MaterialColor.SAND).strength(20.0F, 3.0F)
+                    .sound(SoundType.SAND).requiresCorrectToolForDrops()), EPBase.EP_TAB);
     //Registry ore blocks.
     public static final RegistryObject<Block> SCARLET_COAL_ORE = normal("scarlet_coal_ore", Blocks.COAL_ORE);
     public static final RegistryObject<Block> SCARLET_COPPER_ORE = normal("scarlet_copper_ore", Blocks.COPPER_ORE);
