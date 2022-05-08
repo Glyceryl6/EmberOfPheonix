@@ -2,14 +2,13 @@ package com.glyceryl.emberphoenix.registry;
 
 import com.glyceryl.emberphoenix.EmberOfPhoenix;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.material.Material;
-import net.minecraft.world.level.material.MaterialColor;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.registries.*;
 
 import java.util.function.Supplier;
@@ -36,7 +35,8 @@ public class EPBase {
         return toReturn;
     }
 
-    public static final CreativeModeTab EP_TAB = new CreativeModeTab("ep_tab") {
+    @SuppressWarnings("deprecation")
+    public static final CreativeModeTab EP_TAB = (new CreativeModeTab("ep_tab") {
         @Override
         public ItemStack makeIcon() {
             return new ItemStack(EPItems.SPARK.get());
@@ -46,5 +46,5 @@ public class EPBase {
         public boolean hasSearchBar() {
             return true;
         }
-    };
+    }).setBackgroundSuffix("item_search.png");
 }

@@ -101,6 +101,8 @@ dependencies {
 
     minecraft 'net.minecraftforge:forge:1.18.2-40.1.0'
 
+    implementation fg.deobf("curse.maven:unseen-550263:3775968")
+
 }
 
 jar {

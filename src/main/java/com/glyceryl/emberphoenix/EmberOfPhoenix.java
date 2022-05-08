@@ -29,6 +29,7 @@ public class EmberOfPhoenix {
     }
 
     private void setup(final FMLCommonSetupEvent event) {
+
     }
 
     public static ResourceLocation prefix(String name) {
