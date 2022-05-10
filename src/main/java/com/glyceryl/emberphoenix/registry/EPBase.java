@@ -1,6 +1,7 @@
 package com.glyceryl.emberphoenix.registry;
 
 import com.glyceryl.emberphoenix.EmberOfPhoenix;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
@@ -9,6 +10,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraftforge.registries.*;
 
 import java.util.function.Supplier;
@@ -18,6 +21,7 @@ public class EPBase {
     public static final DeferredRegister<Item> ITEMS = create(ForgeRegistries.ITEMS);
     public static final DeferredRegister<Block> BLOCKS = create(ForgeRegistries.BLOCKS);
     public static final DeferredRegister<Biome> BIOMES = create(ForgeRegistries.BIOMES);
+    public static final DeferredRegister<Feature<?>> FEATURES = create(ForgeRegistries.FEATURES);
     public static final DeferredRegister<EntityType<?>> ENTITY = create(ForgeRegistries.ENTITIES);
     public static final DeferredRegister<BlockEntityType<?>> CONTAINER = create(ForgeRegistries.BLOCK_ENTITIES);
 
@@ -33,6 +37,12 @@ public class EPBase {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);
         registerBlockItem(name, toReturn, tab);
         return toReturn;
+    }
+
+    public static <C extends FeatureConfiguration, F extends Feature<C>> F registerFeature(String key, F value) {
+        value.setRegistryName(new ResourceLocation(EmberOfPhoenix.MOD_ID, key));
+        ForgeRegistries.FEATURES.register(value);
+        return value;
     }
 
     @SuppressWarnings("deprecation")

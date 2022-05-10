@@ -1,0 +1,121 @@
+{
+  "type": "emberphoenix:phoenix",
+  "generator": {
+    "type": "minecraft:noise",
+    "seed": 0,
+    "biome_source": {
+      "type": "minecraft:multi_noise",
+      "biomes": [
+        {
+          "biome": "emberphoenix:rosaania_barren",
+          "parameters": {
+            "temperature": [
+              0.55,
+              1
+            ],
+            "humidity": [
+              -1,
+              -0.35
+            ],
+            "continentalness": [
+              -0.11,
+              1
+            ],
+            "erosion": [
+              -1,
+              -0.7799
+            ],
+            "weirdness": [
+              -1,
+              -0.9333
+            ],
+            "depth": 0,
+            "offset": 0
+          }
+        },
+        {
+          "biome": "emberphoenix:rosaania_plain",
+          "parameters": {
+            "temperature": [
+              -0.45,
+              -0.15
+            ],
+            "humidity": [
+              -1,
+              -0.35
+            ],
+            "continentalness": [
+              -0.11,
+              0.3
+            ],
+            "erosion": [
+              -0.7799,
+              -0.375
+            ],
+            "weirdness": [
+              -1,
+              -0.9333
+            ],
+            "depth": 0,
+            "offset": 0
+          }
+        },
+        {
+          "biome": "river",
+          "parameters": {
+            "temperature": [
+              -0.15,
+              0.2
+            ],
+            "humidity": [
+              -1,
+              1
+            ],
+            "continentalness": [
+              -1.05,
+              -0.455
+            ],
+            "erosion": [
+              -1,
+              1
+            ],
+            "weirdness": [
+              -1,
+              1
+            ],
+            "depth": 0,
+            "offset": 0
+          }
+        },
+        {
+          "biome": "emberphoenix:ash_plain",
+          "parameters": {
+            "temperature": [
+              0.55,
+              1
+            ],
+            "humidity": [
+              -1,
+              -0.35
+            ],
+            "continentalness": [
+              -0.11,
+              0.03
+            ],
+            "erosion": [
+              -0.375,
+              -0.2225
+            ],
+            "weirdness": [
+              -1,
+              -0.9333
+            ],
+            "depth": 0,
+            "offset": 0
+          }
+        }
+      ]
+    },
+    "settings": "emberphoenix:phoenix_noise"
+  }
+}

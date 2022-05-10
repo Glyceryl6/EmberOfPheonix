@@ -1,5 +1,5 @@
 {
-  "type": "emberphoenix:the_phoenix",
+  "type": "emberphoenix:mining_dim",
   "generator": {
     "biome_source": {
       "biomes": [
@@ -28,7 +28,7 @@
               1.0
             ]
           },
-          "biome": "emberphoenix:rosaania_plain"
+          "biome": "minecraft:plains"
         },
         {
           "parameters": {
@@ -55,13 +55,40 @@
               1.0
             ]
           },
-          "biome": "emberphoenix:rosaania_barren"
+          "biome": "minecraft:desert"
+        },
+        {
+          "parameters": {
+            "erosion": [
+              -0.2225,
+              0.05
+            ],
+            "depth": 1.0,
+            "weirdness": [
+              -0.5666,
+              -0.4
+            ],
+            "offset": 0.0,
+            "temperature": [
+              0.55,
+              1.0
+            ],
+            "humidity": [
+              -1.0,
+              -0.3
+            ],
+            "continentalness": [
+              0.3,
+              1.0
+            ]
+          },
+          "biome": "minecraft:badlands"
         }
       ],
       "type": "minecraft:multi_noise"
     },
     "seed": 0,
-    "settings": "emberphoenix:phoenix_noise",
+    "settings": "emberphoenix:mining_dim_noise",
     "type": "minecraft:noise"
   }
 }

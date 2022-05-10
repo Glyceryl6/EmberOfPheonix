@@ -1,9 +1,7 @@
 package com.glyceryl.emberphoenix;
 
-import com.glyceryl.emberphoenix.registry.EPBiomes;
-import com.glyceryl.emberphoenix.registry.EPBlocks;
-import com.glyceryl.emberphoenix.registry.EPEntity;
-import com.glyceryl.emberphoenix.registry.EPItems;
+import com.glyceryl.emberphoenix.common.world.biomes.EPBiomesCreator;
+import com.glyceryl.emberphoenix.registry.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -24,6 +22,8 @@ public class EmberOfPhoenix {
         EPBlocks.register(eventBus);
         EPBiomes.register(eventBus);
         EPEntity.register(eventBus);
+        EPFeatures.register(eventBus);
+        EPBiomesCreator.init();
         eventBus.addListener(this::setup);
         MinecraftForge.EVENT_BUS.register(this);
     }
