@@ -1,0 +1,50 @@
+{
+  "ash_block_dig": {
+    "sounds": [
+      "emberphoenix:ash_block_dig1",
+      "emberphoenix:ash_block_dig2",
+      "emberphoenix:ash_block_dig3",
+      "emberphoenix:ash_block_dig4",
+      "emberphoenix:ash_block_dig5"
+    ]
+  },
+  "ash_block_step": {
+    "sounds": [
+      "emberphoenix:ash_block_step1",
+      "emberphoenix:ash_block_step2",
+      "emberphoenix:ash_block_step3",
+      "emberphoenix:ash_block_step4",
+      "emberphoenix:ash_block_step5"
+    ]
+  },
+  "emberium_dig": {
+    "sounds": [
+      "emberphoenix:emberium_dig1",
+      "emberphoenix:emberium_dig2",
+      "emberphoenix:emberium_dig3"
+    ]
+  },
+  "emberium_step": {
+    "sounds": [
+      "emberphoenix:emberium_step1",
+      "emberphoenix:emberium_step2",
+      "emberphoenix:emberium_step3",
+      "emberphoenix:emberium_step4",
+      "emberphoenix:emberium_step5"
+    ]
+  },
+  "equip_blaze": {
+    "sounds": [
+      "emberphoenix:equip_blaze1",
+      "emberphoenix:equip_blaze2",
+      "emberphoenix:equip_blaze3"
+    ]
+  },
+  "equip_emberium": {
+    "sounds": [
+      "emberphoenix:equip_emberium1",
+      "emberphoenix:equip_emberium2",
+      "emberphoenix:equip_emberium3"
+    ]
+  }
+}

@@ -2,6 +2,7 @@ package com.glyceryl.emberphoenix.registry;
 
 import com.glyceryl.emberphoenix.EmberOfPhoenix;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
@@ -23,6 +24,7 @@ public class EPBase {
     public static final DeferredRegister<Biome> BIOMES = create(ForgeRegistries.BIOMES);
     public static final DeferredRegister<Feature<?>> FEATURES = create(ForgeRegistries.FEATURES);
     public static final DeferredRegister<EntityType<?>> ENTITY = create(ForgeRegistries.ENTITIES);
+    public static final DeferredRegister<SoundEvent> SOUNDS = create(ForgeRegistries.SOUND_EVENTS);
     public static final DeferredRegister<BlockEntityType<?>> CONTAINER = create(ForgeRegistries.BLOCK_ENTITIES);
 
     private static <B extends IForgeRegistryEntry<B>> DeferredRegister<B> create(IForgeRegistry<B> reg) {
@@ -45,16 +47,11 @@ public class EPBase {
         return value;
     }
 
-    @SuppressWarnings("deprecation")
-    public static final CreativeModeTab EP_TAB = (new CreativeModeTab("ep_tab") {
+    @SuppressWarnings("all")
+    public static final CreativeModeTab EP_TAB = new CreativeModeTab("ep_tab") {
         @Override
         public ItemStack makeIcon() {
             return new ItemStack(EPItems.SPARK.get());
         }
-
-        @Override
-        public boolean hasSearchBar() {
-            return true;
-        }
-    }).setBackgroundSuffix("item_search.png");
+    };
 }

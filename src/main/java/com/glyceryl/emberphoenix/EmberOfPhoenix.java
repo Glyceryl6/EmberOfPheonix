@@ -22,6 +22,7 @@ public class EmberOfPhoenix {
         EPBlocks.register(eventBus);
         EPBiomes.register(eventBus);
         EPEntity.register(eventBus);
+        EPSounds.register(eventBus);
         EPFeatures.register(eventBus);
         EPBiomesCreator.init();
         eventBus.addListener(this::setup);

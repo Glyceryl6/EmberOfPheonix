@@ -24,7 +24,7 @@ public class EPBlocks {
     //Registry new block with special functions.
     public static final RegistryObject<AshBlock> ASH_BLOCK = EPBase.registerBlock("ash_block",
             () -> new AshBlock(BlockBehaviour.Properties.of(Material.SAND, MaterialColor.SAND).strength(20.0F, 3.0F)
-                    .sound(SoundType.SAND).requiresCorrectToolForDrops()), EPBase.EP_TAB);
+                    .sound(EPSounds.ASH_BLOCK).requiresCorrectToolForDrops()), EPBase.EP_TAB);
     //Registry ore blocks.
     public static final RegistryObject<Block> SCARLET_COAL_ORE = special("scarlet_coal_ore", STRENGTH_EMBER_ORE);
     public static final RegistryObject<Block> SCARLET_COPPER_ORE = special("scarlet_copper_ore", STRENGTH_EMBER_ORE);
@@ -35,7 +35,7 @@ public class EPBlocks {
     //Registry block of ore materials.
     public static final RegistryObject<Block> RAW_SILVER_BLOCK = special("raw_silver_block", BlockBehaviour.Properties.of(Material.METAL).sound(SoundType.METAL).strength(5.0F, 6.0F));
     public static final RegistryObject<Block> SILVER_BLOCK = special("silver_block", BlockBehaviour.Properties.of(Material.METAL).sound(SoundType.METAL).strength(5.0F, 6.0F));
-    public static final RegistryObject<Block> EMBERIUM_BLOCK = special("emberium_block", BlockBehaviour.Properties.of(Material.METAL).sound(SoundType.METAL).strength(5.0F, 6.0F));
+    public static final RegistryObject<Block> EMBERIUM_BLOCK = special("emberium_block", BlockBehaviour.Properties.of(Material.METAL).sound(EPSounds.EMBERIUM_BLOCK).strength(5.0F, 6.0F));
     //Registry normal block but with cutting.
     public static final RegistryObject<Block> CHISELED_SCARLET_STONE = special("chiseled_scarlet_stone", STRENGTH_SCARLET_STONE);
     public static final RegistryObject<Block> POLISHED_SCARLET_STONE = special("polished_scarlet_stone", STRENGTH_SCARLET_STONE);
