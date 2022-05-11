@@ -34,7 +34,7 @@ public class BiggerLavaLakeFeature extends Feature<BiggerLavaLakeFeature.Configu
         } else {
             blockpos = blockpos.below(4);
             boolean[] aboolean = new boolean[2048];
-            int i = random.nextInt(16) + 16;
+            int i = random.nextInt(64) + 64;
 
             for(int j = 0; j < i; ++j) {
                 double d0 = random.nextDouble() * 6.0D + 3.0D;

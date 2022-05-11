@@ -61,38 +61,11 @@
           }
         },
         {
-          "biome": "river",
-          "parameters": {
-            "temperature": [
-              0.45,
-              1
-            ],
-            "humidity": [
-              -1,
-              1
-            ],
-            "continentalness": [
-              -0.19,
-              -0.11
-            ],
-            "erosion": [
-              -1,
-              -0.375
-            ],
-            "weirdness": [
-              -0.05,
-              0.05
-            ],
-            "depth": 0,
-            "offset": 0
-          }
-        },
-        {
           "biome": "emberphoenix:ash_plain",
           "parameters": {
             "temperature": [
-              0.55,
-              1
+              0.2,
+              0.55
             ],
             "humidity": [
               -1,
@@ -100,11 +73,11 @@
             ],
             "continentalness": [
               -0.11,
-              0.03
+              0.3
             ],
             "erosion": [
-              -0.375,
-              -0.2225
+              -0.7799,
+              -0.375
             ],
             "weirdness": [
               -1,
