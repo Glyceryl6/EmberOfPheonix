@@ -20,6 +20,7 @@ public class EPOrePlacements {
     public static final Holder<PlacedFeature> ORE_PHOENIX_SMOOTH_BASALT = register("ore_phoenix_smooth_basalt", EPOreFeatures.ORE_PHOENIX_SMOOTH_BASALT, 3, 0, 45);
     public static final Holder<PlacedFeature> ORE_PHOENIX_AMETHYST = register("ore_phoenix_amethyst", EPOreFeatures.ORE_PHOENIX_AMETHYST, 2, 0, 16);
     public static final Holder<PlacedFeature> ORE_PHOENIX_DENSE_GLOWSTONE = register("ore_phoenix_dense_glowstone", EPOreFeatures.ORE_PHOENIX_DENSE_GLOWSTONE, 6, 0, 40);
+    public static final Holder<PlacedFeature> ORE_ASH_BLOCK = register("ore_ash_block", EPOreFeatures.ORE_ASH_BLOCK, 30, 0, 80);
 
     private static List<PlacementModifier> orePlacement(PlacementModifier p_195347_, PlacementModifier p_195348_) {
         return List.of(p_195347_, InSquarePlacement.spread(), p_195348_, BiomeFilter.biome());

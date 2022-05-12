@@ -1,6 +1,8 @@
 package com.glyceryl.emberphoenix.registry;
 
 import com.glyceryl.emberphoenix.common.blocks.AshBlock;
+import com.glyceryl.emberphoenix.common.blocks.EternalFire;
+import com.glyceryl.emberphoenix.common.blocks.EternalFireAltar;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
@@ -10,6 +12,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 import java.util.function.Supplier;
 
+@SuppressWarnings("unused")
 public class EPBlocks {
     
     private static final BlockBehaviour.Properties STRENGTH_SCARLET_STONE = BlockBehaviour.Properties.of(Material.STONE).sound(SoundType.NETHERRACK).requiresCorrectToolForDrops().strength(3.0F, 6.0F);
@@ -25,6 +28,11 @@ public class EPBlocks {
     public static final RegistryObject<AshBlock> ASH_BLOCK = EPBase.registerBlock("ash_block",
             () -> new AshBlock(BlockBehaviour.Properties.of(Material.SAND, MaterialColor.SAND).strength(20.0F, 3.0F)
                     .sound(EPSounds.ASH_BLOCK).requiresCorrectToolForDrops()), EPBase.EP_TAB);
+    public static final RegistryObject<EternalFireAltar> ETERNAL_FIRE_ALTAR = EPBase.registerBlock("eternal_fire_altar",
+            () -> new EternalFireAltar(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.STONE).strength(5.0F, 6.0F)
+                    .sound(SoundType.STONE).requiresCorrectToolForDrops()), EPBase.EP_TAB);
+    public static final RegistryObject<EternalFire> ETERNAL_FIRE = EPBase.registerBlock("eternal_fire",
+            () -> new EternalFire(BlockBehaviour.Properties.of(Material.FIRE, MaterialColor.COLOR_LIGHT_GREEN).noCollission().instabreak().lightLevel((state) -> 15).sound(SoundType.WOOL)));
     //Registry ore blocks.
     public static final RegistryObject<Block> SCARLET_COAL_ORE = special("scarlet_coal_ore", STRENGTH_EMBER_ORE);
     public static final RegistryObject<Block> SCARLET_COPPER_ORE = special("scarlet_copper_ore", STRENGTH_EMBER_ORE);

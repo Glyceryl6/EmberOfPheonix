@@ -1,5 +1,6 @@
 package com.glyceryl.emberphoenix.common.world.ore;
 
+import com.glyceryl.emberphoenix.data.EPBlockTags;
 import com.glyceryl.emberphoenix.registry.EPBlocks;
 import net.minecraft.core.Holder;
 import net.minecraft.data.worldgen.features.FeatureUtils;
@@ -10,10 +11,12 @@ import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
 import net.minecraft.world.level.levelgen.structure.templatesystem.BlockMatchTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
+import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
 
 public class EPOreFeatures {
 
     public static final RuleTest SCARLET_STONE = new BlockMatchTest(EPBlocks.SCARLET_STONE.get());
+    public static final RuleTest PHOENIX_ORE_REPLACING = new TagMatchTest(EPBlockTags.PHOENIX_ORE_REPLACING);
 
     public static final Holder<ConfiguredFeature<OreConfiguration, ?>> ORE_PHOENIX_COAL = register("ore_phoenix_coal", EPBlocks.SCARLET_COAL_ORE.get(), 12);
     public static final Holder<ConfiguredFeature<OreConfiguration, ?>> ORE_PHOENIX_IRON = register("ore_phoenix_iron", EPBlocks.SCARLET_IRON_ORE.get(), 7);
@@ -25,9 +28,14 @@ public class EPOreFeatures {
     public static final Holder<ConfiguredFeature<OreConfiguration, ?>> ORE_PHOENIX_SMOOTH_BASALT = register("ore_phoenix_smooth_basalt", Blocks.SMOOTH_BASALT, 33);
     public static final Holder<ConfiguredFeature<OreConfiguration, ?>> ORE_PHOENIX_AMETHYST = register("ore_phoenix_amethyst", Blocks.AMETHYST_CLUSTER, 1);
     public static final Holder<ConfiguredFeature<OreConfiguration, ?>> ORE_PHOENIX_DENSE_GLOWSTONE = register("ore_phoenix_dense_glowstone", EPBlocks.DENSE_GLOWSTONE.get(), 7);
+    public static final Holder<ConfiguredFeature<OreConfiguration, ?>> ORE_ASH_BLOCK = register(SCARLET_STONE, "ore_ash_block", EPBlocks.ASH_BLOCK.get(), 33);
 
     private static Holder<ConfiguredFeature<OreConfiguration, ?>> register(String name, Block block, int i) {
-        return FeatureUtils.register(name, Feature.ORE, new OreConfiguration(SCARLET_STONE, block.defaultBlockState(), i));
+        return FeatureUtils.register(name, Feature.ORE, new OreConfiguration(PHOENIX_ORE_REPLACING, block.defaultBlockState(), i));
+    }
+
+    private static Holder<ConfiguredFeature<OreConfiguration, ?>> register(RuleTest ruleTest, String name, Block block, int i) {
+        return FeatureUtils.register(name, Feature.ORE, new OreConfiguration(ruleTest, block.defaultBlockState(), i));
     }
 
 }

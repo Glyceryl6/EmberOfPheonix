@@ -2,6 +2,7 @@ package com.glyceryl.emberphoenix.common.world;
 
 import com.glyceryl.emberphoenix.common.world.ore.EPOrePlacements;
 import net.minecraft.core.Holder;
+import net.minecraft.data.worldgen.features.MiscOverworldFeatures;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.world.level.biome.BiomeGenerationSettings;
 import net.minecraft.world.level.levelgen.GenerationStep;

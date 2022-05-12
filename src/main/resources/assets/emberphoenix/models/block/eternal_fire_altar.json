@@ -1,8 +1,8 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"0": "赤鸢的余烬:block/eternal_fire_altar",
-		"particle": "赤鸢的余烬:block/eternal_fire_altar"
+		"0": "emberphoenix:block/eternal_fire_altar",
+		"particle": "emberphoenix:block/eternal_fire_altar"
 	},
 	"elements": [
 		{

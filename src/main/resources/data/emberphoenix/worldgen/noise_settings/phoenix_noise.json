@@ -2966,14 +2966,14 @@
                       "then_run": {
                         "type": "minecraft:block",
                         "result_state": {
-                          "Name": "emberphoenix:scarlet_dirt"
+                          "Name": "emberphoenix:scarlet_stone"
                         }
                       }
                     },
                     {
                       "type": "minecraft:block",
                       "result_state": {
-                        "Name": "minecraft:gravel"
+                        "Name": "emberphoenix:scarlet_stone"
                       }
                     }
                   ]
@@ -2991,7 +2991,7 @@
                 "then_run": {
                   "type": "minecraft:block",
                   "result_state": {
-                    "Name": "emberphoenix:scarlet_dirt"
+                    "Name": "emberphoenix:scarlet_stone"
                   }
                 }
               }
