@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "emberphoenix:silver_block",
+    "emberphoenix:raw_silver_block",
+    "emberphoenix:scarlet_gold_ore",
+    "emberphoenix:scarlet_silver_ore",
+    "emberphoenix:scarlet_diamond_ore"
+  ]
+}

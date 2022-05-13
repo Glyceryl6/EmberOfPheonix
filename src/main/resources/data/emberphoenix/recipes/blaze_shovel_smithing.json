@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "emberphoeni:ember_shovel"
+  },
+  "addition": {
+    "item": "emberphoeni:blaze_ruby"
+  },
+  "result": {
+    "item": "emberphoenix:blaze_shovel"
+  }
+}

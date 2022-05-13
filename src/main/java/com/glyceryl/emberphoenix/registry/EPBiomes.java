@@ -9,6 +9,7 @@ public class EPBiomes {
 
     public static final RegistryObject<Biome> ROSAANIA_BARREN;
     public static final RegistryObject<Biome> ROSAANIA_PLAIN;
+    public static final RegistryObject<Biome> ROSAANIA_VOLCANO;
     public static final RegistryObject<Biome> ASH_PLAIN;
 
     public static void register(IEventBus eventBus) {
@@ -16,8 +17,9 @@ public class EPBiomes {
     }
 
     static {
-        ROSAANIA_BARREN = EPBase.BIOMES.register("rosaania_barren", EPBiomesCreator::createRosaaniaBarren);
-        ROSAANIA_PLAIN = EPBase.BIOMES.register("rosaania_plain", EPBiomesCreator::createRosaaniaPlain);
+        ROSAANIA_BARREN = EPBase.BIOMES.register("rosaania_barren", () -> EPBiomesCreator.createDefaultBiomes(2.0F));
+        ROSAANIA_PLAIN = EPBase.BIOMES.register("rosaania_plain", () -> EPBiomesCreator.createDefaultBiomes(2.2F));
+        ROSAANIA_VOLCANO = EPBase.BIOMES.register("rosaania_volcano", () -> EPBiomesCreator.createDefaultBiomes(2.8F));
         ASH_PLAIN = EPBase.BIOMES.register("ash_plain", EPBiomesCreator::createAshPlain);
     }
 }

@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "emberphoenix:scarlet_iron_ore",
+    "emberphoenix:scarlet_copper_ore",
+    "emberphoenix:scarlet_silver_ore"
+  ]
+}

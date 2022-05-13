@@ -2,6 +2,8 @@ package com.glyceryl.emberphoenix;
 
 import com.glyceryl.emberphoenix.common.world.biomes.EPBiomesCreator;
 import com.glyceryl.emberphoenix.registry.*;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -24,13 +26,15 @@ public class EmberOfPhoenix {
         EPEntity.register(eventBus);
         EPSounds.register(eventBus);
         EPFeatures.register(eventBus);
+        EPContainers.register(eventBus);
         EPBiomesCreator.init();
         eventBus.addListener(this::setup);
         MinecraftForge.EVENT_BUS.register(this);
     }
 
     private void setup(final FMLCommonSetupEvent event) {
-
+        ItemBlockRenderTypes.setRenderLayer(EPBlocks.ETERNAL_FIRE.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(EPBlocks.ETERNAL_FIRE_ALTAR.get(), RenderType.cutoutMipped());
     }
 
     public static ResourceLocation prefix(String name) {

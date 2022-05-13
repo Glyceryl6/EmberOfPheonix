@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "group": "coal",
+  "ingredient": {
+    "item": "emberphoenix:scarlet_coal_ore"
+  },
+  "result": "minecraft:coal",
+  "experience": 0.2,
+  "cookingtime": 200
+}

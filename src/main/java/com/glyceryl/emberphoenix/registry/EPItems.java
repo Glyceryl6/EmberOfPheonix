@@ -7,6 +7,7 @@ import net.minecraft.world.item.*;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.RegistryObject;
 
+@SuppressWarnings("unused")
 public class EPItems {
 
     //Registry new materials.

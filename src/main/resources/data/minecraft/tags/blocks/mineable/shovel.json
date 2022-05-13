@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "emberphoenix:ash_block"
+    "emberphoenix:ash_block",
+    "emberphoenix:scarlet_dirt"
   ]
 }

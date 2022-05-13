@@ -61,6 +61,33 @@
           }
         },
         {
+          "biome": "emberphoenix:rosaania_volcano",
+          "parameters": {
+            "temperature": [
+              0.2,
+              0.55
+            ],
+            "humidity": [
+              -1,
+              -0.35
+            ],
+            "continentalness": [
+              -0.11,
+              0.3
+            ],
+            "erosion": [
+              -0.8899,
+              -0.375
+            ],
+            "weirdness": [
+              -1,
+              -0.9333
+            ],
+            "depth": 0,
+            "offset": 0
+          }
+        },
+        {
           "biome": "emberphoenix:ash_plain",
           "parameters": {
             "temperature": [

@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "emberphoenix:polished_scarlet_stone_slab",
+    "emberphoenix:polished_hardslate_slab",
+    "emberphoenix:hardslate_brick_slab",
+    "emberphoenix:hardslate_tile_slab"
+  ]
+}

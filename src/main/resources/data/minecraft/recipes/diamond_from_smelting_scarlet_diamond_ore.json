@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "group": "diamond",
+  "ingredient": {
+    "item": "emberphoenix:scarlet_diamond_ore"
+  },
+  "result": "minecraft:diamond_ingot",
+  "experience": 1.0,
+  "cookingtime": 200
+}

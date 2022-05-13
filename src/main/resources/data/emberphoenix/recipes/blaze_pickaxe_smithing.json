@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "emberphoeni:ember_pickaxe"
+  },
+  "addition": {
+    "item": "emberphoeni:blaze_ruby"
+  },
+  "result": {
+    "item": "emberphoenix:blaze_pickaxe"
+  }
+}

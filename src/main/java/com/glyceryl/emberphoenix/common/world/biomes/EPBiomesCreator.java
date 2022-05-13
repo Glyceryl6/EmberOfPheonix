@@ -15,7 +15,7 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 
 public class EPBiomesCreator {
 
-    public static Biome createRosaaniaBarren() {
+    public static Biome createDefaultBiomes(float temperature) {
         MobSpawnSettings mobspawnsettings = (new MobSpawnSettings.Builder()).build();
         BiomeGenerationSettings.Builder builder = (new BiomeGenerationSettings.Builder());
         BiomeDefaultFeatures.addDefaultCrystalFormations(builder);
@@ -26,12 +26,12 @@ public class EPBiomesCreator {
                 .addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, NetherPlacements.SPRING_OPEN)
                 .addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, NetherPlacements.SPRING_CLOSED)
                 .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, EPPlacedFeatures.BIGGER_LAKE_LAVA_SURFACE);
-        return (new Biome.BiomeBuilder()).precipitation(Biome.Precipitation.NONE).biomeCategory(Biome.BiomeCategory.NETHER).temperature(2.0F).downfall(0.0F)
+        return (new Biome.BiomeBuilder()).precipitation(Biome.Precipitation.NONE).biomeCategory(Biome.BiomeCategory.NETHER).temperature(temperature).downfall(0.0F)
                 .specialEffects((new BiomeSpecialEffects.Builder()).waterColor(4159204).waterFogColor(329011).fogColor(3344392)
                         .skyColor(OverworldBiomes.calculateSkyColor(2.0F)).build()).mobSpawnSettings(mobspawnsettings).generationSettings(builder.build()).build();
     }
 
-    public static Biome createRosaaniaPlain() {
+    public static Biome createRosaaniaVolcano() {
         MobSpawnSettings mobspawnsettings = (new MobSpawnSettings.Builder()).build();
         BiomeGenerationSettings.Builder builder = (new BiomeGenerationSettings.Builder());
         BiomeDefaultFeatures.addDefaultCrystalFormations(builder);
@@ -42,7 +42,7 @@ public class EPBiomesCreator {
                 .addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, NetherPlacements.SPRING_OPEN)
                 .addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, NetherPlacements.SPRING_CLOSED)
                 .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, EPPlacedFeatures.BIGGER_LAKE_LAVA_SURFACE);
-        return (new Biome.BiomeBuilder()).precipitation(Biome.Precipitation.NONE).biomeCategory(Biome.BiomeCategory.NETHER).temperature(2.2F).downfall(0.0F)
+        return (new Biome.BiomeBuilder()).precipitation(Biome.Precipitation.NONE).biomeCategory(Biome.BiomeCategory.NETHER).temperature(2.8F).downfall(0.0F)
                 .specialEffects((new BiomeSpecialEffects.Builder()).waterColor(4159204).waterFogColor(329011).fogColor(3344392)
                         .skyColor(OverworldBiomes.calculateSkyColor(2.0F)).build()).mobSpawnSettings(mobspawnsettings).generationSettings(builder.build()).build();
     }

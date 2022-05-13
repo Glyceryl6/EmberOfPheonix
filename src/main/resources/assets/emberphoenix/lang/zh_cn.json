@@ -9,7 +9,6 @@
   "block.emberphoenix.scarlet_gold_ore":"赤鸢金矿石",
   "block.emberphoenix.scarlet_silver_ore":"赤鸢银矿石",
   "block.emberphoenix.scarlet_diamond_ore":"赤鸢钻石矿石",
-  "block.emberphoenix.scarlet_silver_block":"赤鸢银块",
   "block.emberphoenix.raw_silver_block":"粗银块",
   "block.emberphoenix.silver_block":"银块",
   "block.emberphoenix.emberium_block":"余烬钢块",
@@ -35,7 +34,6 @@
   "block.emberphoenix.hardslate_brick_stair":"坚层岩砖楼梯",
   "block.emberphoenix.hardslate_tile_stair":"坚层岩瓦楼梯",
 
-  "item.emberphoenix.scarlet_silver_ingot":"赤鸢银锭",
   "item.emberphoenix.emberium_ingot":"余烬钢锭",
   "item.emberphoenix.silver_ingot":"银锭",
   "item.emberphoenix.raw_silver":"粗银",
@@ -50,8 +48,7 @@
   "item.emberphoenix.ember_pickaxe":"余烬钢镐",
   "item.emberphoenix.ember_axe":"余烬钢斧",
   "item.emberphoenix.ember_hoe":"余烬钢锄",
-
-  "item.emberphoenix.spark":"火花",
+  "item.emberphoenix.spark":"火种",
 
   "itemGroup.ep_tab": "赤鸢的余烬"
 }

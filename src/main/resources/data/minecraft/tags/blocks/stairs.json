@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "emberphoenix:polished_scarlet_stone_stair",
+    "emberphoenix:polished_hardslate_stair",
+    "emberphoenix:hardslate_brick_stair",
+    "emberphoenix:hardslate_tile_stair"
+  ]
+}

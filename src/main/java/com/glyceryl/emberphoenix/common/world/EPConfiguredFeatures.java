@@ -17,7 +17,7 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvi
 public class EPConfiguredFeatures {
 
     public static final Holder<ConfiguredFeature<BiggerLavaLakeFeature.Configuration, ?>> BIGGER_LAKE_LAVA = register("bigger_lake_lava", EPFeatures.BIGGER_LAKE,
-            new BiggerLavaLakeFeature.Configuration(BlockStateProvider.simple(Blocks.LAVA.defaultBlockState()), BlockStateProvider.simple(EPBlocks.SCARLET_DIRT.get())));
+            new BiggerLavaLakeFeature.Configuration(BlockStateProvider.simple(Blocks.LAVA.defaultBlockState()), BlockStateProvider.simple(Blocks.LAVA)));
 
     public static <FC extends FeatureConfiguration, F extends Feature<FC>> Holder<ConfiguredFeature<FC, ?>> register(String name, F feature, FC featureConfiguration) {
         return BuiltinRegistries.registerExact(BuiltinRegistries.CONFIGURED_FEATURE, EmberOfPhoenix.prefix(name).toString(), new ConfiguredFeature<>(feature, featureConfiguration));

@@ -28,7 +28,7 @@ public class BiggerLavaLakeFeature extends Feature<BiggerLavaLakeFeature.Configu
         BlockPos blockpos = context.origin();
         WorldGenLevel worldgenlevel = context.level();
         Random random = context.random();
-        BiggerLavaLakeFeature.Configuration lakefeature$configuration = context.config();
+        BiggerLavaLakeFeature.Configuration config = context.config();
         if (blockpos.getY() <= worldgenlevel.getMinBuildHeight() + 4) {
             return false;
         } else {
@@ -59,7 +59,7 @@ public class BiggerLavaLakeFeature extends Feature<BiggerLavaLakeFeature.Configu
                 }
             }
 
-            BlockState blockstate1 = lakefeature$configuration.fluid().getState(random, blockpos);
+            BlockState blockstate1 = config.fluid().getState(random, blockpos);
 
             for(int k1 = 0; k1 < 16; ++k1) {
                 for(int k = 0; k < 16; ++k) {
@@ -97,7 +97,7 @@ public class BiggerLavaLakeFeature extends Feature<BiggerLavaLakeFeature.Configu
                 }
             }
 
-            BlockState blockstate2 = lakefeature$configuration.barrier().getState(random, blockpos);
+            BlockState blockstate2 = config.barrier().getState(random, blockpos);
             if (!blockstate2.isAir()) {
                 for(int j2 = 0; j2 < 16; ++j2) {
                     for(int j3 = 0; j3 < 16; ++j3) {
