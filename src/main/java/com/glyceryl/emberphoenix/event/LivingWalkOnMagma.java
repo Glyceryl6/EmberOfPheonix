@@ -4,6 +4,7 @@ import com.glyceryl.emberphoenix.registry.EPEnchantments;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.FogType;
@@ -21,7 +22,7 @@ public class LivingWalkOnMagma {
     @SubscribeEvent
     public void onLivingTravel(LivingEvent event) {
         LivingEntity living = event.getEntityLiving();
-        if (living.isControlledByLocalInstance() && living.isEffectiveAi()) {
+        if (living instanceof Player) {
             boolean flag = living.getDeltaMovement().y <= 0.0D;
             Vec3 vec3 = new Vec3(living.xxa, living.yya, living.zza);
             float f6 = (float)getMagmaStrider(living);
@@ -45,7 +46,7 @@ public class LivingWalkOnMagma {
                 living.moveRelative(f5, vec3);
                 Vec3 vec36 = living.getDeltaMovement();
                 if (living.horizontalCollision && living.onClimbable()) {
-                    vec36 = new Vec3(vec36.x, vec36.y, vec36.z);
+                    vec36 = new Vec3(vec36.x, 0.2D, vec36.z);
                 }
 
                 living.setDeltaMovement(vec36.multiply(f4, 0.8F, f4));

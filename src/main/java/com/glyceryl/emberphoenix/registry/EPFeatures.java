@@ -8,6 +8,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 public class EPFeatures {
 
     public static final Feature<BiggerLavaLakeFeature.Configuration> BIGGER_LAKE = RegistryBase.registerFeature("bigger_lake", new BiggerLavaLakeFeature(BiggerLavaLakeFeature.Configuration.CODEC));
+
     public static void register(IEventBus eventBus) {
         RegistryBase.FEATURES.register(eventBus);
     }

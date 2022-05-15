@@ -21,6 +21,10 @@ public class EPPlacedFeatures {
             EPConfiguredFeatures.BIGGER_LAKE_LAVA, RarityFilter.onAverageOnceEvery(100),
             InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
 
+    public static final Holder<PlacedFeature> SURFACE_HOLE = PlacementUtils.register("surface_hole",
+            EPConfiguredFeatures.SURFACE_HOLE, RarityFilter.onAverageOnceEvery(2),
+            InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
+
     public static void addDefaultPhoenixUndergroundVariety(BiomeGenerationSettings.Builder builder) {
         builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, EPOrePlacements.ORE_PHOENIX_HARDSLATE);
         builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, EPOrePlacements.ORE_PHOENIX_SMOOTH_BASALT);
