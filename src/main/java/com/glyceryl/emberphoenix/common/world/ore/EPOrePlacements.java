@@ -10,10 +10,10 @@ import java.util.List;
 
 public class EPOrePlacements {
 
-    public static final Holder<PlacedFeature> ORE_PHOENIX_COAL = register("ore_phoenix_coal", EPOreFeatures.ORE_PHOENIX_COAL, 11, 12, 45);
-    public static final Holder<PlacedFeature> ORE_PHOENIX_IRON = register("ore_phoenix_iron", EPOreFeatures.ORE_PHOENIX_IRON, 10, 12, 45);
+    public static final Holder<PlacedFeature> ORE_PHOENIX_COAL = register("ore_phoenix_coal", EPOreFeatures.ORE_PHOENIX_COAL, 11, 10, 45);
+    public static final Holder<PlacedFeature> ORE_PHOENIX_IRON = register("ore_phoenix_iron", EPOreFeatures.ORE_PHOENIX_IRON, 10, 10, 45);
     public static final Holder<PlacedFeature> ORE_PHOENIX_COPPER = register("ore_phoenix_copper", EPOreFeatures.ORE_PHOENIX_COPPER, 10, 0, 45);
-    public static final Holder<PlacedFeature> ORE_PHOENIX_SILVER = register("ore_phoenix_silver", EPOreFeatures.ORE_PHOENIX_SILVER, 5, 0, 20);
+    public static final Holder<PlacedFeature> ORE_PHOENIX_SILVER = register("ore_phoenix_silver", EPOreFeatures.ORE_PHOENIX_SILVER, 5, 0, 30);
     public static final Holder<PlacedFeature> ORE_PHOENIX_GOLD = register("ore_phoenix_gold", EPOreFeatures.ORE_PHOENIX_GOLD, 6, 0, 32);
     public static final Holder<PlacedFeature> ORE_PHOENIX_DIAMOND = register("ore_phoenix_diamond", EPOreFeatures.ORE_PHOENIX_DIAMOND, 5, 0, 20);
     public static final Holder<PlacedFeature> ORE_PHOENIX_HARDSLATE = register("ore_phoenix_hardslate", EPOreFeatures.ORE_PHOENIX_HARDSLATE, 3, 0, 45);
@@ -30,6 +30,7 @@ public class EPOrePlacements {
         return orePlacement(CountPlacement.of(i), modifier);
     }
 
+    @SuppressWarnings("all")
     private static Holder<PlacedFeature> register(String name, Holder<? extends ConfiguredFeature<?, ?>> holder, int size, int min, int max) {
         return PlacementUtils.register(name, holder, commonOrePlacement(size, HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(min), VerticalAnchor.belowTop(max))));
     }

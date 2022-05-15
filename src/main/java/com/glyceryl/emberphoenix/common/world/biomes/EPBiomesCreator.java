@@ -21,7 +21,7 @@ public class EPBiomesCreator {
         BiomeDefaultFeatures.addDefaultCrystalFormations(builder);
         EPPlacedFeatures.addDefaultPhoenixOres(builder);
         EPPlacedFeatures.addDefaultPhoenixUndergroundVariety(builder);
-        builder.addCarver(GenerationStep.Carving.AIR, Carvers.NETHER_CAVE)
+        builder.addCarver(GenerationStep.Carving.AIR, Carvers.NETHER_CAVE).addCarver(GenerationStep.Carving.AIR, Carvers.CAVE)
                 .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, MiscOverworldPlacements.SPRING_LAVA)
                 .addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, NetherPlacements.SPRING_OPEN)
                 .addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, NetherPlacements.SPRING_CLOSED)
@@ -39,7 +39,7 @@ public class EPBiomesCreator {
         BiomeDefaultFeatures.addDefaultCrystalFormations(builder);
         EPPlacedFeatures.addDefaultPhoenixOres(builder);
         EPPlacedFeatures.addDefaultPhoenixUndergroundVariety(builder);
-        builder.addCarver(GenerationStep.Carving.AIR, Carvers.NETHER_CAVE)
+        builder.addCarver(GenerationStep.Carving.AIR, Carvers.NETHER_CAVE).addCarver(GenerationStep.Carving.AIR, Carvers.CAVE)
                 .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, MiscOverworldPlacements.SPRING_LAVA)
                 .addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, NetherPlacements.SPRING_OPEN)
                 .addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, NetherPlacements.SPRING_CLOSED)
@@ -55,7 +55,7 @@ public class EPBiomesCreator {
         BiomeDefaultFeatures.addDefaultCrystalFormations(builder);
         EPPlacedFeatures.addDefaultPhoenixOres(builder);
         EPPlacedFeatures.addDefaultPhoenixUndergroundVariety(builder);
-        builder.addCarver(GenerationStep.Carving.AIR, Carvers.NETHER_CAVE)
+        builder.addCarver(GenerationStep.Carving.AIR, Carvers.NETHER_CAVE).addCarver(GenerationStep.Carving.AIR, Carvers.CAVE)
                 .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, MiscOverworldPlacements.SPRING_LAVA)
                 .addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, NetherPlacements.SPRING_OPEN)
                 .addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, NetherPlacements.SPRING_CLOSED)
