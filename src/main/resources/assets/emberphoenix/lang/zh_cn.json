@@ -14,6 +14,9 @@
   "block.emberphoenix.emberium_block":"余烬钢块",
   "block.emberphoenix.eternal_fire_altar":"永恒之火祭坛",
 
+  "block.emberphoenix.barren_grass":"贫瘠草丛",
+  "block.emberphoenix.barren_tall_grass":"贫瘠高草丛",
+
   "block.emberphoenix.chiseled_scarlet_stone":"錾制猩红岩",
   "block.emberphoenix.polished_scarlet_stone":"磨制猩红岩",
   "block.emberphoenix.chiseled_hardslate":"錾制坚层岩",
@@ -48,7 +51,11 @@
   "item.emberphoenix.ember_pickaxe":"余烬钢镐",
   "item.emberphoenix.ember_axe":"余烬钢斧",
   "item.emberphoenix.ember_hoe":"余烬钢锄",
+  "item.emberphoenix.blaze_trident":"炽焰三叉戟",
   "item.emberphoenix.spark":"火种",
+
+  "enchantment.emberphoenix.magma_strider":"熔岩探索者",
+  "enchantment.emberphoenix.heat_wave":"热浪",
 
   "itemGroup.ep_tab": "赤鸢的余烬"
 }

@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "emberphoenix:hardslate_bricks"
+  },
+  "result": "emberphoenix:hardslate_tiles",
+  "count": 1
+}

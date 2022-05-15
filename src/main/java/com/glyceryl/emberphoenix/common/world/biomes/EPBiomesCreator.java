@@ -21,11 +21,13 @@ public class EPBiomesCreator {
         BiomeDefaultFeatures.addDefaultCrystalFormations(builder);
         EPPlacedFeatures.addDefaultPhoenixOres(builder);
         EPPlacedFeatures.addDefaultPhoenixUndergroundVariety(builder);
-        builder.addCarver(GenerationStep.Carving.AIR, Carvers.NETHER_CAVE).addCarver(GenerationStep.Carving.AIR, Carvers.CAVE)
+        builder.addCarver(GenerationStep.Carving.AIR, Carvers.NETHER_CAVE)
                 .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, MiscOverworldPlacements.SPRING_LAVA)
                 .addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, NetherPlacements.SPRING_OPEN)
                 .addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, NetherPlacements.SPRING_CLOSED)
-                .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, EPPlacedFeatures.BIGGER_LAKE_LAVA_SURFACE);
+                .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, EPPlacedFeatures.BIGGER_LAKE_LAVA_SURFACE)
+                .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, EPPlacedFeatures.PATCH_BARREN_GRASS)
+                .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, EPPlacedFeatures.PATCH_BARREN_TALL_GRASS);
         return (new Biome.BiomeBuilder()).precipitation(Biome.Precipitation.NONE).biomeCategory(Biome.BiomeCategory.NETHER).temperature(temperature).downfall(0.0F)
                 .specialEffects((new BiomeSpecialEffects.Builder()).waterColor(4159204).waterFogColor(329011).fogColor(3344392)
                         .skyColor(OverworldBiomes.calculateSkyColor(2.0F)).build()).mobSpawnSettings(mobspawnsettings).generationSettings(builder.build()).build();
@@ -37,7 +39,7 @@ public class EPBiomesCreator {
         BiomeDefaultFeatures.addDefaultCrystalFormations(builder);
         EPPlacedFeatures.addDefaultPhoenixOres(builder);
         EPPlacedFeatures.addDefaultPhoenixUndergroundVariety(builder);
-        builder.addCarver(GenerationStep.Carving.AIR, Carvers.NETHER_CAVE).addCarver(GenerationStep.Carving.AIR, Carvers.CAVE)
+        builder.addCarver(GenerationStep.Carving.AIR, Carvers.NETHER_CAVE)
                 .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, MiscOverworldPlacements.SPRING_LAVA)
                 .addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, NetherPlacements.SPRING_OPEN)
                 .addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, NetherPlacements.SPRING_CLOSED)
@@ -53,7 +55,7 @@ public class EPBiomesCreator {
         BiomeDefaultFeatures.addDefaultCrystalFormations(builder);
         EPPlacedFeatures.addDefaultPhoenixOres(builder);
         EPPlacedFeatures.addDefaultPhoenixUndergroundVariety(builder);
-        builder.addCarver(GenerationStep.Carving.AIR, Carvers.NETHER_CAVE).addCarver(GenerationStep.Carving.AIR, Carvers.CAVE)
+        builder.addCarver(GenerationStep.Carving.AIR, Carvers.NETHER_CAVE)
                 .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, MiscOverworldPlacements.SPRING_LAVA)
                 .addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, NetherPlacements.SPRING_OPEN)
                 .addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, NetherPlacements.SPRING_CLOSED)

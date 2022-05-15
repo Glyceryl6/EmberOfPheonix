@@ -14,6 +14,9 @@
   "block.emberphoenix.emberium_block":"Emberium Block",
   "block.emberphoenix.eternal_fire_altar":"Eternal Fire Altar",
 
+  "block.emberphoenix.barren_grass":"Barren Grass",
+  "block.emberphoenix.barren_tall_grass":"Barren Tall Grass",
+
   "block.emberphoenix.chiseled_scarlet_stone":"Chiseled Scarlet Stone",
   "block.emberphoenix.polished_scarlet_stone":"Polished Scarlet Stone",
   "block.emberphoenix.chiseled_hardslate":"Chiseled Hardslate",
@@ -48,7 +51,11 @@
   "item.emberphoenix.ember_pickaxe":"Ember Pickaxe",
   "item.emberphoenix.ember_axe":"Ember Axe",
   "item.emberphoenix.ember_hoe":"Ember Hoe",
+  "item.emberphoenix.blaze_trident":"Blaze Trident",
   "item.emberphoenix.spark":"Spark",
+
+  "enchantment.emberphoenix.magma_strider":"Magma Strider",
+  "enchantment.emberphoenix.heat_wave":"Heat Wave",
 
   "itemGroup.ep_tab": "Ember of Phoenix"
 }

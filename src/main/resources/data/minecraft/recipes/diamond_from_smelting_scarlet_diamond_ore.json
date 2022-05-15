@@ -4,7 +4,7 @@
   "ingredient": {
     "item": "emberphoenix:scarlet_diamond_ore"
   },
-  "result": "minecraft:diamond_ingot",
+  "result": "minecraft:diamond",
   "experience": 1.0,
   "cookingtime": 200
 }
