@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": {
-    "item": "emberphoenix:hardslate_tiles"
-  },
-  "result": "emberphoenix:hardslate_tile_stair",
-  "count": 1
-}

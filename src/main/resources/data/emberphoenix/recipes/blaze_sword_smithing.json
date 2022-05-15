@@ -1,10 +1,10 @@
 {
   "type": "minecraft:smithing",
   "base": {
-    "item": "emberphoenix:ember_sword"
+    "item": "emberphoeni:ember_sword"
   },
   "addition": {
-    "item": "emberphoenix:blaze_ruby"
+    "item": "emberphoeni:blaze_ruby"
   },
   "result": {
     "item": "emberphoenix:blaze_sword"
