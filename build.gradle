@@ -15,7 +15,6 @@ plugins {
 }
 apply plugin: 'net.minecraftforge.gradle'
 
-
 version = '1.0'
 group = 'com.glyceryl.emberphoenix' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'EmberOfPhoenix'
@@ -92,6 +91,12 @@ minecraft {
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
+
+    maven {
+        name 'progwm\'s Maven' // JEI + Mantle + TCon
+        url 'https://dvs1.progwml6.com/files/maven'
+    }
+
     maven {
         url = "https://www.cursemaven.com"
     }
@@ -100,6 +105,11 @@ repositories {
 dependencies {
 
     minecraft 'net.minecraftforge:forge:1.18.2-40.1.0'
+
+    // compile against the JEI API but do not include it at runtime
+    compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}:api")
+    // at runtime, use the full JEI jar
+    runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}")
 
 }
 

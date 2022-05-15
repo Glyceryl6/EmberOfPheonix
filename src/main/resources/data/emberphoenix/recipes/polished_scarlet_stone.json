@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SS",
+    "SS"
+  ],
+  "key": {
+    "S": {
+      "item": "emberphoenix:scarlet_stone"
+    }
+  },
+  "result": {
+    "item": "emberphoenix:polished_scarlet_stone",
+    "count": 4
+  }
+}

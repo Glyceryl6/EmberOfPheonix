@@ -1,6 +1,7 @@
 package com.glyceryl.emberphoenix;
 
 import com.glyceryl.emberphoenix.common.world.biomes.EPBiomesCreator;
+import com.glyceryl.emberphoenix.event.LivingWalkOnMagma;
 import com.glyceryl.emberphoenix.registry.*;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
@@ -27,13 +28,17 @@ public class EmberOfPhoenix {
         EPSounds.register(eventBus);
         EPFeatures.register(eventBus);
         EPContainers.register(eventBus);
+        EPEnchantments.register(eventBus);
         EPBiomesCreator.init();
         eventBus.addListener(this::setup);
+        MinecraftForge.EVENT_BUS.register(new LivingWalkOnMagma());
         MinecraftForge.EVENT_BUS.register(this);
     }
 
     private void setup(final FMLCommonSetupEvent event) {
         ItemBlockRenderTypes.setRenderLayer(EPBlocks.ETERNAL_FIRE.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(EPBlocks.BARREN_GRASS.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(EPBlocks.BARREN_TALL_GRASS.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(EPBlocks.ETERNAL_FIRE_ALTAR.get(), RenderType.cutoutMipped());
     }
 

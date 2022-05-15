@@ -1,5 +1,6 @@
 package com.glyceryl.emberphoenix.registry;
 
+import com.glyceryl.emberphoenix.RegistryBase;
 import com.glyceryl.emberphoenix.EmberOfPhoenix;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraftforge.common.util.ForgeSoundType;
@@ -19,11 +20,11 @@ public class EPSounds {
     public static final ForgeSoundType EMBERIUM_BLOCK = new ForgeSoundType(1.0F, 1.0F, EMBERIUM_DIG, EMBERIUM_STEP, EMBERIUM_DIG, EMBERIUM_STEP, EMBERIUM_STEP);
 
     private static RegistryObject<SoundEvent> registerSoundEvents(String name) {
-        return EPBase.SOUNDS.register(name, () -> new SoundEvent(EmberOfPhoenix.prefix(name)));
+        return RegistryBase.SOUNDS.register(name, () -> new SoundEvent(EmberOfPhoenix.prefix(name)));
     }
 
     public static void register(IEventBus eventBus) {
-        EPBase.SOUNDS.register(eventBus);
+        RegistryBase.SOUNDS.register(eventBus);
     }
 
 }

@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "emberphoenix:polished_hardslate"
+  },
+  "result": "emberphoenix:polished_hardslate_slab",
+  "count": 2
+}
