@@ -20,7 +20,7 @@ public class EternalFireAltar extends Block {
 
     @Override
     @SuppressWarnings("all")
-    public VoxelShape getShape(BlockState p_60555_, BlockGetter p_60556_, BlockPos p_60557_, CollisionContext p_60558_) {
+    public VoxelShape getShape(BlockState state, BlockGetter getter, BlockPos pos, CollisionContext context) {
         return FINAL;
     }
 }

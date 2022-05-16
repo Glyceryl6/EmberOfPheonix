@@ -8,8 +8,8 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class EPDoublePlant extends DoublePlantBlock {
 
-    public EPDoublePlant(Properties p_52861_) {
-        super(p_52861_);
+    public EPDoublePlant(Properties properties) {
+        super(properties);
     }
 
     @Override

@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "emberphoenix:scarlet_stone"
+  },
+  "result": "emberphoenix:scarlet_stone_stair",
+  "count": 1
+}

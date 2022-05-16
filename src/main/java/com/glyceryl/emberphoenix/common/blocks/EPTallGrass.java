@@ -8,8 +8,8 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class EPTallGrass extends TallGrassBlock {
 
-    public EPTallGrass(Properties p_57318_) {
-        super(p_57318_);
+    public EPTallGrass(Properties properties) {
+        super(properties);
     }
 
     @Override

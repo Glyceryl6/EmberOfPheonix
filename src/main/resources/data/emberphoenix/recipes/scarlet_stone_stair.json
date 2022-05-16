@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "emberphoenix:scarlet_stone"
+    }
+  },
+  "result": {
+    "item": "emberphoenix:scarlet_stone_stair",
+    "count": 4
+  }
+}
