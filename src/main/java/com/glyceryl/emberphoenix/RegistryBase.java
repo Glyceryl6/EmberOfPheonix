@@ -43,16 +43,6 @@ public class RegistryBase {
         return toReturn;
     }
 
-    private static <T extends Block> void registerBlockItem(String name, RegistryObject<T> block) {
-        ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
-    }
-
-    public static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
-        RegistryObject<T> toReturn = BLOCKS.register(name, block);
-        registerBlockItem(name, toReturn);
-        return toReturn;
-    }
-
     public static <C extends FeatureConfiguration, F extends Feature<C>> F registerFeature(String key, F value) {
         value.setRegistryName(new ResourceLocation(EmberOfPhoenix.MOD_ID, key));
         ForgeRegistries.FEATURES.register(value);

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#",
+    "#"
+  ],
+  "key": {
+    "#": {
+      "item": "emberphoenix:scarlet_stone_slab"
+    }
+  },
+  "result": {
+    "item": "emberphoenix:chiseled_scarlet_stone"
+  }
+}

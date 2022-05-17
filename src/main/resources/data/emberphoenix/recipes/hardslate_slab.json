@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "emberphoenix:hardslate"
+    }
+  },
+  "result": {
+    "item": "emberphoenix:hardslate_slab",
+    "count": 6
+  }
+}
