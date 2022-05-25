@@ -1,9 +1,11 @@
 package com.glyceryl.emberphoenix.registry;
 
 import com.glyceryl.emberphoenix.RegistryBase;
+import com.glyceryl.emberphoenix.common.items.EPArmorMaterials;
 import com.glyceryl.emberphoenix.common.items.EPShovel;
 import com.glyceryl.emberphoenix.common.items.Spark;
 import com.glyceryl.emberphoenix.data.EPItemTier;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.*;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.RegistryObject;
@@ -28,7 +30,10 @@ public class EPItems {
     public static final RegistryObject<Item> EMBER_AXE = RegistryBase.ITEMS.register("ember_axe", () -> new AxeItem(EPItemTier.EMBER, 5.0F,-3.0F, defaultBuilder()));
     public static final RegistryObject<Item> EMBER_HOE = RegistryBase.ITEMS.register("ember_hoe", () -> new HoeItem(EPItemTier.EMBER, -4,0.0F, defaultBuilder()));
     //Registry new armor.
-
+    public static final RegistryObject<Item> EMBER_HELMET = RegistryBase.ITEMS.register("ember_helmet", () -> new ArmorItem(EPArmorMaterials.EMBERIUM, EquipmentSlot.HEAD, defaultBuilder()));
+    public static final RegistryObject<Item> EMBER_CHESTPLATE = RegistryBase.ITEMS.register("ember_chestplate", () -> new ArmorItem(EPArmorMaterials.EMBERIUM, EquipmentSlot.CHEST, defaultBuilder()));
+    public static final RegistryObject<Item> EMBER_LEGGINGS = RegistryBase.ITEMS.register("ember_leggings", () -> new ArmorItem(EPArmorMaterials.EMBERIUM, EquipmentSlot.LEGS, defaultBuilder()));
+    public static final RegistryObject<Item> EMBER_BOOTS = RegistryBase.ITEMS.register("ember_boots", () -> new ArmorItem(EPArmorMaterials.EMBERIUM, EquipmentSlot.FEET, defaultBuilder()));
     //Registry special items.
     public static final RegistryObject<Item> SPARK = RegistryBase.ITEMS.register("spark", () -> new Spark(defaultBuilder()));
 
