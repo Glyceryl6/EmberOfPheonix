@@ -1,11 +1,16 @@
 package com.glyceryl.emberphoenix.event;
 
 import com.glyceryl.emberphoenix.registry.EPEnchantments;
+import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.FogType;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.client.event.EntityViewRenderEvent;
+import net.minecraftforge.client.event.RenderBlockOverlayEvent;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -51,6 +56,34 @@ public class LivingWalkOnMagma {
                     living.setDeltaMovement(vec32.x, 0.3F, vec32.z);
                 }
             }
+        }
+    }
+
+    @SubscribeEvent
+    public void onRenderFog(EntityViewRenderEvent.RenderFogEvent event) {
+        float f6 = getMagmaStrider((LivingEntity) event.getCamera().getEntity());
+        if (event.getCamera().getFluidInCamera() == FogType.WATER) {
+            float waterVision = 1.0f;
+            if(event.getCamera().getEntity() instanceof LocalPlayer) {
+                waterVision = Math.max(0.25f, ((LocalPlayer)event.getCamera().getEntity()).getWaterVision());
+            }
+            event.scaleFarPlaneDistance(waterVision * 150.0F);
+            event.setCanceled(true);
+        } else if (event.getCamera().getFluidInCamera() == FogType.LAVA && f6 > 0.0F) {
+            event.scaleFarPlaneDistance(30.0F * f6);
+            event.setCanceled(true);
+        }
+    }
+
+    @SubscribeEvent
+    public void renderOverlay(RenderBlockOverlayEvent event) {
+        if (event.getOverlayType() != RenderBlockOverlayEvent.OverlayType.FIRE) {
+            return;
+        }
+        if (event.getPlayer().isCreative()) {
+            event.setCanceled(true);
+        } else if (getMagmaStrider(event.getPlayer()) > 0.0F && event.getPlayer().isEyeInFluid(FluidTags.LAVA)) {
+            event.getPoseStack().translate(0, -0.25, 0);
         }
     }
 
