@@ -12,7 +12,7 @@ import net.minecraftforge.client.event.EntityViewRenderEvent;
 import net.minecraftforge.client.event.RenderBlockOverlayEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
-public class RenderFogEvent {
+public class RenderHorizon {
 
     @SubscribeEvent
     @OnlyIn(Dist.CLIENT)

@@ -2,7 +2,7 @@ package com.glyceryl.emberphoenix;
 
 import com.glyceryl.emberphoenix.common.world.biomes.EPBiomesCreator;
 import com.glyceryl.emberphoenix.event.LivingWalkOnMagma;
-import com.glyceryl.emberphoenix.event.RenderFogEvent;
+import com.glyceryl.emberphoenix.event.RenderHorizon;
 import com.glyceryl.emberphoenix.registry.*;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
@@ -24,15 +24,15 @@ public class EmberOfPhoenix {
     public EmberOfPhoenix() {
         EPBiomesCreator.init();
         EPItems.register(eventBus);
-        EPEntity.register(eventBus);
         EPBlocks.register(eventBus);
         EPBiomes.register(eventBus);
+        EPEntity.register(eventBus);
         EPSounds.register(eventBus);
         EPFeatures.register(eventBus);
         EPContainers.register(eventBus);
         EPEnchantments.register(eventBus);
         eventBus.addListener(this::setupClient);
-        MinecraftForge.EVENT_BUS.register(new RenderFogEvent());
+        MinecraftForge.EVENT_BUS.register(new RenderHorizon());
         MinecraftForge.EVENT_BUS.register(new LivingWalkOnMagma());
         MinecraftForge.EVENT_BUS.register(this);
     }
@@ -47,5 +47,4 @@ public class EmberOfPhoenix {
     public static ResourceLocation prefix(String name) {
         return new ResourceLocation(MOD_ID, name.toLowerCase(Locale.ROOT));
     }
-
 }
