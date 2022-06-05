@@ -11,7 +11,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 
 import java.util.function.Supplier;
 
-@SuppressWarnings("all")
+@SuppressWarnings("deprecation")
 public enum EPArmorMaterials implements ArmorMaterial {
 
     EMBERIUM("emberium", 15, new int[]{3, 6, 7, 3}, 10, SoundEvents.ARMOR_EQUIP_NETHERITE,

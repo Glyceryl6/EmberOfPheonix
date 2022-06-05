@@ -49,7 +49,6 @@ public class RegistryBase {
         return value;
     }
 
-    @SuppressWarnings("all")
     public static final CreativeModeTab EP_TAB = new CreativeModeTab("ep_tab") {
         @Override
         public ItemStack makeIcon() {

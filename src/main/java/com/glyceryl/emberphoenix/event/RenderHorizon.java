@@ -34,13 +34,16 @@ public class RenderHorizon {
     @SubscribeEvent
     @OnlyIn(Dist.CLIENT)
     public void renderOverlay(RenderBlockOverlayEvent event) {
+        float f6 = getMagmaStrider(event.getPlayer());
         if (event.getOverlayType() != RenderBlockOverlayEvent.OverlayType.FIRE) {
             return;
         }
-        if (event.getPlayer().isCreative()) {
-            event.setCanceled(true);
-        } else if (getMagmaStrider(event.getPlayer()) > 0.0F && event.getPlayer().isEyeInFluid(FluidTags.LAVA)) {
-            event.getPoseStack().translate(0, -0.25, 0);
+        if (f6 > 0.0F) {
+            if (event.getPlayer().isCreative()) {
+                event.setCanceled(true);
+            } else if (event.getPlayer().isEyeInFluid(FluidTags.LAVA)) {
+                event.getPoseStack().translate(0, -0.25, 0);
+            }
         }
     }
 

@@ -1,9 +1,7 @@
 package com.glyceryl.emberphoenix.registry;
 
 import com.glyceryl.emberphoenix.RegistryBase;
-import com.glyceryl.emberphoenix.common.items.EPArmorMaterials;
-import com.glyceryl.emberphoenix.common.items.EPShovel;
-import com.glyceryl.emberphoenix.common.items.Spark;
+import com.glyceryl.emberphoenix.common.items.*;
 import com.glyceryl.emberphoenix.data.EPItemTier;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.*;

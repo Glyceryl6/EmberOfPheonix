@@ -8,9 +8,10 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.BaseFireBlock;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.FireBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
-@SuppressWarnings("all")
+@SuppressWarnings("deprecation")
 public class EternalFire extends BaseFireBlock {
 
     public EternalFire(Properties properties) {
@@ -20,11 +21,11 @@ public class EternalFire extends BaseFireBlock {
     public static BlockState getState(BlockGetter blockGetter, BlockPos blockPos) {
         BlockPos blockpos = blockPos.below();
         BlockState blockstate = blockGetter.getBlockState(blockpos);
-        return EPBlocks.ETERNAL_FIRE.get().defaultBlockState();
+        return canSurviveOnBlock(blockstate) ? EPBlocks.ETERNAL_FIRE.get().defaultBlockState() : ((FireBlock)Blocks.FIRE).getStateForPlacement(blockGetter, blockPos);
     }
 
-    public BlockState updateShape(BlockState p_60541_, Direction direction, BlockState p_56661_, LevelAccessor levelAccessor, BlockPos p_56663_, BlockPos p_56664_) {
-        return this.canSurvive(p_60541_, levelAccessor, p_56663_) ? this.defaultBlockState() : Blocks.AIR.defaultBlockState();
+    public BlockState updateShape(BlockState state, Direction direction, BlockState p_56661_, LevelAccessor levelAccessor, BlockPos pos, BlockPos p_56664_) {
+        return this.canSurvive(state, levelAccessor, pos) ? this.defaultBlockState() : Blocks.AIR.defaultBlockState();
     }
 
     @Override
@@ -32,7 +33,7 @@ public class EternalFire extends BaseFireBlock {
         return canSurviveOnBlock(levelReader.getBlockState(blockPos.below()));
     }
 
-    public static boolean canSurviveOnBlock(BlockState blockState) {
+    private static boolean canSurviveOnBlock(BlockState blockState) {
         return blockState.is(EPBlocks.ETERNAL_FIRE_ALTAR.get());
     }
 
@@ -40,4 +41,5 @@ public class EternalFire extends BaseFireBlock {
     protected boolean canBurn(BlockState blockState) {
         return true;
     }
+
 }

@@ -24,7 +24,6 @@ public class EPOreFeatures {
     public static final Holder<ConfiguredFeature<OreConfiguration, ?>> ORE_PHOENIX_HARDSLATE = register("ore_phoenix_hardslate", EPBlocks.HARD_SLATE.get(), 33);
     public static final Holder<ConfiguredFeature<OreConfiguration, ?>> ORE_PHOENIX_SMOOTH_BASALT = register("ore_phoenix_smooth_basalt", Blocks.SMOOTH_BASALT, 33);
     public static final Holder<ConfiguredFeature<OreConfiguration, ?>> ORE_PHOENIX_AMETHYST = register("ore_phoenix_amethyst", Blocks.AMETHYST_CLUSTER, 1);
-    public static final Holder<ConfiguredFeature<OreConfiguration, ?>> ORE_PHOENIX_DENSE_GLOWSTONE = register("ore_phoenix_dense_glowstone", EPBlocks.DENSE_GLOWSTONE.get(), 7);
     public static final Holder<ConfiguredFeature<OreConfiguration, ?>> ORE_ASH_BLOCK = register(SCARLET_STONE, "ore_ash_block", EPBlocks.ASH_BLOCK.get(), 33);
 
     private static Holder<ConfiguredFeature<OreConfiguration, ?>> register(String name, Block block, int i) {

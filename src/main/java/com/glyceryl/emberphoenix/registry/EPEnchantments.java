@@ -1,8 +1,8 @@
 package com.glyceryl.emberphoenix.registry;
 
 import com.glyceryl.emberphoenix.RegistryBase;
-import com.glyceryl.emberphoenix.common.entity.passive.enchantments.HeatWave;
-import com.glyceryl.emberphoenix.common.entity.passive.enchantments.MagmaStrider;
+import com.glyceryl.emberphoenix.common.enchantments.HeatWave;
+import com.glyceryl.emberphoenix.common.enchantments.MagmaStrider;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraftforge.eventbus.api.IEventBus;

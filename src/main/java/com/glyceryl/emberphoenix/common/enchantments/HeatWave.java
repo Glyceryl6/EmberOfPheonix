@@ -1,4 +1,4 @@
-package com.glyceryl.emberphoenix.common.entity.passive.enchantments;
+package com.glyceryl.emberphoenix.common.enchantments;
 
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.enchantment.*;

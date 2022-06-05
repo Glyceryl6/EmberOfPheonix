@@ -16,4 +16,5 @@ public class EPShovel extends ShovelItem {
     public float getDestroySpeed(ItemStack stack, BlockState state) {
         return state.is(this.blocks) ? (state.is(EPBlocks.ASH_BLOCK.get()) ? this.speed*10 : this.speed) : 1.0F;
     }
+
 }
