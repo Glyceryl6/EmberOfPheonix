@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "emberphoenix:block/fire_flower_top"
+  }
+}

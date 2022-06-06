@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=lower": {
+      "model": "emberphoenix:block/fire_flower_bottom"
+    },
+    "half=upper": {
+      "model": "emberphoenix:block/fire_flower_top"
+    }
+  }
+}

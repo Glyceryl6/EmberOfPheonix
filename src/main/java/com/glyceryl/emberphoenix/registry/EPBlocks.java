@@ -38,6 +38,8 @@ public class EPBlocks {
             () -> new EPTallGrass(PLANT_PROPERTIES), RegistryBase.EP_TAB);
     public static final RegistryObject<EPDoublePlant> BARREN_TALL_GRASS = RegistryBase.registerBlock("barren_tall_grass",
             () -> new EPDoublePlant(PLANT_PROPERTIES), RegistryBase.EP_TAB);
+    public static final RegistryObject<FireFlower> FIRE_FLOWER = RegistryBase.registerBlock("fire_flower",
+            () -> new FireFlower(PLANT_PROPERTIES), RegistryBase.EP_TAB);
     //Registry ore blocks.
     public static final RegistryObject<Block> SCARLET_COAL_ORE = ore("scarlet_coal_ore");
     public static final RegistryObject<Block> SCARLET_COPPER_ORE = ore("scarlet_copper_ore");

@@ -17,6 +17,7 @@ public class EPBiomesCreator {
         EPPlacedFeatures.addDefaultPhoenixOres(builder);
         EPPlacedFeatures.addDefaultPhoenixUndergroundVariety(builder);
         builder.addCarver(GenerationStep.Carving.AIR, Carvers.CAVE)
+                .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, EPPlacedFeatures.PATCH_FIRE_FLOWER)
                 .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, EPPlacedFeatures.PATCH_BARREN_GRASS)
                 .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, EPPlacedFeatures.PATCH_BARREN_TALL_GRASS)
                 .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, EPPlacedFeatures.BIGGER_LAKE_LAVA_SURFACE);

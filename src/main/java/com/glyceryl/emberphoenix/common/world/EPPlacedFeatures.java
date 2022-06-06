@@ -10,6 +10,9 @@ import net.minecraft.world.level.levelgen.placement.*;
 
 public class EPPlacedFeatures {
 
+    public static final Holder<PlacedFeature> PATCH_FIRE_FLOWER = PlacementUtils.register("patch_fire_flower",
+            EPVegetationFeatures.PATCH_FIRE_FLOWER, VegetationPlacements.worldSurfaceSquaredWithCount(5));
+
     public static final Holder<PlacedFeature> PATCH_BARREN_GRASS = PlacementUtils.register("patch_barren_grass",
             EPVegetationFeatures.PATCH_BARREN_GRASS, VegetationPlacements.worldSurfaceSquaredWithCount(20));
 

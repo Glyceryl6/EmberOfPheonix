@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "emberphoenix:block/fire_flower_top"
+  }
+}
