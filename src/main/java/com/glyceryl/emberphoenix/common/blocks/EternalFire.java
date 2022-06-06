@@ -26,7 +26,6 @@ public class EternalFire extends BaseFireBlock {
         if (!entity.fireImmune()) {
             entity.hurt(DamageSource.IN_FIRE, 3.0F);
         }
-        super.entityInside(blockState, level, pos, entity);
     }
 
     public static BlockState getState(BlockGetter blockGetter, BlockPos blockPos) {

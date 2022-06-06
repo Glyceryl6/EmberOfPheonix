@@ -11,6 +11,8 @@ import net.minecraftforge.registries.RegistryObject;
 @SuppressWarnings("unused")
 public class EPItems {
 
+    //Registry normal items.
+    public static final RegistryObject<Item> TUMBLE_SEED = normal("tumble_seed");
     //Registry new materials.
     public static final RegistryObject<Item> SILVER_INGOT = normal("silver_ingot");
     public static final RegistryObject<Item> RAW_SILVER = normal("raw_silver");
