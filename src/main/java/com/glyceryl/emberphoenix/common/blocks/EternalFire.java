@@ -3,7 +3,10 @@ package com.glyceryl.emberphoenix.common.blocks;
 import com.glyceryl.emberphoenix.registry.EPBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.BaseFireBlock;
@@ -16,6 +19,14 @@ public class EternalFire extends BaseFireBlock {
 
     public EternalFire(Properties properties) {
         super(properties, 3.0F);
+    }
+
+    @Override
+    public void entityInside(BlockState blockState, Level level, BlockPos pos, Entity entity) {
+        if (!entity.fireImmune()) {
+            entity.hurt(DamageSource.IN_FIRE, 3.0F);
+        }
+        super.entityInside(blockState, level, pos, entity);
     }
 
     public static BlockState getState(BlockGetter blockGetter, BlockPos blockPos) {

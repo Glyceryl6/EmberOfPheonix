@@ -31,7 +31,7 @@ public class EPBlocks {
                     .sound(SoundType.STONE).requiresCorrectToolForDrops()), RegistryBase.EP_TAB);
     public static final RegistryObject<EternalFire> ETERNAL_FIRE = RegistryBase.BLOCKS.register("eternal_fire",
             () -> new EternalFire(BlockBehaviour.Properties.of(Material.FIRE, MaterialColor.COLOR_LIGHT_GREEN)
-                    .noDrops().noCollission().instabreak().lightLevel((state) -> 15).sound(SoundType.WOOL)));
+                    .noDrops().noCollission().strength(-1.0F, 3600000.0F).lightLevel((state) -> 15).sound(SoundType.WOOL)));
     //Registry plants and flowers.
     public static final RegistryObject<EPTallGrass> BARREN_GRASS = RegistryBase.registerBlock("barren_grass",
             () -> new EPTallGrass(PLANT_PROPERTIES), RegistryBase.EP_TAB);
