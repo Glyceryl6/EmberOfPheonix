@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "emberphoenix:item/tumble_seed"
+    "layer0": "emberphoenix:item/tumbleseed"
   }
 }

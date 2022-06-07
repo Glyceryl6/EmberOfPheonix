@@ -18,13 +18,13 @@ import net.minecraft.world.level.block.state.BlockState;
 public class EternalFire extends BaseFireBlock {
 
     public EternalFire(Properties properties) {
-        super(properties, 3.0F);
+        super(properties, 4.0F);
     }
 
     @Override
     public void entityInside(BlockState blockState, Level level, BlockPos pos, Entity entity) {
         if (!entity.fireImmune()) {
-            entity.hurt(DamageSource.IN_FIRE, 3.0F);
+            entity.hurt(DamageSource.IN_FIRE, 4.0F);
         }
     }
 
@@ -34,6 +34,7 @@ public class EternalFire extends BaseFireBlock {
         return canSurviveOnBlock(blockstate) ? EPBlocks.ETERNAL_FIRE.get().defaultBlockState() : ((FireBlock)Blocks.FIRE).getStateForPlacement(blockGetter, blockPos);
     }
 
+    @Override
     public BlockState updateShape(BlockState state, Direction direction, BlockState p_56661_, LevelAccessor levelAccessor, BlockPos pos, BlockPos p_56664_) {
         return this.canSurvive(state, levelAccessor, pos) ? this.defaultBlockState() : Blocks.AIR.defaultBlockState();
     }

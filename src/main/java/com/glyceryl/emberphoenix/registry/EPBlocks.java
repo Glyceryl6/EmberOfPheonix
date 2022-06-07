@@ -19,11 +19,11 @@ public class EPBlocks {
     private static final BlockBehaviour.Properties STRENGTH_EMBER_ORE = BlockBehaviour.Properties.copy(Blocks.STONE).strength(3.5F, 8.0F).sound(SoundType.NETHER_ORE);
     private static final BlockBehaviour.Properties PLANT_PROPERTIES = BlockBehaviour.Properties.of(Material.REPLACEABLE_PLANT).noCollission().instabreak().sound(SoundType.GRASS);
 
-    //Registry base blocks.
-    public static final RegistryObject<Block> SCARLET_STONE = normal("scarlet_stone", STRENGTH_SCARLET_STONE);
+    //注册一般的方块
     public static final RegistryObject<Block> HARD_SLATE = normal("hardslate", STRENGTH_HARD_SLATE);
+    public static final RegistryObject<Block> SCARLET_STONE = normal("scarlet_stone", STRENGTH_SCARLET_STONE);
     public static final RegistryObject<Block> SCARLET_DIRT = normal("scarlet_dirt", BlockBehaviour.Properties.copy(Blocks.DIRT));
-    //Registry new block with special functions.
+    //注册一些有特定功能的方块
     public static final RegistryObject<AshBlock> ASH_BLOCK = RegistryBase.registerBlock("ash_block",
             () -> new AshBlock(BlockBehaviour.Properties.of(Material.SAND, MaterialColor.SAND).strength(20.0F, 3.0F)
                     .sound(EPSounds.ASH_BLOCK).requiresCorrectToolForDrops()), RegistryBase.EP_TAB);
@@ -33,51 +33,51 @@ public class EPBlocks {
     public static final RegistryObject<EternalFire> ETERNAL_FIRE = RegistryBase.BLOCKS.register("eternal_fire",
             () -> new EternalFire(BlockBehaviour.Properties.of(Material.FIRE, MaterialColor.COLOR_LIGHT_GREEN)
                     .noDrops().noCollission().strength(-1.0F, 3600000.0F).lightLevel((state) -> 15).sound(SoundType.WOOL)));
-    //Registry plants and flowers.
+    //注册植物类方块
     public static final RegistryObject<EPTallGrass> BARREN_GRASS = RegistryBase.registerBlock("barren_grass",
             () -> new EPTallGrass(PLANT_PROPERTIES), RegistryBase.EP_TAB);
     public static final RegistryObject<EPDoublePlant> BARREN_TALL_GRASS = RegistryBase.registerBlock("barren_tall_grass",
             () -> new EPDoublePlant(PLANT_PROPERTIES), RegistryBase.EP_TAB);
     public static final RegistryObject<FireFlower> FIRE_FLOWER = RegistryBase.registerBlock("fire_flower",
             () -> new FireFlower(PLANT_PROPERTIES), RegistryBase.EP_TAB);
-    //Registry ore blocks.
+    //注册矿物方块
     public static final RegistryObject<Block> SCARLET_COAL_ORE = ore("scarlet_coal_ore");
-    public static final RegistryObject<Block> SCARLET_COPPER_ORE = ore("scarlet_copper_ore");
     public static final RegistryObject<Block> SCARLET_IRON_ORE = ore("scarlet_iron_ore");
     public static final RegistryObject<Block> SCARLET_GOLD_ORE = ore("scarlet_gold_ore");
+    public static final RegistryObject<Block> SCARLET_COPPER_ORE = ore("scarlet_copper_ore");
     public static final RegistryObject<Block> SCARLET_SILVER_ORE = ore("scarlet_silver_ore");
     public static final RegistryObject<Block> SCARLET_DIAMOND_ORE = ore("scarlet_diamond_ore");
-    //Registry block of ore materials.
+    //注册矿物对应金属的块
     public static final RegistryObject<Block> SILVER_BLOCK = normal("silver_block", BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK));
     public static final RegistryObject<Block> RAW_SILVER_BLOCK = normal("raw_silver_block", BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK));
     public static final RegistryObject<Block> EMBERIUM_BLOCK = normal("emberium_block", BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).sound(EPSounds.EMBERIUM_BLOCK));
     public static final RegistryObject<Block> DENSE_GLOWSTONE = normal("dense_glowstone", BlockBehaviour.Properties.copy(Blocks.STONE).strength(8.0F, 8.0F));
-    //Registry normal block with cutting.
+    //注册经切石机加工后的方块
+    public static final RegistryObject<Block> CRACKED_HARD_SLATE_BRICKS = normal("cracked_hardslate_bricks", STRENGTH_HARD_SLATE);
+    public static final RegistryObject<Block> CRACKED_HARD_SLATE_TILES = normal("cracked_hardslate_tiles", STRENGTH_HARD_SLATE);
     public static final RegistryObject<Block> CHISELED_SCARLET_STONE = normal("chiseled_scarlet_stone", STRENGTH_SCARLET_STONE);
     public static final RegistryObject<Block> POLISHED_SCARLET_STONE = normal("polished_scarlet_stone", STRENGTH_SCARLET_STONE);
     public static final RegistryObject<Block> CHISELED_HARD_SLATE = normal("chiseled_hardslate", STRENGTH_HARD_SLATE);
     public static final RegistryObject<Block> POLISHED_HARD_SLATE = normal("polished_hardslate", STRENGTH_HARD_SLATE);
     public static final RegistryObject<Block> HARD_SLATE_BRICKS = normal("hardslate_bricks", STRENGTH_HARD_SLATE);
     public static final RegistryObject<Block> HARD_SLATE_TILES = normal("hardslate_tiles", STRENGTH_HARD_SLATE);
-    public static final RegistryObject<Block> CRACKED_HARD_SLATE_BRICKS = normal("cracked_hardslate_bricks", STRENGTH_HARD_SLATE);
-    public static final RegistryObject<Block> CRACKED_HARD_SLATE_TILES = normal("cracked_hardslate_tiles", STRENGTH_HARD_SLATE);
-    //Registry wall block.
+    //注册墙方块
     public static final RegistryObject<Block> HARD_SLATE_BRICKS_WALL = wall("hardslate_brick_wall");
     public static final RegistryObject<Block> HARD_SLATE_TILES_WALL = wall("hardslate_tile_wall");
-    //Registry slab block.
-    public static final RegistryObject<Block> SCARLET_STONE_SLAB = slab("scarlet_stone_slab", STRENGTH_SCARLET_STONE);
-    public static final RegistryObject<Block> HARD_SLATE_SLAB = slab("hardslate_slab", STRENGTH_SCARLET_STONE);
+    //注册台阶方块
     public static final RegistryObject<Block> POLISHED_SCARLET_STONE_SLAB = slab("polished_scarlet_stone_slab", STRENGTH_SCARLET_STONE);
     public static final RegistryObject<Block> POLISHED_HARD_SLATE_SLAB = slab("polished_hardslate_slab", STRENGTH_HARD_SLATE);
     public static final RegistryObject<Block> HARD_SLATE_BRICKS_SLAB = slab("hardslate_brick_slab", STRENGTH_HARD_SLATE);
     public static final RegistryObject<Block> HARD_SLATE_TILES_SLAB = slab("hardslate_tile_slab", STRENGTH_HARD_SLATE);
-    //Registry stair block.
-    public static final RegistryObject<Block> SCARLET_STONE_STAIR = stair("scarlet_stone_stair", SCARLET_STONE, STRENGTH_SCARLET_STONE);
-    public static final RegistryObject<Block> HARD_SLATE_STAIR = stair("hardslate_stair", HARD_SLATE, STRENGTH_HARD_SLATE);
+    public static final RegistryObject<Block> SCARLET_STONE_SLAB = slab("scarlet_stone_slab", STRENGTH_SCARLET_STONE);
+    public static final RegistryObject<Block> HARD_SLATE_SLAB = slab("hardslate_slab", STRENGTH_SCARLET_STONE);
+    //注册楼梯方块
     public static final RegistryObject<Block> POLISHED_SCARLET_STONE_STAIR = stair("polished_scarlet_stone_stair", POLISHED_SCARLET_STONE, STRENGTH_SCARLET_STONE);
     public static final RegistryObject<Block> POLISHED_HARD_SLATE_STAIR = stair("polished_hardslate_stair", POLISHED_HARD_SLATE, STRENGTH_HARD_SLATE);
     public static final RegistryObject<Block> HARD_SLATE_BRICKS_STAIR = stair("hardslate_brick_stair", HARD_SLATE_BRICKS, STRENGTH_HARD_SLATE);
     public static final RegistryObject<Block> HARD_SLATE_TILES_STAIR = stair("hardslate_tile_stair", HARD_SLATE_TILES, STRENGTH_HARD_SLATE);
+    public static final RegistryObject<Block> SCARLET_STONE_STAIR = stair("scarlet_stone_stair", SCARLET_STONE, STRENGTH_SCARLET_STONE);
+    public static final RegistryObject<Block> HARD_SLATE_STAIR = stair("hardslate_stair", HARD_SLATE, STRENGTH_HARD_SLATE);
 
     private static RegistryObject<Block> normal(String name, BlockBehaviour.Properties properties) {
         return RegistryBase.registerBlock(name, () -> new Block(properties), RegistryBase.EP_TAB);
