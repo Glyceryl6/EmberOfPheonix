@@ -1,7 +1,21 @@
 {
   "variants": {
-    "": {
-      "model": "emberphoenix:block/ash_block"
-    }
+    "": [
+      {
+        "model": "emberphoenix:block/ash_block"
+      },
+      {
+        "model": "emberphoenix:block/ash_block",
+        "y": 90
+      },
+      {
+        "model": "emberphoenix:block/ash_block",
+        "y": 180
+      },
+      {
+        "model": "emberphoenix:block/ash_block",
+        "y": 270
+      }
+    ]
   }
 }
