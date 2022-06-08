@@ -2,8 +2,8 @@ package com.glyceryl.emberphoenix.common.items;
 
 import com.glyceryl.emberphoenix.EmberOfPhoenix;
 import com.glyceryl.emberphoenix.registry.EPItems;
+import com.glyceryl.emberphoenix.registry.EPSounds;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.LazyLoadedValue;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ArmorMaterial;
@@ -14,7 +14,7 @@ import java.util.function.Supplier;
 @SuppressWarnings("deprecation")
 public enum EPArmorMaterials implements ArmorMaterial {
 
-    EMBERIUM("emberium", 15, new int[]{3, 6, 7, 3}, 10, SoundEvents.ARMOR_EQUIP_NETHERITE,
+    EMBERIUM("emberium", 15, new int[]{3, 6, 7, 3}, 10, EPSounds.EQUIP_EMBERIUM,
             2.0F, 0.0F, () -> Ingredient.of(EPItems.EMBERIUM_INGOT.get()));
 
     private static final int[] HEALTH_PER_SLOT = new int[]{13, 15, 16, 11};

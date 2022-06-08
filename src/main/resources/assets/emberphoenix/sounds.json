@@ -30,7 +30,8 @@
       "emberphoenix:emberium_step2",
       "emberphoenix:emberium_step3",
       "emberphoenix:emberium_step4",
-      "emberphoenix:emberium_step5"
+      "emberphoenix:emberium_step5",
+      "emberphoenix:emberium_step6"
     ]
   },
   "equip_blaze": {
@@ -41,6 +42,7 @@
     ]
   },
   "equip_emberium": {
+    "subtitle": "sound.emberphoenix.equip_emberium",
     "sounds": [
       "emberphoenix:equip_emberium1",
       "emberphoenix:equip_emberium2",

@@ -13,10 +13,10 @@ public class EPOrePlacements {
     public static final Holder<PlacedFeature> ORE_PHOENIX_COAL = register("ore_phoenix_coal", EPOreFeatures.ORE_PHOENIX_COAL, 11, 10, 45);
     public static final Holder<PlacedFeature> ORE_PHOENIX_IRON = register("ore_phoenix_iron", EPOreFeatures.ORE_PHOENIX_IRON, 10, 10, 45);
     public static final Holder<PlacedFeature> ORE_PHOENIX_COPPER = register("ore_phoenix_copper", EPOreFeatures.ORE_PHOENIX_COPPER, 10, 0, 45);
-    public static final Holder<PlacedFeature> ORE_PHOENIX_SILVER = register("ore_phoenix_silver", EPOreFeatures.ORE_PHOENIX_SILVER, 5, 0, 30);
-    public static final Holder<PlacedFeature> ORE_PHOENIX_GOLD = register("ore_phoenix_gold", EPOreFeatures.ORE_PHOENIX_GOLD, 6, 0, 32);
-    public static final Holder<PlacedFeature> ORE_PHOENIX_DIAMOND = register("ore_phoenix_diamond", EPOreFeatures.ORE_PHOENIX_DIAMOND, 5, 0, 20);
-    public static final Holder<PlacedFeature> ORE_PHOENIX_HARDSLATE = register("ore_phoenix_hardslate", EPOreFeatures.ORE_PHOENIX_HARDSLATE, 3, 0, 45);
+    public static final Holder<PlacedFeature> ORE_PHOENIX_SILVER = register("ore_phoenix_silver", EPOreFeatures.ORE_PHOENIX_SILVER, 5, 4, 30);
+    public static final Holder<PlacedFeature> ORE_PHOENIX_GOLD = register("ore_phoenix_gold", EPOreFeatures.ORE_PHOENIX_GOLD, 6, 4, 32);
+    public static final Holder<PlacedFeature> ORE_PHOENIX_DIAMOND = register("ore_phoenix_diamond", EPOreFeatures.ORE_PHOENIX_DIAMOND, 5, 4, 20);
+    public static final Holder<PlacedFeature> ORE_PHOENIX_HARDSLATE = register("ore_phoenix_hardslate", EPOreFeatures.ORE_PHOENIX_HARDSLATE, 4, 0, 45);
     public static final Holder<PlacedFeature> ORE_PHOENIX_SMOOTH_BASALT = register("ore_phoenix_smooth_basalt", EPOreFeatures.ORE_PHOENIX_SMOOTH_BASALT, 3, 0, 45);
     public static final Holder<PlacedFeature> ORE_PHOENIX_AMETHYST = register("ore_phoenix_amethyst", EPOreFeatures.ORE_PHOENIX_AMETHYST, 2, 0, 16);
     public static final Holder<PlacedFeature> ORE_ASH_BLOCK = register("ore_ash_block", EPOreFeatures.ORE_ASH_BLOCK, 30, 0, 40);
