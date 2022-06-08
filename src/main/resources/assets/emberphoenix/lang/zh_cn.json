@@ -62,6 +62,11 @@
   "item.emberphoenix.tumbleseed":"风滚草种子",
   "item.emberphoenix.spark":"火种",
 
+  "sound.emberphoenix.ash_block_dig": "灰烬块：挖掘",
+  "sound.emberphoenix.ash_block_step": "灰烬块：踩踏",
+  "sound.emberphoenix.emberium_dig": "余烬钢块：挖掘",
+  "sound.emberphoenix.emberium_step": "余烬钢块：踩踏",
+  "sound.emberphoenix.equip_blaze": "炽焰护甲：铿锵",
   "sound.emberphoenix.equip_emberium": "余烬钢护甲：铿锵",
 
   "enchantment.emberphoenix.magma_strider":"岩浆探索者",

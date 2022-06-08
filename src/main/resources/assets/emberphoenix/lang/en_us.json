@@ -62,6 +62,11 @@
   "item.emberphoenix.tumbleseed":"Tumbleweed Seed",
   "item.emberphoenix.spark":"Spark",
 
+  "sound.emberphoenix.ash_block_dig": "Ash Block Digging",
+  "sound.emberphoenix.ash_block_step": "Ash Block Stepping",
+  "sound.emberphoenix.emberium_dig": "Emberium Block Digging",
+  "sound.emberphoenix.emberium_step": "Emberium Block Stepping",
+  "sound.emberphoenix.equip_blaze": "Blaze armor clanks",
   "sound.emberphoenix.equip_emberium": "Ember armor clanks",
 
   "enchantment.emberphoenix.magma_strider":"Magma Strider",

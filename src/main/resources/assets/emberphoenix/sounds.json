@@ -1,5 +1,6 @@
 {
   "ash_block_dig": {
+    "subtitle": "sound.emberphoenix.ash_block_dig",
     "sounds": [
       "emberphoenix:ash_block_dig1",
       "emberphoenix:ash_block_dig2",
@@ -9,6 +10,7 @@
     ]
   },
   "ash_block_step": {
+    "subtitle": "sound.emberphoenix.ash_block_step",
     "sounds": [
       "emberphoenix:ash_block_step1",
       "emberphoenix:ash_block_step2",
@@ -18,6 +20,7 @@
     ]
   },
   "emberium_dig": {
+    "subtitle": "sound.emberphoenix.emberium_dig",
     "sounds": [
       "emberphoenix:emberium_dig1",
       "emberphoenix:emberium_dig2",
@@ -25,6 +28,7 @@
     ]
   },
   "emberium_step": {
+    "subtitle": "sound.emberphoenix.emberium_step",
     "sounds": [
       "emberphoenix:emberium_step1",
       "emberphoenix:emberium_step2",
@@ -35,6 +39,7 @@
     ]
   },
   "equip_blaze": {
+    "subtitle": "sound.emberphoenix.equip_blaze",
     "sounds": [
       "emberphoenix:equip_blaze1",
       "emberphoenix:equip_blaze2",
