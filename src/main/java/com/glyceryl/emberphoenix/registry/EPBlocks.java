@@ -40,7 +40,7 @@ public class EPBlocks {
             () -> new EPDoublePlant(PLANT_PROPERTIES), RegistryBase.EP_TAB);
     public static final RegistryObject<FireFlower> FIRE_FLOWER = RegistryBase.registerBlock("fire_flower",
             () -> new FireFlower(PLANT_PROPERTIES), RegistryBase.EP_TAB);
-    //注册矿物方块
+    //注册矿石方块
     public static final RegistryObject<Block> SCARLET_COAL_ORE = ore("scarlet_coal_ore");
     public static final RegistryObject<Block> SCARLET_IRON_ORE = ore("scarlet_iron_ore");
     public static final RegistryObject<Block> SCARLET_GOLD_ORE = ore("scarlet_gold_ore");
