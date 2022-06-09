@@ -2,10 +2,12 @@ package com.glyceryl.emberphoenix.common.world.biomes;
 
 import com.glyceryl.emberphoenix.common.world.EPPlacedFeatures;
 import com.glyceryl.emberphoenix.common.world.ore.EPOrePlacements;
-import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.Carvers;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
-import net.minecraft.world.level.biome.*;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.BiomeGenerationSettings;
+import net.minecraft.world.level.biome.BiomeSpecialEffects;
+import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.GenerationStep;
 
 public class EPBiomesCreator {
@@ -13,7 +15,6 @@ public class EPBiomesCreator {
     public static Biome createDefaultBiomes(float temperature) {
         MobSpawnSettings mobspawnsettings = (new MobSpawnSettings.Builder()).build();
         BiomeGenerationSettings.Builder builder = (new BiomeGenerationSettings.Builder());
-        BiomeDefaultFeatures.addDefaultCrystalFormations(builder);
         EPPlacedFeatures.addDefaultPhoenixOres(builder);
         EPPlacedFeatures.addDefaultPhoenixUndergroundVariety(builder);
         builder.addCarver(GenerationStep.Carving.AIR, Carvers.CAVE)
@@ -29,7 +30,6 @@ public class EPBiomesCreator {
     public static Biome createRosaaniaVolcano() {
         MobSpawnSettings mobspawnsettings = (new MobSpawnSettings.Builder()).build();
         BiomeGenerationSettings.Builder builder = (new BiomeGenerationSettings.Builder());
-        BiomeDefaultFeatures.addDefaultCrystalFormations(builder);
         EPPlacedFeatures.addDefaultPhoenixOres(builder);
         EPPlacedFeatures.addDefaultPhoenixUndergroundVariety(builder);
         builder.addCarver(GenerationStep.Carving.AIR, Carvers.CAVE)
@@ -43,7 +43,6 @@ public class EPBiomesCreator {
     public static Biome createAshPlain() {
         MobSpawnSettings mobspawnsettings = (new MobSpawnSettings.Builder()).build();
         BiomeGenerationSettings.Builder builder = (new BiomeGenerationSettings.Builder());
-        BiomeDefaultFeatures.addDefaultCrystalFormations(builder);
         EPPlacedFeatures.addDefaultPhoenixOres(builder);
         EPPlacedFeatures.addDefaultPhoenixUndergroundVariety(builder);
         builder.addCarver(GenerationStep.Carving.AIR, Carvers.CAVE)

@@ -32,7 +32,7 @@ public class FireFlower extends TallFlowerBlock {
 
     @Override
     public void entityInside(BlockState blockState, Level level, BlockPos blockPos, Entity entity) {
-        if (entity instanceof LivingEntity) {
+        if (entity instanceof LivingEntity && !entity.fireImmune()) {
             spawnFlameParticles(entity);
             hurtAndBurningEntity(entity);
             knockBackEntity(entity);
@@ -54,12 +54,10 @@ public class FireFlower extends TallFlowerBlock {
     }
 
     private void hurtAndBurningEntity(Entity entity) {
-        if (!entity.fireImmune()) {
-            entity.setRemainingFireTicks(entity.getRemainingFireTicks() + 1);
-            if (entity.getRemainingFireTicks() == 0) {
-                entity.setSecondsOnFire(6);
-            }
-            entity.hurt(DamageSource.IN_FIRE, 7.0F);
+        entity.hurt(DamageSource.IN_FIRE, 7.0F);
+        entity.setRemainingFireTicks(entity.getRemainingFireTicks() + 1);
+        if (entity.getRemainingFireTicks() == 0) {
+            entity.setSecondsOnFire(6);
         }
     }
 
