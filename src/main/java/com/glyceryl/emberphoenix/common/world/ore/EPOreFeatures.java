@@ -21,9 +21,8 @@ public class EPOreFeatures {
     public static final Holder<ConfiguredFeature<OreConfiguration, ?>> ORE_PHOENIX_SILVER = register("ore_phoenix_silver", EPBlocks.SCARLET_SILVER_ORE.get(), 3);
     public static final Holder<ConfiguredFeature<OreConfiguration, ?>> ORE_PHOENIX_GOLD = register("ore_phoenix_gold", EPBlocks.SCARLET_GOLD_ORE.get(), 2);
     public static final Holder<ConfiguredFeature<OreConfiguration, ?>> ORE_PHOENIX_DIAMOND = register("ore_phoenix_diamond", EPBlocks.SCARLET_DIAMOND_ORE.get(), 2);
-    public static final Holder<ConfiguredFeature<OreConfiguration, ?>> ORE_PHOENIX_HARDSLATE = register("ore_phoenix_hardslate", EPBlocks.HARD_SLATE.get(), 64);
-    public static final Holder<ConfiguredFeature<OreConfiguration, ?>> ORE_PHOENIX_SMOOTH_BASALT = register("ore_phoenix_smooth_basalt", Blocks.SMOOTH_BASALT, 64);
-    public static final Holder<ConfiguredFeature<OreConfiguration, ?>> ORE_PHOENIX_AMETHYST = register("ore_phoenix_amethyst", Blocks.AMETHYST_CLUSTER, 1);
+    public static final Holder<ConfiguredFeature<OreConfiguration, ?>> ORE_PHOENIX_HARDSLATE = register("ore_phoenix_hardslate", EPBlocks.HARD_SLATE.get(), 48);
+    public static final Holder<ConfiguredFeature<OreConfiguration, ?>> ORE_PHOENIX_SMOOTH_BASALT = register("ore_phoenix_smooth_basalt", Blocks.SMOOTH_BASALT, 48);
     public static final Holder<ConfiguredFeature<OreConfiguration, ?>> ORE_ASH_BLOCK = register(SCARLET_STONE, "ore_ash_block", EPBlocks.ASH_BLOCK.get(), 33);
 
     private static Holder<ConfiguredFeature<OreConfiguration, ?>> register(String name, Block block, int i) {

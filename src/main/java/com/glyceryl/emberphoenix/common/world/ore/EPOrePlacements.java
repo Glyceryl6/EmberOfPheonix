@@ -16,9 +16,8 @@ public class EPOrePlacements {
     public static final Holder<PlacedFeature> ORE_PHOENIX_SILVER = register("ore_phoenix_silver", EPOreFeatures.ORE_PHOENIX_SILVER, 5, -60, -32);
     public static final Holder<PlacedFeature> ORE_PHOENIX_GOLD = register("ore_phoenix_gold", EPOreFeatures.ORE_PHOENIX_GOLD, 6, -60, -32);
     public static final Holder<PlacedFeature> ORE_PHOENIX_DIAMOND = register("ore_phoenix_diamond", EPOreFeatures.ORE_PHOENIX_DIAMOND, 5, -60, -44);
-    public static final Holder<PlacedFeature> ORE_PHOENIX_HARDSLATE = register("ore_phoenix_hardslate", EPOreFeatures.ORE_PHOENIX_HARDSLATE, 4, -64, -20);
-    public static final Holder<PlacedFeature> ORE_PHOENIX_SMOOTH_BASALT = register("ore_phoenix_smooth_basalt", EPOreFeatures.ORE_PHOENIX_SMOOTH_BASALT, 3, -64, -20);
-    public static final Holder<PlacedFeature> ORE_PHOENIX_AMETHYST = register("ore_phoenix_amethyst", EPOreFeatures.ORE_PHOENIX_AMETHYST, 2, -64, -24);
+    public static final Holder<PlacedFeature> ORE_PHOENIX_HARDSLATE = register("ore_phoenix_hardslate", EPOreFeatures.ORE_PHOENIX_HARDSLATE, 4, -64, -30);
+    public static final Holder<PlacedFeature> ORE_PHOENIX_SMOOTH_BASALT = register("ore_phoenix_smooth_basalt", EPOreFeatures.ORE_PHOENIX_SMOOTH_BASALT, 3, -64, -30);
     public static final Holder<PlacedFeature> ORE_ASH_BLOCK = register("ore_ash_block", EPOreFeatures.ORE_ASH_BLOCK, 30, -64, -24);
 
     private static List<PlacementModifier> orePlacement(PlacementModifier p_195347_, PlacementModifier p_195348_) {
