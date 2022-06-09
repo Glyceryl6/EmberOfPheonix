@@ -19,7 +19,6 @@ import java.util.Random;
 @SuppressWarnings("deprecation")
 public class FireFlower extends TallFlowerBlock {
 
-    private float damage;
     private final Random random = new Random();
 
     public FireFlower(Properties properties) {
@@ -55,28 +54,26 @@ public class FireFlower extends TallFlowerBlock {
     }
 
     private void hurtAndBurningEntity(Entity entity) {
-        int i = this.random.nextInt(3) + 1;
-        this.damage = switch (i) {
-            case 1 -> 3.0F;
-            case 2 -> 6.0F;
-            default -> 9.0F;
-        };
         if (!entity.fireImmune()) {
             entity.setRemainingFireTicks(entity.getRemainingFireTicks() + 1);
             if (entity.getRemainingFireTicks() == 0) {
                 entity.setSecondsOnFire(6);
             }
-            entity.hurt(DamageSource.IN_FIRE, damage);
+            entity.hurt(DamageSource.IN_FIRE, 7.0F);
         }
     }
 
     private void knockBackEntity(Entity entity) {
-        if (damage > 0.0F) {
-            double d1 = Mth.sin(entity.getYRot() * ((float)Math.PI / 180F));
-            double d2 = -Mth.cos(entity.getYRot() * ((float)Math.PI / 180F));
-            ((LivingEntity)entity).knockback(damage * 0.2F, d1, d2);
-            entity.setDeltaMovement(entity.getDeltaMovement().multiply(-0.6D, 1.0D, 0.6D));
-        }
+        int i = this.random.nextInt(3) + 1;
+        float distanceOffset = switch (i) {
+            case 1 -> 3.0F;
+            case 2 -> 6.0F;
+            default -> 9.0F;
+        };
+        double d1 = Mth.sin(entity.getYRot() * ((float)Math.PI / 180F));
+        double d2 = -Mth.cos(entity.getYRot() * ((float)Math.PI / 180F));
+        ((LivingEntity)entity).knockback(distanceOffset * 0.2F, d1, d2);
+        entity.setDeltaMovement(entity.getDeltaMovement().multiply(-0.6D, 1.0D, 0.6D));
     }
 
 }
