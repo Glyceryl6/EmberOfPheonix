@@ -14,8 +14,6 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class RenderHorizon {
 
-    @SubscribeEvent
-    @OnlyIn(Dist.CLIENT)
     public void onRenderFog(EntityViewRenderEvent.RenderFogEvent event) {
         float f6 = getMagmaStrider((LivingEntity) event.getCamera().getEntity());
         if (event.getCamera().getFluidInCamera() == FogType.WATER) {
