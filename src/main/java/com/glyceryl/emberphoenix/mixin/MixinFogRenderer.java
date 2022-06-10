@@ -19,7 +19,7 @@ public class MixinFogRenderer {
     private static boolean setupFog(Entity entity) {
         if (entity instanceof Player player) {
             float f6 = getMagmaStrider(player);
-            if (player.isCreative() || player.fireImmune() || player.hasEffect(MobEffects.FIRE_RESISTANCE) || f6 > 0.0F) {
+            if (player.fireImmune() || player.hasEffect(MobEffects.FIRE_RESISTANCE) || f6 > 0.0F) {
                 return true;
             }
         }
