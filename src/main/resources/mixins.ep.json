@@ -2,10 +2,12 @@
   "required": true,
   "minVersion": "0.8",
   "package": "com.glyceryl.emberphoenix.mixin",
+  "refmap": "mixins.ep.refmap.json",
   "compatibilityLevel": "JAVA_16",
   "mixins": [
   ],
   "client": [
+    "MixinFogRenderer"
   ],
   "injectors": {
     "defaultRequire": 1

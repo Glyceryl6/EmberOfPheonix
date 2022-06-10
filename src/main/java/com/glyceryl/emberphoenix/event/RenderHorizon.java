@@ -1,31 +1,15 @@
 package com.glyceryl.emberphoenix.event;
 
 import com.glyceryl.emberphoenix.registry.EPEnchantments;
-import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.client.Minecraft;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.level.material.FogType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.EntityViewRenderEvent;
 import net.minecraftforge.client.event.RenderBlockOverlayEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class RenderHorizon {
-
-    @SubscribeEvent
-    @OnlyIn(Dist.CLIENT)
-    public void onRenderFog(EntityViewRenderEvent.RenderFogEvent event) {
-        Minecraft mc = Minecraft.getInstance();
-        float f1 = mc.gameRenderer.getRenderDistance() * 0.5F;
-        float f6 = getMagmaStrider((LivingEntity) event.getCamera().getEntity());
-        if (event.getCamera().getFluidInCamera() == FogType.LAVA && f6 > 0.0F) {
-            RenderSystem.setShaderFogStart(-8.0F);
-            RenderSystem.setShaderFogEnd(f1);
-        }
-    }
 
     @SubscribeEvent
     @OnlyIn(Dist.CLIENT)
