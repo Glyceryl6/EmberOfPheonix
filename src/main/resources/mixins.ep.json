@@ -4,7 +4,6 @@
   "package": "com.glyceryl.emberphoenix.mixin",
   "compatibilityLevel": "JAVA_16",
   "mixins": [
-    "MixinLivingEntity"
   ],
   "client": [
     "MixinFogRenderer"
