@@ -1,14 +1,11 @@
 {
-  "type": "minecraft:crafting_shapeless",
-  "group": "wool",
-  "ingredients": [
-    {
-      "tag": "forge:seeds"
-    },
-    {
-      "item": "minecraft:blaze_powder"
-    }
-  ],
+  "type": "minecraft:smithing",
+  "base": {
+    "tag": "forge:seeds"
+  },
+  "addition": {
+    "item": "minecraft:blaze_powder"
+  },
   "result": {
     "item": "emberphoenix:spark"
   }
