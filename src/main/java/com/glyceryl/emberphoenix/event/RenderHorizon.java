@@ -1,7 +1,8 @@
 package com.glyceryl.emberphoenix.event;
 
 import com.glyceryl.emberphoenix.registry.EPEnchantments;
-import net.minecraft.client.player.LocalPlayer;
+import com.mojang.blaze3d.systems.RenderSystem;
+import net.minecraft.client.Minecraft;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
@@ -14,18 +15,15 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class RenderHorizon {
 
+    @SubscribeEvent
+    @OnlyIn(Dist.CLIENT)
     public void onRenderFog(EntityViewRenderEvent.RenderFogEvent event) {
+        Minecraft mc = Minecraft.getInstance();
+        float f1 = mc.gameRenderer.getRenderDistance() * 0.5F;
         float f6 = getMagmaStrider((LivingEntity) event.getCamera().getEntity());
-        if (event.getCamera().getFluidInCamera() == FogType.WATER) {
-            float waterVision = 1.0f;
-            if(event.getCamera().getEntity() instanceof LocalPlayer) {
-                waterVision = Math.max(0.25f, ((LocalPlayer)event.getCamera().getEntity()).getWaterVision());
-            }
-            event.scaleFarPlaneDistance(waterVision * 150.0F);
-            event.setCanceled(true);
-        } else if (event.getCamera().getFluidInCamera() == FogType.LAVA && f6 > 0.0F) {
-            event.scaleFarPlaneDistance(30.0F * f6);
-            event.setCanceled(true);
+        if (event.getCamera().getFluidInCamera() == FogType.LAVA && f6 > 0.0F) {
+            RenderSystem.setShaderFogStart(-8.0F);
+            RenderSystem.setShaderFogEnd(f1);
         }
     }
 
