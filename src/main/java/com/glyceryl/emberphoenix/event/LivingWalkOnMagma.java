@@ -24,6 +24,9 @@ public class LivingWalkOnMagma {
             FluidState fluidstate = living.level.getFluidState(living.blockPosition());
             if (living.isInLava() && living.isAffectedByFluids() && !living.canStandOnFluid(fluidstate) && f6 > 0.0F) {
                 float ySpeed;
+                if (f6 > 3.0F) {
+                    f6 = 3.0F;
+                }
                 if (living.isCrouching()) {
                     ySpeed = -f6 / 2.0F;
                 } else if (living.jumping && flag) {
@@ -34,9 +37,6 @@ public class LivingWalkOnMagma {
                 Vec3 vec3 = new Vec3(living.xxa, ySpeed, living.zza);
                 living.clearFire();
                 float f5 = 0.02F;
-                if (f6 > 3.0F) {
-                    f6 = 3.0F;
-                }
                 f5 += (living.getSpeed() - f5) * f6 / 6.0F;
                 f5 *= (float) Objects.requireNonNull(living.getAttribute(ForgeMod.SWIM_SPEED.get())).getValue();
                 living.moveRelative(f5, vec3);
