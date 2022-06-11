@@ -22,8 +22,9 @@ public class EPBlocks {
     //注册一般的方块
     public static final RegistryObject<Block> HARD_SLATE = normal("hardslate", STRENGTH_HARD_SLATE);
     public static final RegistryObject<Block> SCARLET_STONE = normal("scarlet_stone", STRENGTH_SCARLET_STONE);
-    public static final RegistryObject<Block> SCARLET_DIRT = normal("scarlet_dirt", BlockBehaviour.Properties.copy(Blocks.DIRT));
     //注册一些有特定功能的方块
+    public static final RegistryObject<Block> SCARLET_DIRT = RegistryBase.registerBlock("scarlet_dirt",
+            () -> new ScarletDirt(BlockBehaviour.Properties.copy(Blocks.DIRT)), RegistryBase.EP_TAB);
     public static final RegistryObject<AshBlock> ASH_BLOCK = RegistryBase.registerBlock("ash_block",
             () -> new AshBlock(BlockBehaviour.Properties.of(Material.SAND, MaterialColor.SAND).strength(20.0F, 3.0F)
                     .sound(EPSounds.ASH_BLOCK).requiresCorrectToolForDrops()), RegistryBase.EP_TAB);

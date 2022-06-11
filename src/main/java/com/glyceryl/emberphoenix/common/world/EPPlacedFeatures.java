@@ -2,6 +2,7 @@ package com.glyceryl.emberphoenix.common.world;
 
 import com.glyceryl.emberphoenix.common.world.ore.EPOrePlacements;
 import net.minecraft.core.Holder;
+import net.minecraft.data.worldgen.features.VegetationFeatures;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.world.level.biome.BiomeGenerationSettings;
@@ -19,6 +20,9 @@ public class EPPlacedFeatures {
     public static final Holder<PlacedFeature> PATCH_BARREN_TALL_GRASS = PlacementUtils.register("patch_barren_tall_grass",
             EPVegetationFeatures.PATCH_BARREN_TALL_GRASS, RarityFilter.onAverageOnceEvery(5),
             InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
+
+    public static final Holder<PlacedFeature> SINGLE_PIECE_OF_BARREN_GRASS = PlacementUtils.register("barren_grass_bonemeal",
+            EPVegetationFeatures.SINGLE_PIECE_OF_BARREN_GRASS, PlacementUtils.isEmpty());
 
     public static final Holder<PlacedFeature> BIGGER_LAKE_LAVA_SURFACE = PlacementUtils.register("bigger_lake_lava_surface",
             EPConfiguredFeatures.BIGGER_LAKE_LAVA, RarityFilter.onAverageOnceEvery(50),
