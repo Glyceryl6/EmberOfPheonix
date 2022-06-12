@@ -1,5 +1,6 @@
 package com.glyceryl.emberphoenix.event;
 
+import com.glyceryl.emberphoenix.common.enchantments.EPEnchantHelper;
 import com.glyceryl.emberphoenix.registry.EPEnchantments;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.entity.LivingEntity;
@@ -14,7 +15,7 @@ public class RenderHorizon {
     @SubscribeEvent
     @OnlyIn(Dist.CLIENT)
     public void renderOverlay(RenderBlockOverlayEvent event) {
-        float f6 = getMagmaStrider(event.getPlayer());
+        float f6 = EPEnchantHelper.getMagmaStrider(event.getPlayer());
         if (event.getOverlayType() != RenderBlockOverlayEvent.OverlayType.FIRE) {
             return;
         }
@@ -25,10 +26,6 @@ public class RenderHorizon {
                 event.getPoseStack().translate(0, -0.25, 0);
             }
         }
-    }
-
-    public static int getMagmaStrider(LivingEntity entity) {
-        return EnchantmentHelper.getEnchantmentLevel(EPEnchantments.MAGMA_STRIDER.get(), entity);
     }
 
 }

@@ -1,11 +1,10 @@
 package com.glyceryl.emberphoenix.event;
 
-import com.glyceryl.emberphoenix.registry.EPEnchantments;
+import com.glyceryl.emberphoenix.common.enchantments.EPEnchantHelper;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeMod;
@@ -20,7 +19,7 @@ public class LivingWalkOnMagma {
     public void onLivingTravel(LivingEvent event) {
         LivingEntity living = event.getEntityLiving();
         if (living instanceof Player) {
-            float f6 = (float)getMagmaStrider(living);
+            float f6 = (float) EPEnchantHelper.getMagmaStrider(living);
             AttributeInstance gravity = living.getAttribute(net.minecraftforge.common.ForgeMod.ENTITY_GRAVITY.get());
             boolean flag = living.getFluidHeight(FluidTags.LAVA) > living.getFluidJumpThreshold();
             FluidState fluidstate = living.level.getFluidState(living.blockPosition());
@@ -61,10 +60,6 @@ public class LivingWalkOnMagma {
                 }
             }
         }
-    }
-
-    public static int getMagmaStrider(LivingEntity entity) {
-        return EnchantmentHelper.getEnchantmentLevel(EPEnchantments.MAGMA_STRIDER.get(), entity);
     }
 
 }

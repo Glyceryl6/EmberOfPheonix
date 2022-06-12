@@ -1,5 +1,6 @@
 package com.glyceryl.emberphoenix.mixin;
 
+import com.glyceryl.emberphoenix.common.enchantments.EPEnchantHelper;
 import com.glyceryl.emberphoenix.registry.EPEnchantments;
 import net.minecraft.client.renderer.FogRenderer;
 import net.minecraft.world.effect.MobEffects;
@@ -18,16 +19,12 @@ public class MixinFogRenderer {
             value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;isSpectator()Z", ordinal = 0, remap = true), remap = false)
     private static boolean setupFog(Entity entity) {
         if (entity instanceof Player player) {
-            float f6 = getMagmaStrider(player);
+            float f6 = EPEnchantHelper.getMagmaStrider(player);
             if (player.fireImmune() || player.hasEffect(MobEffects.FIRE_RESISTANCE) || f6 > 0.0F) {
                 return true;
             }
         }
         return entity.isSpectator();
-    }
-
-    private static int getMagmaStrider(LivingEntity entity) {
-        return EnchantmentHelper.getEnchantmentLevel(EPEnchantments.MAGMA_STRIDER.get(), entity);
     }
 
 }
