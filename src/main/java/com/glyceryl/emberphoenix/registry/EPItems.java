@@ -16,24 +16,24 @@ public class EPItems {
     //注册矿物对应的金属
     public static final RegistryObject<Item> SILVER_INGOT = normal("silver_ingot");
     public static final RegistryObject<Item> RAW_SILVER = normal("raw_silver");
-    public static final RegistryObject<Item> EMBERIUM_INGOT = normal("emberium_ingot");
-    public static final RegistryObject<Item> BLAZE_RUBY = RegistryBase.ITEMS.register("spark", () -> new Item(defaultBuilder().fireResistant()));
+    public static final RegistryObject<Item> BLAZE_RUBY = RegistryBase.ITEMS.register("blaze_ruby", () -> new Item(defaultBuilder().fireResistant()));
+    public static final RegistryObject<Item> EMBERIUM_INGOT = RegistryBase.ITEMS.register("emberium_ingot", () -> new Item(defaultBuilder().fireResistant()));
     //注册新的工具
     public static final RegistryObject<Item> BLAZE_SWORD = RegistryBase.ITEMS.register("blaze_sword", () -> new SwordItem(EPItemTier.BLAZE, 3,-2.4F, defaultBuilder().fireResistant()));
     public static final RegistryObject<Item> BLAZE_SHOVEL = RegistryBase.ITEMS.register("blaze_shovel", () -> new EPShovel(EPItemTier.BLAZE, 1.5F,-3.0F, defaultBuilder().fireResistant()));
     public static final RegistryObject<Item> BLAZE_PICKAXE = RegistryBase.ITEMS.register("blaze_pickaxe", () -> new PickaxeItem(EPItemTier.BLAZE, 1,-2.8F, defaultBuilder().fireResistant()));
     public static final RegistryObject<Item> BLAZE_AXE = RegistryBase.ITEMS.register("blaze_axe", () -> new AxeItem(EPItemTier.BLAZE, 6.0F,-3.0F, defaultBuilder().fireResistant()));
     public static final RegistryObject<Item> BLAZE_HOE = RegistryBase.ITEMS.register("blaze_hoe", () -> new HoeItem(EPItemTier.BLAZE, 0,-3.0F, defaultBuilder().fireResistant()));
-    public static final RegistryObject<Item> EMBER_SWORD = RegistryBase.ITEMS.register("ember_sword", () -> new SwordItem(EPItemTier.EMBER, 3,-2.4F, defaultBuilder()));
-    public static final RegistryObject<Item> EMBER_SHOVEL = RegistryBase.ITEMS.register("ember_shovel", () -> new EPShovel(EPItemTier.EMBER, 1.5F,-3.0F, defaultBuilder()));
-    public static final RegistryObject<Item> EMBER_PICKAXE = RegistryBase.ITEMS.register("ember_pickaxe", () -> new PickaxeItem(EPItemTier.EMBER, 1,-2.8F, defaultBuilder()));
-    public static final RegistryObject<Item> EMBER_AXE = RegistryBase.ITEMS.register("ember_axe", () -> new AxeItem(EPItemTier.EMBER, 5.0F,-3.0F, defaultBuilder()));
-    public static final RegistryObject<Item> EMBER_HOE = RegistryBase.ITEMS.register("ember_hoe", () -> new HoeItem(EPItemTier.EMBER, -4,0.0F, defaultBuilder()));
+    public static final RegistryObject<Item> EMBER_SWORD = RegistryBase.ITEMS.register("ember_sword", () -> new SwordItem(EPItemTier.EMBER, 3,-2.4F, defaultBuilder().fireResistant()));
+    public static final RegistryObject<Item> EMBER_SHOVEL = RegistryBase.ITEMS.register("ember_shovel", () -> new EPShovel(EPItemTier.EMBER, 1.5F,-3.0F, defaultBuilder().fireResistant()));
+    public static final RegistryObject<Item> EMBER_PICKAXE = RegistryBase.ITEMS.register("ember_pickaxe", () -> new PickaxeItem(EPItemTier.EMBER, 1,-2.8F, defaultBuilder().fireResistant()));
+    public static final RegistryObject<Item> EMBER_AXE = RegistryBase.ITEMS.register("ember_axe", () -> new AxeItem(EPItemTier.EMBER, 5.0F,-3.0F, defaultBuilder().fireResistant()));
+    public static final RegistryObject<Item> EMBER_HOE = RegistryBase.ITEMS.register("ember_hoe", () -> new HoeItem(EPItemTier.EMBER, -4,0.0F, defaultBuilder().fireResistant()));
     //注册新的盔甲
-    public static final RegistryObject<Item> EMBER_HELMET = RegistryBase.ITEMS.register("ember_helmet", () -> new ArmorItem(EPArmorMaterials.EMBERIUM, EquipmentSlot.HEAD, defaultBuilder()));
-    public static final RegistryObject<Item> EMBER_CHESTPLATE = RegistryBase.ITEMS.register("ember_chestplate", () -> new ArmorItem(EPArmorMaterials.EMBERIUM, EquipmentSlot.CHEST, defaultBuilder()));
-    public static final RegistryObject<Item> EMBER_LEGGINGS = RegistryBase.ITEMS.register("ember_leggings", () -> new ArmorItem(EPArmorMaterials.EMBERIUM, EquipmentSlot.LEGS, defaultBuilder()));
-    public static final RegistryObject<Item> EMBER_BOOTS = RegistryBase.ITEMS.register("ember_boots", () -> new ArmorItem(EPArmorMaterials.EMBERIUM, EquipmentSlot.FEET, defaultBuilder()));
+    public static final RegistryObject<Item> EMBER_HELMET = RegistryBase.ITEMS.register("ember_helmet", () -> new ArmorItem(EPArmorMaterials.EMBERIUM, EquipmentSlot.HEAD, defaultBuilder().fireResistant()));
+    public static final RegistryObject<Item> EMBER_CHESTPLATE = RegistryBase.ITEMS.register("ember_chestplate", () -> new ArmorItem(EPArmorMaterials.EMBERIUM, EquipmentSlot.CHEST, defaultBuilder().fireResistant()));
+    public static final RegistryObject<Item> EMBER_LEGGINGS = RegistryBase.ITEMS.register("ember_leggings", () -> new ArmorItem(EPArmorMaterials.EMBERIUM, EquipmentSlot.LEGS, defaultBuilder().fireResistant()));
+    public static final RegistryObject<Item> EMBER_BOOTS = RegistryBase.ITEMS.register("ember_boots", () -> new ArmorItem(EPArmorMaterials.EMBERIUM, EquipmentSlot.FEET, defaultBuilder().fireResistant()));
     //注册带有特殊功能的物品
     public static final RegistryObject<Item> SPARK = RegistryBase.ITEMS.register("spark", () -> new Spark(defaultBuilder()));
 
