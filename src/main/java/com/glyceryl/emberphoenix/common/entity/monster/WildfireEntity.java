@@ -27,6 +27,8 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -119,22 +121,25 @@ public class WildfireEntity extends Monster {
         if (getShielding()) {
             this.level.addParticle(ParticleTypes.LAVA, getRandomX(0.5D), this.getRandomY(), this.getRandomZ(0.5D), 0.0D, 0.0D, 0.0D);
         }
-        if (getIsAttacking()) {
+        if (this.entityData.get(ATTACKING)) {
             for (int particlei = 0; particlei < 16; particlei++) {
                 this.level.addParticle(ParticleTypes.LAVA, getRandomX(0.75D), this.getRandomY(), this.getRandomZ(0.75D), 0.0D, 0.0D, 0.0D);
             }
+        }
+        if (this.isInLava()) {
+            this.heal(10.0F);
         }
         super.aiStep();
     }
 
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
-        compound.putInt("Variant", getVariant());
+        compound.putInt("Variant", this.entityData.get(VARIANT));
     }
 
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
-        setVariant(compound.getInt("Variant"));
+        this.entityData.set(VARIANT, compound.getInt("Variant"));
         if (this.hasCustomName()) {
             this.bossEvent.setName(this.getDisplayName());
         }
@@ -146,7 +151,7 @@ public class WildfireEntity extends Monster {
     }
 
     protected Component getTypeName() {
-        return (getVariant() == 0) ? super.getTypeName() : new TranslatableComponent("entity.outvoted.wildfire_s");
+        return (this.entityData.get(VARIANT) == 0) ? super.getTypeName() : new TranslatableComponent("entity.outvoted.wildfire_s");
     }
 
     public int getMaxSpawnClusterSize() {
@@ -206,20 +211,8 @@ public class WildfireEntity extends Monster {
         return (this.entityData.get(SHIELDING) && !this.shieldDisabled);
     }
 
-    public void setVariant(int type) {
-        this.entityData.set(VARIANT, type);
-    }
-
-    public int getVariant() {
-        return this.entityData.get(VARIANT);
-    }
-
     public void setAggressive(boolean attacking) {
         this.entityData.set(ATTACKING, attacking);
-    }
-
-    public boolean getIsAttacking() {
-        return this.entityData.get(ATTACKING);
     }
 
     public boolean isSensitiveToWater() {
@@ -281,6 +274,31 @@ public class WildfireEntity extends Monster {
         return false;
     }
 
+    @SuppressWarnings("unused")
+    static class GoToLavaGoal extends MoveToBlockGoal {
+
+        private final WildfireEntity wildfire;
+
+        GoToLavaGoal(WildfireEntity entity, double d) {
+            super(entity, d, 24);
+            this.wildfire = entity;
+            this.verticalSearchStart = -1;
+        }
+
+        public boolean canContinueToUse() {
+            return !wildfire.isInLava() && wildfire.getHealth() <= wildfire.getMaxHealth() / 5.0F && this.isValidTarget(wildfire.level, this.blockPos);
+        }
+
+        public boolean canUse() {
+            return !wildfire.isInLava() && wildfire.getHealth() <= wildfire.getMaxHealth() / 5.0F && super.canUse();
+        }
+
+        protected boolean isValidTarget(LevelReader reader, BlockPos blockPos) {
+            return reader.getBlockState(blockPos).is(Blocks.LAVA) || reader.getBlockState(blockPos).is(Blocks.FIRE);
+        }
+    }
+
+    @SuppressWarnings("all")
     class SpawnMinionsGoal extends Goal {
 
         @Override
