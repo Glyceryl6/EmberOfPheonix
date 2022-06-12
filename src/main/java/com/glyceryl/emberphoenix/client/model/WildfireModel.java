@@ -10,7 +10,6 @@ import net.minecraft.world.entity.Entity;
 
 public class WildfireModel<T extends Entity> extends EntityModel<T> {
 
-
     private final ModelPart head;
     private final ModelPart shield4;
     private final ModelPart shield3;
@@ -30,32 +29,32 @@ public class WildfireModel<T extends Entity> extends EntityModel<T> {
     public static LayerDefinition createBodyLayer() {
         MeshDefinition meshdefinition = new MeshDefinition();
         PartDefinition partdefinition = meshdefinition.getRoot();
-        PartDefinition head = partdefinition.addOrReplaceChild("head", CubeListBuilder.create().texOffs(36, 0)
+        partdefinition.addOrReplaceChild("head", CubeListBuilder.create().texOffs(36, 0)
                 .addBox(-4.0F, -26.0F, -4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.0F))
                 .texOffs(0, 0).addBox(-4.5F, -27.0F, -4.5F, 9.0F, 9.0F, 9.0F,
                         new CubeDeformation(0.0F)), PartPose.offset(0.0F, 24.0F, 0.0F));
+
         PartDefinition shield4 = partdefinition.addOrReplaceChild("shield4", CubeListBuilder.create(), PartPose.offset(0.0F, 24.0F, 0.0F));
-        PartDefinition cube_r1 = shield4.addOrReplaceChild("cube_r1", CubeListBuilder.create().texOffs(0, 18)
+        shield4.addOrReplaceChild("cube_r1", CubeListBuilder.create().texOffs(0, 18)
                         .addBox(12.0F, -14.0F, -5.0F, 2.0F, 17.0F, 10.0F, new CubeDeformation(0.0F)),
                 PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, -0.2618F));
-        PartDefinition shield3 = partdefinition.addOrReplaceChild("shield3", CubeListBuilder.create(), PartPose.offset(0.0F, 24.0F, 0.0F));
 
-        PartDefinition cube_r2 = shield3.addOrReplaceChild("cube_r2", CubeListBuilder.create().texOffs(0, 45)
+        PartDefinition shield3 = partdefinition.addOrReplaceChild("shield3", CubeListBuilder.create(), PartPose.offset(0.0F, 24.0F, 0.0F));
+        shield3.addOrReplaceChild("cube_r2", CubeListBuilder.create().texOffs(0, 45)
                         .addBox(-5.0F, -14.0F, 12.0F, 10.0F, 17.0F, 2.0F, new CubeDeformation(0.0F)),
                 PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.2618F, 0.0F, 0.0F));
 
         PartDefinition shield2 = partdefinition.addOrReplaceChild("shield2", CubeListBuilder.create(), PartPose.offset(0.0F, 24.0F, 0.0F));
-
-        PartDefinition cube_r3 = shield2.addOrReplaceChild("cube_r3", CubeListBuilder.create().texOffs(24, 18)
+        shield2.addOrReplaceChild("cube_r3", CubeListBuilder.create().texOffs(24, 18)
                         .addBox(-14.0F, -14.0F, -5.0F, 2.0F, 17.0F, 10.0F, new CubeDeformation(0.0F)),
                 PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.2618F));
 
         PartDefinition shield1 = partdefinition.addOrReplaceChild("shield1", CubeListBuilder.create(), PartPose.offset(0.0F, 24.0F, 0.0F));
-
-        PartDefinition cube_r4 = shield1.addOrReplaceChild("cube_r4", CubeListBuilder.create().texOffs(24, 45)
+        shield1.addOrReplaceChild("cube_r4", CubeListBuilder.create().texOffs(24, 45)
                         .addBox(-5.0F, -14.0F, -14.0F, 10.0F, 17.0F, 2.0F, new CubeDeformation(0.0F)),
                 PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, -0.2618F, 0.0F, 0.0F));
-        PartDefinition body = partdefinition.addOrReplaceChild("body", CubeListBuilder.create().texOffs(48, 16)
+
+        partdefinition.addOrReplaceChild("body", CubeListBuilder.create().texOffs(48, 16)
                         .addBox(-2.0F, -17.0F, -2.0F, 4.0F, 18.0F, 4.0F, new CubeDeformation(0.0F)),
                 PartPose.offset(0.0F, 24.0F, 0.0F));
         return LayerDefinition.create(meshdefinition, 128, 128);
@@ -63,7 +62,11 @@ public class WildfireModel<T extends Entity> extends EntityModel<T> {
 
     @Override
     public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-
+        this.head.yRot = netHeadYaw * 0.017453292F;
+        this.shield4.yRot = ageInTicks * 0.25F;
+        this.shield3.yRot = ageInTicks * 0.25F;
+        this.shield2.yRot = ageInTicks * 0.25F;
+        this.shield1.yRot = ageInTicks * 0.25F - 540.5F;
     }
 
     @Override

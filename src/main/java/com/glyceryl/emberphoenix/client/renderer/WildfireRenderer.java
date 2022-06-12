@@ -4,6 +4,7 @@ import com.glyceryl.emberphoenix.EmberOfPhoenix;
 import com.glyceryl.emberphoenix.client.EPModelLayers;
 import com.glyceryl.emberphoenix.client.model.WildfireModel;
 import com.glyceryl.emberphoenix.common.entity.monster.WildfireEntity;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.core.BlockPos;
@@ -21,8 +22,14 @@ public class WildfireRenderer extends MobRenderer<WildfireEntity, WildfireModel<
         return 15;
     }
 
-    public ResourceLocation getTextureLocation(WildfireEntity p_113908_) {
+    public ResourceLocation getTextureLocation(WildfireEntity entity) {
         return BLAZE_LOCATION;
+    }
+
+    @Override
+    protected void scale(WildfireEntity entity, PoseStack stack, float partialTickTime) {
+        float scale = 2.0F;
+        stack.scale(scale, scale, scale);
     }
 
 }

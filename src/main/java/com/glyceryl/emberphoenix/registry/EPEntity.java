@@ -19,7 +19,7 @@ import net.minecraftforge.registries.RegistryObject;
 @Mod.EventBusSubscriber(modid = EmberOfPhoenix.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class EPEntity {
 
-    public static final RegistryObject<EntityType<WildfireEntity>> WILDFIRE = make(EPEntityNames.WILDFIRE, WildfireEntity::new, MobCategory.MONSTER, 0.8F, 2.0F, true, 0xf6b201, 0xfff87e);
+    public static final RegistryObject<EntityType<WildfireEntity>> WILDFIRE = make(EPEntityNames.WILDFIRE, WildfireEntity::new, MobCategory.MONSTER, 1.6F, 4.0F, true, 0xf6b201, 0xfff87e);
 
     private static <E extends Entity> RegistryObject<EntityType<E>> make(ResourceLocation id, EntityType.EntityFactory<E> factory, MobCategory classification, float width, float height, int primary, int secondary) {
         return make(id, factory, classification, width, height, false, primary, secondary);
