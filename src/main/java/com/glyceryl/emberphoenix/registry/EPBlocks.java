@@ -51,8 +51,8 @@ public class EPBlocks {
     //注册矿物对应金属的块
     public static final RegistryObject<Block> SILVER_BLOCK = normal("silver_block", BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK));
     public static final RegistryObject<Block> RAW_SILVER_BLOCK = normal("raw_silver_block", BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK));
-    public static final RegistryObject<Block> EMBERIUM_BLOCK = normal("emberium_block", BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).sound(EPSounds.EMBERIUM_BLOCK));
     public static final RegistryObject<Block> DENSE_GLOWSTONE = normal("dense_glowstone", BlockBehaviour.Properties.copy(Blocks.STONE).strength(8.0F, 8.0F));
+    public static final RegistryObject<Block> EMBERIUM_BLOCK = fireProof("emberium_block", BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).sound(EPSounds.EMBERIUM_BLOCK));
     //注册经切石机加工后的方块
     public static final RegistryObject<Block> CRACKED_HARD_SLATE_BRICKS = normal("cracked_hardslate_bricks", STRENGTH_HARD_SLATE);
     public static final RegistryObject<Block> CRACKED_HARD_SLATE_TILES = normal("cracked_hardslate_tiles", STRENGTH_HARD_SLATE);
@@ -82,6 +82,10 @@ public class EPBlocks {
 
     private static RegistryObject<Block> normal(String name, BlockBehaviour.Properties properties) {
         return RegistryBase.registerBlock(name, () -> new Block(properties), RegistryBase.EP_TAB);
+    }
+
+    private static RegistryObject<Block> fireProof(String name, BlockBehaviour.Properties properties) {
+        return RegistryBase.registerFireProofBlock(name, () -> new Block(properties), RegistryBase.EP_TAB);
     }
 
     private static RegistryObject<Block> ore(String name) {
