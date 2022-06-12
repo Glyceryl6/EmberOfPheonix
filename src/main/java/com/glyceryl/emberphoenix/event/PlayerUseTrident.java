@@ -1,6 +1,6 @@
 package com.glyceryl.emberphoenix.event;
 
-import com.glyceryl.emberphoenix.registry.EPEnchantments;
+import com.glyceryl.emberphoenix.common.enchantments.EPEnchantHelper;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -31,7 +31,7 @@ public class PlayerUseTrident {
         InteractionHand hand = player.getUsedItemHand();
         ItemStack itemstack = player.getItemInHand(hand);
         if (itemstack.is(Items.TRIDENT)) {
-            if (this.getHeatWave(itemstack) > 0 && !this.isInLavaOrNoRain(player)) {
+            if (EPEnchantHelper.getHeatWave(itemstack) > 0 && !isInLavaOrNoRain(player)) {
                 event.setResult(Event.Result.DENY);
             } else {
                 player.startUsingItem(hand);
@@ -40,7 +40,7 @@ public class PlayerUseTrident {
         }
     }
 
-    @SubscribeEvent(priority = EventPriority.HIGH)
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
     public void playerReleasingUsingItem(LivingEntityUseItemEvent.Stop event) {
         LivingEntity livingEntity = event.getEntityLiving();
         if (livingEntity instanceof Player player) {
@@ -50,7 +50,7 @@ public class PlayerUseTrident {
             int i = itemStack.getUseDuration() - n;
             if (itemStack.is(Items.TRIDENT)) {
                 if (i >= 10) {
-                    int k = this.getHeatWave(itemStack);
+                    int k = EPEnchantHelper.getHeatWave(itemStack);
                     if (k <= 0 || this.isInLavaOrNoRain(player)) {
                         this.judgeEnvironment(itemStack, player.level, livingEntity, player, k);
                     }
@@ -65,7 +65,7 @@ public class PlayerUseTrident {
 
     public void judgeEnvironment(ItemStack itemStack, Level level, LivingEntity livingEntity, Player player, int n) {
         int j = EnchantmentHelper.getRiptide(itemStack);
-        int k = this.getHeatWave(itemStack);
+        int k = EPEnchantHelper.getHeatWave(itemStack);
         if (!level.isClientSide) {
             itemStack.hurtAndBreak(1, player, (event) -> event.broadcastBreakEvent(livingEntity.getUsedItemHand()));
             if (j == 0 && k == 0) {
@@ -112,10 +112,6 @@ public class PlayerUseTrident {
 
             level.playSound(null, player, soundevent, SoundSource.PLAYERS, 1.0F, 1.0F);
         }
-    }
-
-    private int getHeatWave(ItemStack stack) {
-        return EnchantmentHelper.getItemEnchantmentLevel(EPEnchantments.HEAT_WAVE.get(), stack);
     }
 
 }
