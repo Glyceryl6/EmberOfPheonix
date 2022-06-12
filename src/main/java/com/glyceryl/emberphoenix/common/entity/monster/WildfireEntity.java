@@ -1,6 +1,7 @@
 package com.glyceryl.emberphoenix.common.entity.monster;
 
 import com.glyceryl.emberphoenix.common.entity.ai.WildFireAttackGoal;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -18,20 +19,20 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.world.entity.ai.goal.MoveTowardsRestrictionGoal;
-import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
-import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.monster.Blaze;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
+import java.util.List;
 
 public class WildfireEntity extends Monster {
 
@@ -61,12 +62,13 @@ public class WildfireEntity extends Monster {
                 .add(Attributes.ATTACK_DAMAGE, 6.0D)
                 .add(Attributes.ATTACK_KNOCKBACK, 4.0D)
                 .add(Attributes.ARMOR, 10.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.23D)
+                .add(Attributes.MOVEMENT_SPEED, 0.3D)
                 .add(Attributes.FOLLOW_RANGE, 48.0D);
     }
 
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new WildFireAttackGoal(this));
+        this.goalSelector.addGoal(1, new WildfireEntity.SpawnMinionsGoal());
         this.goalSelector.addGoal(2, new MoveTowardsRestrictionGoal(this, 1.0D));
         this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0D, 0.0F));
         this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 8.0F));
@@ -186,6 +188,12 @@ public class WildfireEntity extends Monster {
         this.entityData.define(VARIANT, 0);
     }
 
+    public List<Blaze> getBlazeAround() {
+        BlockPos blockpos = this.getOnPos();
+        AABB aabb = (new AABB(blockpos)).inflate(32.0D);
+        return level.getEntitiesOfClass(Blaze.class, aabb);
+    }
+
     public void setShielding(boolean shielding) {
         if (!this.shieldDisabled) {
             this.entityData.set(SHIELDING, shielding);
@@ -223,10 +231,6 @@ public class WildfireEntity extends Monster {
     }
 
     public boolean isOnFire() {
-        return this.isCharged();
-    }
-
-    private boolean isCharged() {
         return (this.entityData.get(ON_FIRE) & 1) != 0;
     }
 
@@ -276,4 +280,44 @@ public class WildfireEntity extends Monster {
             return isInvulnerable();
         return false;
     }
+
+    class SpawnMinionsGoal extends Goal {
+
+        @Override
+        public boolean canUse() {
+            return getTarget() != null && distanceToSqr(getTarget()) <= 1024.0D && random.nextFloat() * 100.0F < 0.6F;
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            LivingEntity livingentity = getTarget();
+            return livingentity != null && livingentity.isAlive() && canAttack(livingentity);
+        }
+
+        @Override
+        public void tick() {
+            int blazeCount = getBlazeAround().size();
+            if (isOnFire() && blazeCount < 10) {
+                double xx = getTarget().getX() - getX();
+                double yy = getTarget().getY() - getY();
+                double zz = getTarget().getZ() - getZ();
+                for (int i = (int)Math.ceil((double)(getHealth() / getMaxHealth()) * 5.0D); i > 0; --i) {
+                    Blaze blaze = EntityType.BLAZE.create(level);
+                    double x = getX() + (double)(random.nextFloat() - random.nextFloat());
+                    double y = getY() + (double)(random.nextFloat() * 0.5F);
+                    double z = getZ() + (double)(random.nextFloat() - random.nextFloat());
+                    double xxx = xx * 0.15D + (double)(random.nextFloat() * 0.05F);
+                    double yyy = yy * 0.15D + (double)(random.nextFloat() * 0.05F);
+                    double zzz = zz * 0.15D + (double)(random.nextFloat() * 0.05F);
+                    blaze.setDeltaMovement(xxx, yyy, zzz);
+                    blaze.moveTo(x, y, z, getYRot(), 0.0F);
+                    blaze.setTarget(getTarget());
+                    blaze.setHealth(30.0F);
+                    level.addFreshEntity(blaze);
+                }
+            }
+        }
+
+    }
+
 }

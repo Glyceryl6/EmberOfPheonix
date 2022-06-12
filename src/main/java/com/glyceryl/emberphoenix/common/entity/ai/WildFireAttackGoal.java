@@ -39,6 +39,7 @@ public class WildFireAttackGoal extends Goal {
         this.firedRecentlyTimer = 0;
     }
 
+    @SuppressWarnings("all")
     public void tick() {
         --this.attackTime;
         LivingEntity livingEntity = this.wildfire.getTarget();
