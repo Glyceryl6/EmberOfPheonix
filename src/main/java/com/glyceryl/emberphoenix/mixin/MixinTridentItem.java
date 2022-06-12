@@ -6,8 +6,6 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.Mth;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.player.Player;
@@ -43,21 +41,6 @@ public class MixinTridentItem extends Item implements Vanishable {
                     this.judgeEnvironment(itemStack, level, livingEntity, player, k);
                 }
             }
-        }
-    }
-
-    @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
-        ItemStack itemstack = player.getItemInHand(hand);
-        if (itemstack.getDamageValue() >= itemstack.getMaxDamage() - 1) {
-            return InteractionResultHolder.fail(itemstack);
-        } else if (EnchantmentHelper.getRiptide(itemstack) > 0 && !player.isInWaterOrRain()) {
-            return InteractionResultHolder.fail(itemstack);
-        } else if (this.getHeatWave(itemstack) > 0 && !this.isInLavaOrNoRain(player)) {
-            return InteractionResultHolder.fail(itemstack);
-        } else {
-            player.startUsingItem(hand);
-            return InteractionResultHolder.consume(itemstack);
         }
     }
 
