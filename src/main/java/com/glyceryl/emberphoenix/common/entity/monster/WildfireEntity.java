@@ -274,30 +274,6 @@ public class WildfireEntity extends Monster {
         return false;
     }
 
-    @SuppressWarnings("unused")
-    static class GoToLavaGoal extends MoveToBlockGoal {
-
-        private final WildfireEntity wildfire;
-
-        GoToLavaGoal(WildfireEntity entity, double d) {
-            super(entity, d, 24);
-            this.wildfire = entity;
-            this.verticalSearchStart = -1;
-        }
-
-        public boolean canContinueToUse() {
-            return !wildfire.isInLava() && wildfire.getHealth() <= wildfire.getMaxHealth() / 5.0F && this.isValidTarget(wildfire.level, this.blockPos);
-        }
-
-        public boolean canUse() {
-            return !wildfire.isInLava() && wildfire.getHealth() <= wildfire.getMaxHealth() / 5.0F && super.canUse();
-        }
-
-        protected boolean isValidTarget(LevelReader reader, BlockPos blockPos) {
-            return reader.getBlockState(blockPos).is(Blocks.LAVA) || reader.getBlockState(blockPos).is(Blocks.FIRE);
-        }
-    }
-
     @SuppressWarnings("all")
     class SpawnMinionsGoal extends Goal {
 
