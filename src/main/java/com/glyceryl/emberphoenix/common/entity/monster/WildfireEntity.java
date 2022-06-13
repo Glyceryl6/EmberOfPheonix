@@ -5,7 +5,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -27,8 +26,6 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -148,10 +145,6 @@ public class WildfireEntity extends Monster {
     public void setCustomName(@Nullable Component component) {
         super.setCustomName(component);
         this.bossEvent.setName(this.getDisplayName());
-    }
-
-    protected Component getTypeName() {
-        return (this.entityData.get(VARIANT) == 0) ? super.getTypeName() : new TranslatableComponent("entity.outvoted.wildfire_s");
     }
 
     public int getMaxSpawnClusterSize() {
