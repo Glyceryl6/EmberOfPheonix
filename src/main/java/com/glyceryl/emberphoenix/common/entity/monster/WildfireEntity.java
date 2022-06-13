@@ -123,9 +123,7 @@ public class WildfireEntity extends Monster {
                 this.level.addParticle(ParticleTypes.LAVA, getRandomX(0.75D), this.getRandomY(), this.getRandomZ(0.75D), 0.0D, 0.0D, 0.0D);
             }
         }
-        if (this.isInLava()) {
-            this.heal(10.0F);
-        }
+        this.heal(getBlazeAround(48.0D).size());
         super.aiStep();
     }
 
@@ -186,9 +184,9 @@ public class WildfireEntity extends Monster {
         this.entityData.define(VARIANT, 0);
     }
 
-    public List<Blaze> getBlazeAround() {
+    private List<Blaze> getBlazeAround(double radius) {
         BlockPos blockpos = this.getOnPos();
-        AABB aabb = (new AABB(blockpos)).inflate(32.0D);
+        AABB aabb = (new AABB(blockpos)).inflate(radius);
         return level.getEntitiesOfClass(Blaze.class, aabb);
     }
 
@@ -283,7 +281,7 @@ public class WildfireEntity extends Monster {
 
         @Override
         public void tick() {
-            int blazeCount = getBlazeAround().size();
+            int blazeCount = getBlazeAround(32.0D).size();
             if (isOnFire() && blazeCount < 10) {
                 double xx = getTarget().getX() - getX();
                 double yy = getTarget().getY() - getY();
