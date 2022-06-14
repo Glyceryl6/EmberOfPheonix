@@ -32,12 +32,23 @@ import java.util.Map;
 @SuppressWarnings("all")
 public class SmallCrack extends AbstractHurtingProjectile {
 
+    public int time;
+
     public SmallCrack(EntityType<? extends SmallCrack> type, Level level) {
         super(type, level);
     }
 
     public SmallCrack(Level level, LivingEntity entity, double x, double y, double z) {
         super(EPEntity.SMALL_CRACK.get(), entity, x, y, z, level);
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        ++this.time;
+        if (this.time >= 200) {
+            this.discard();
+        }
     }
 
     @Override

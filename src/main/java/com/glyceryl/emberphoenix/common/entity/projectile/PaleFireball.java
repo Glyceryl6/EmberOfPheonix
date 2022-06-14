@@ -18,6 +18,8 @@ import net.minecraftforge.network.NetworkHooks;
 
 public class PaleFireball extends AbstractHurtingProjectile {
 
+    public int time;
+
     public PaleFireball(EntityType<? extends PaleFireball> type, Level level) {
         super(type, level);
     }
@@ -44,19 +46,20 @@ public class PaleFireball extends AbstractHurtingProjectile {
             double d0 = this.random.nextGaussian() * 0.02D;
             double d1 = this.random.nextGaussian() * 0.02D;
             double d2 = this.random.nextGaussian() * 0.02D;
-            double x = this.getRandomX(2.0D);
+            double x = this.getRandomX(4.0D);
             double y = this.getRandomY();
-            double z = this.getRandomZ(2.0D);
+            double z = this.getRandomZ(4.0D);
             this.level.addParticle(ParticleTypes.POOF, x, y, z, d0, d1, d2);
         }
     }
 
     @Override
     public void tick() {
-        if (this.tickCount == 100) {
+        super.tick();
+        ++this.time;
+        if (this.time >= 600) {
             this.discard();
         }
-        super.tick();
     }
 
     @Override
