@@ -4,10 +4,10 @@ import com.glyceryl.emberphoenix.EmberOfPhoenix;
 import com.glyceryl.emberphoenix.RegistryBase;
 import com.glyceryl.emberphoenix.common.entity.EPEntityNames;
 import com.glyceryl.emberphoenix.common.entity.monster.WildfireEntity;
+import com.glyceryl.emberphoenix.common.entity.projectile.SmallCrack;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
@@ -16,10 +16,11 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.RegistryObject;
 
-@Mod.EventBusSubscriber(modid = EmberOfPhoenix.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
+@Mod.EventBusSubscriber(modid = EmberOfPhoenix.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class EPEntity {
 
     public static final RegistryObject<EntityType<WildfireEntity>> WILDFIRE = make(EPEntityNames.WILDFIRE, WildfireEntity::new, MobCategory.MONSTER, 1.6F, 4.0F, true, 0xf6b201, 0xfff87e);
+    public static final RegistryObject<EntityType<SmallCrack>> SMALL_CRACK = build(EPEntityNames.SMALL_CRACK, makeCastedBuilder(SmallCrack.class, SmallCrack::new, 1.0F, 1.0F, 4, 10), true);
 
     private static <E extends Entity> RegistryObject<EntityType<E>> make(ResourceLocation id, EntityType.EntityFactory<E> factory, MobCategory classification, float width, float height, int primary, int secondary) {
         return make(id, factory, classification, width, height, false, primary, secondary);
@@ -36,11 +37,11 @@ public class EPEntity {
     @SuppressWarnings("unchecked")
     private static <E extends Entity> RegistryObject<EntityType<E>> build(ResourceLocation id, EntityType.Builder<E> builder, boolean fireproof, int primary, int secondary) {
         if(fireproof) builder.fireImmune();
-        RegistryObject<EntityType<E>> ret = RegistryBase.ENTITY.register(id.getPath(), () -> builder.build(id.toString()));
+        RegistryObject<EntityType<E>> register = RegistryBase.ENTITY.register(id.getPath(), () -> builder.build(id.toString()));
         if(primary != 0 && secondary != 0) {
-            RegistryBase.ITEMS.register(id.getPath() + "_spawn_egg", () -> new ForgeSpawnEggItem(() -> (EntityType<? extends Mob>) ret.get(), primary, secondary, EPItems.defaultBuilder()));
+            RegistryBase.ITEMS.register(id.getPath() + "_spawn_egg", () -> new ForgeSpawnEggItem(() -> (EntityType<? extends Mob>) register.get(), primary, secondary, EPItems.defaultBuilder()));
         }
-        return ret;
+        return register;
     }
 
     private static <E extends Entity> EntityType.Builder<E> makeCastedBuilder(@SuppressWarnings("unused") Class<E> cast, EntityType.EntityFactory<E> factory, float width, float height, int range, int interval) {
@@ -52,7 +53,7 @@ public class EPEntity {
     }
 
     @SubscribeEvent
-    public static void registerEntities(RegistryEvent.Register<EntityType<?>> evt) {
+    public static void registerEntities(RegistryEvent.Register<EntityType<?>> event) {
         SpawnPlacements.register(WILDFIRE.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mob::checkMobSpawnRules);
     }
 
