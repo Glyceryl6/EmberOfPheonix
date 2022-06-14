@@ -53,21 +53,5 @@
       "emberphoenix:equip_emberium2",
       "emberphoenix:equip_emberium3"
     ]
-  },
-  "wildfire_hurt": {
-    "subtitle": "sound.emberphoenix.wildfire_hurt",
-    "sounds": [
-      "emberphoenix:wildfire_hurt_01",
-      "emberphoenix:wildfire_hurt_02",
-      "emberphoenix:wildfire_hurt_03"
-    ]
-  },
-  "wildfire_death": {
-    "subtitle": "sound.emberphoenix.wildfire_death",
-    "sounds": [
-      "emberphoenix:wildfire_death_01",
-      "emberphoenix:wildfire_death_02",
-      "emberphoenix:wildfire_death_03"
-    ]
   }
 }

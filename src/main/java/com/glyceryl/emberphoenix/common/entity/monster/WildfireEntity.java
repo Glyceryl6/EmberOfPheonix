@@ -142,7 +142,7 @@ public class WildfireEntity extends Monster {
     private void checkBlazes() {
         int blazeCount = this.getBlazeAround(this.getAttributeValue(Attributes.FOLLOW_RANGE)).size();
         if (this.tickCount % 10 == 0 && this.getHealth() < this.getMaxHealth() && blazeCount > 0) {
-            this.heal(1.0F);
+            this.heal(1.5F);
         }
     }
 
