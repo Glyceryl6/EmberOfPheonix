@@ -11,13 +11,17 @@ import net.minecraftforge.eventbus.api.IEventBus;
 @SuppressWarnings("deprecation")
 public class EPSounds {
 
+    //方块类音效
     private static final SoundEvent ASH_BLOCK_DIG = createSoundEvent("ash_block_dig");
     private static final SoundEvent EMBERIUM_DIG = createSoundEvent("emberium_dig");
     private static final SoundEvent ASH_BLOCK_STEP = createSoundEvent("ash_block_step");
     private static final SoundEvent EMBERIUM_STEP = createSoundEvent("emberium_step");
-
+    //装备穿戴的音效
     public static final SoundEvent EQUIP_BLAZE = createSoundEvent("equip_blaze");
     public static final SoundEvent EQUIP_EMBERIUM = createSoundEvent("equip_emberium");
+    //生物类音效
+    public static final SoundEvent WILDFIRE_HURT = createSoundEvent("wildfire_hurt");
+    public static final SoundEvent WILDFIRE_DEATH = createSoundEvent("wildfire_death");
 
     public static final SoundType ASH_BLOCK = new SoundType(1.0F, 1.0F, ASH_BLOCK_DIG, ASH_BLOCK_STEP, ASH_BLOCK_DIG, ASH_BLOCK_STEP, ASH_BLOCK_STEP);
     public static final SoundType EMBERIUM_BLOCK = new SoundType(1.0F, 1.0F, EMBERIUM_DIG, EMBERIUM_STEP, EMBERIUM_DIG, EMBERIUM_STEP, EMBERIUM_STEP);
@@ -28,7 +32,7 @@ public class EPSounds {
     }
 
     public static void registerSounds(RegistryEvent.Register<SoundEvent> event) {
-        event.getRegistry().registerAll(EQUIP_BLAZE, EQUIP_EMBERIUM);
+        event.getRegistry().registerAll(EQUIP_BLAZE, EQUIP_EMBERIUM, WILDFIRE_HURT, WILDFIRE_DEATH);
     }
 
     public static void register(IEventBus eventBus) {
