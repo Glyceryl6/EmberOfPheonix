@@ -6,7 +6,6 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.damagesource.IndirectEntityDamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -17,8 +16,6 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.network.NetworkHooks;
 
-import javax.annotation.Nullable;
-
 public class PaleFireball extends AbstractHurtingProjectile {
 
     public PaleFireball(EntityType<? extends PaleFireball> type, Level level) {
@@ -27,10 +24,6 @@ public class PaleFireball extends AbstractHurtingProjectile {
 
     public PaleFireball(Level level, LivingEntity entity, double x, double y, double z) {
         super(EPEntity.PALE_FIREBALL.get(), entity, x, y, z, level);
-    }
-
-    public static DamageSource fireball(PaleFireball fireball, @Nullable Entity entity) {
-        return entity == null ? (new IndirectEntityDamageSource("onFire", fireball, fireball)).setIsFire().setProjectile() : (new IndirectEntityDamageSource("fireball", fireball, entity)).setIsFire().setProjectile();
     }
 
     private void knockBackEntity(Entity entity) {
@@ -77,7 +70,7 @@ public class PaleFireball extends AbstractHurtingProjectile {
                 entity.setSecondsOnFire(5);
                 this.knockBackEntity(entity);
                 this.makePoofParticles();
-                boolean flag = entity.hurt(fireball(this, entity1), 9.0F);
+                boolean flag = entity.hurt(DamageSource.MAGIC, 9.0F);
                 if (!flag) {
                     entity.setRemainingFireTicks(i);
                 } else if (entity1 instanceof LivingEntity) {
