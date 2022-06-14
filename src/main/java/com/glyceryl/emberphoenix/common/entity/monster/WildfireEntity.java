@@ -17,8 +17,6 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.BossEvent;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -110,7 +108,7 @@ public class WildfireEntity extends Monster {
     //死亡时灭掉周围所有的火，并杀死周围所有的远古烈焰人
     private void removeFireAndBlazes() {
         BlockPos blockpos = this.getOnPos();
-        AABB aabb = (new AABB(blockpos)).inflate(48.0D);
+        AABB aabb = (new AABB(blockpos)).inflate(64.0D);
         for (BlockPos pos : BlockPos.withinManhattan(blockpos, 32, 8, 32)) {
             if (level.getBlockState(pos).is(Blocks.FIRE)) {
                 level.removeBlock(pos, false);
@@ -237,6 +235,14 @@ public class WildfireEntity extends Monster {
         this.entityData.define(ATTACKING, Boolean.FALSE);
         this.entityData.define(ON_FIRE, (byte) 0);
         this.entityData.define(VARIANT, 0);
+    }
+
+    public void checkDespawn() {
+        if (this.level.getDifficulty() == Difficulty.PEACEFUL && this.shouldDespawnInPeaceful()) {
+            this.discard();
+        } else {
+            this.noActionTime = 0;
+        }
     }
 
     //获取一定范围内的远古烈焰人数量
