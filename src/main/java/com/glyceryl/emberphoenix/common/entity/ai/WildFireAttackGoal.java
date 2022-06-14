@@ -1,11 +1,11 @@
 package com.glyceryl.emberphoenix.common.entity.ai;
 
 import com.glyceryl.emberphoenix.common.entity.monster.WildfireEntity;
+import com.glyceryl.emberphoenix.common.entity.projectile.WildfireFireball;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.projectile.SmallFireball;
 
 import java.util.EnumSet;
 
@@ -116,7 +116,7 @@ public class WildFireAttackGoal extends Goal {
 
                         //shoot fireballs
                         for (int i = 0; i <= (fireballCount - 1); ++i) {
-                            SmallFireball smallFireball;
+                            WildfireFireball fireball;
                             double angle = (i - ((fireballCount - 1) / 2)) * offsetangle;
                             double x = d1 * cos(angle) + d3 * sin(angle);
                             double y = d2;
@@ -125,9 +125,9 @@ public class WildFireAttackGoal extends Goal {
                             if (abs((atan2(d2, sqrt))) > maxdepressangle) {
                                 y = -tan(maxdepressangle) * sqrt;
                             }
-                            smallFireball = new SmallFireball(this.wildfire.level, this.wildfire, x, y, z);
-                            smallFireball.setPos(smallFireball.getX(), this.wildfire.getY(0.5D), smallFireball.getZ());
-                            this.wildfire.level.addFreshEntity(smallFireball);
+                            fireball = new WildfireFireball(wildfire.level, wildfire, x, y, z);
+                            fireball.setPos(fireball.getX(), this.wildfire.getY(0.5D), fireball.getZ());
+                            this.wildfire.level.addFreshEntity(fireball);
                         }
                     }
                 } else if (this.attackTime < 160 + health && this.attackTime > 90 - health) {
