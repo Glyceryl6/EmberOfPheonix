@@ -117,7 +117,7 @@ public class SmallCrack extends AbstractHurtingProjectile {
                     if (entity instanceof LivingEntity) {
                         d11 = ProtectionEnchantment.getExplosionKnockbackAfterDampener((LivingEntity) entity, d10);
                     }
-                    if (!(entity instanceof Monster)) {
+                    if (!entity.fireImmune()) {
                         entity.hurt(DamageSource.FALL, (float) ((int) ((d10 * d10 + d10) / 2.0D * 7.0D * (double) f2 + 1.0D)));
                         entity.setDeltaMovement(entity.getDeltaMovement().add(d5 * d11, d7 * d11, d9 * d11));
                     }

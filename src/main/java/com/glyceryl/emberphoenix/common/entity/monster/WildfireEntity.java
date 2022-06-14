@@ -114,12 +114,19 @@ public class WildfireEntity extends Monster {
                 level.removeBlock(pos, false);
             }
         }
+        List<Player> range = this.level.getEntitiesOfClass(Player.class, aabb);
+        for (Player player : range) {
+            if (range.size() > 0) {
+                player.clearFire();
+            }
+        }
         for(AncientBlaze blaze : this.level.getEntitiesOfClass(AncientBlaze.class, aabb)) {
             BlockPos blazePos = blaze.getOnPos();
             double d0 = blazePos.getX();
             double d1 = blazePos.getY();
             double d2 = blazePos.getZ();
             int c = 2;
+            blaze.kill();
             for(int i = -c; i <= c; ++i) {
                 for(int j = -c; j <= c; ++j) {
                     for(int k = -c; k <= c; ++k) {
@@ -134,7 +141,6 @@ public class WildfireEntity extends Monster {
                     }
                 }
             }
-            blaze.kill();
         }
     }
 
