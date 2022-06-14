@@ -41,15 +41,17 @@ public class FireFlower extends TallFlowerBlock {
     }
 
     private void spawnFlameParticles(Entity entity) {
-        LevelRenderer levelRenderer = Minecraft.getInstance().levelRenderer;
-        for(int i = 0; i < 20; ++i) {
-            double dx = entity.getRandomX(1.0D);
-            double dy = entity.getRandomY();
-            double dz = entity.getRandomZ(1.0D);
-            double d0 = this.random.nextGaussian() * 0.02D;
-            double d1 = this.random.nextGaussian() * 0.02D;
-            double d2 = this.random.nextGaussian() * 0.02D;
-            levelRenderer.addParticle(ParticleTypes.FLAME, false, dx, dy, dz, d0, d1, d2);
+        if (entity.level.isClientSide) {
+            LevelRenderer levelRenderer = Minecraft.getInstance().levelRenderer;
+            for(int i = 0; i < 20; ++i) {
+                double dx = entity.getRandomX(1.0D);
+                double dy = entity.getRandomY();
+                double dz = entity.getRandomZ(1.0D);
+                double d0 = this.random.nextGaussian() * 0.02D;
+                double d1 = this.random.nextGaussian() * 0.02D;
+                double d2 = this.random.nextGaussian() * 0.02D;
+                levelRenderer.addParticle(ParticleTypes.FLAME, false, dx, dy, dz, d0, d1, d2);
+            }
         }
     }
 
