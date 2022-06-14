@@ -37,6 +37,7 @@ public class EPEntity {
     @SuppressWarnings("unchecked")
     private static <E extends Entity> RegistryObject<EntityType<E>> build(ResourceLocation id, EntityType.Builder<E> builder, boolean fireproof, int primary, int secondary) {
         if(fireproof) builder.fireImmune();
+        builder.clientTrackingRange(10);
         RegistryObject<EntityType<E>> register = RegistryBase.ENTITY.register(id.getPath(), () -> builder.build(id.toString()));
         if(primary != 0 && secondary != 0) {
             RegistryBase.ITEMS.register(id.getPath() + "_spawn_egg", () -> new ForgeSpawnEggItem(() -> (EntityType<? extends Mob>) register.get(), primary, secondary, EPItems.defaultBuilder()));
