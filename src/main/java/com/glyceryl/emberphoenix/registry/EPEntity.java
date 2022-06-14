@@ -3,10 +3,13 @@ package com.glyceryl.emberphoenix.registry;
 import com.glyceryl.emberphoenix.EmberOfPhoenix;
 import com.glyceryl.emberphoenix.RegistryBase;
 import com.glyceryl.emberphoenix.common.entity.EPEntityNames;
+import com.glyceryl.emberphoenix.common.entity.monster.AncientBlaze;
 import com.glyceryl.emberphoenix.common.entity.monster.WildfireEntity;
+import com.glyceryl.emberphoenix.common.entity.projectile.PaleFireball;
 import com.glyceryl.emberphoenix.common.entity.projectile.SmallCrack;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.event.RegistryEvent;
@@ -20,7 +23,9 @@ import net.minecraftforge.registries.RegistryObject;
 public class EPEntity {
 
     public static final RegistryObject<EntityType<WildfireEntity>> WILDFIRE = make(EPEntityNames.WILDFIRE, WildfireEntity::new, MobCategory.MONSTER, 1.6F, 4.0F, true, 0xf6b201, 0xfff87e);
+    public static final RegistryObject<EntityType<AncientBlaze>> ANCIENT_BLAZE = make(EPEntityNames.ANCIENT_BLAZE, AncientBlaze::new, MobCategory.MONSTER, 0.6F, 1.8F, true, 0xf2d6d7, 0xf0c741);
     public static final RegistryObject<EntityType<SmallCrack>> SMALL_CRACK = build(EPEntityNames.SMALL_CRACK, makeCastedBuilder(SmallCrack.class, SmallCrack::new, 1.0F, 1.0F, 4, 10), true);
+    public static final RegistryObject<EntityType<PaleFireball>> PALE_FIREBALL = build(EPEntityNames.PALE_FIREBALL, makeCastedBuilder(PaleFireball.class, PaleFireball::new, 0.3125F, 0.3125F, 4, 10), true);
 
     private static <E extends Entity> RegistryObject<EntityType<E>> make(ResourceLocation id, EntityType.EntityFactory<E> factory, MobCategory classification, float width, float height, int primary, int secondary) {
         return make(id, factory, classification, width, height, false, primary, secondary);
@@ -55,12 +60,14 @@ public class EPEntity {
 
     @SubscribeEvent
     public static void registerEntities(RegistryEvent.Register<EntityType<?>> event) {
-        SpawnPlacements.register(WILDFIRE.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mob::checkMobSpawnRules);
+        SpawnPlacements.register(WILDFIRE.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules);
+        SpawnPlacements.register(ANCIENT_BLAZE.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkAnyLightMonsterSpawnRules);
     }
 
     @SubscribeEvent
     public static void addEntityAttributes(EntityAttributeCreationEvent event) {
         event.put(WILDFIRE.get(), WildfireEntity.setCustomAttributes().build());
+        event.put(ANCIENT_BLAZE.get(), AncientBlaze.createAttributes().build());
     }
 
     public static void register(IEventBus eventBus) {

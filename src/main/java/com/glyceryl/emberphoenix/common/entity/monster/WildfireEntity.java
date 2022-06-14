@@ -2,6 +2,7 @@ package com.glyceryl.emberphoenix.common.entity.monster;
 
 import com.glyceryl.emberphoenix.common.entity.ai.WildFireAttackGoal;
 import com.glyceryl.emberphoenix.common.entity.projectile.SmallCrack;
+import com.glyceryl.emberphoenix.registry.EPEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -16,13 +17,14 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.BossEvent;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.monster.Blaze;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.AxeItem;
@@ -105,28 +107,28 @@ public class WildfireEntity extends Monster {
         return 1.0F;
     }
 
-    //死亡时灭掉周围所有的火，并杀死周围所有的烈焰人
+    //死亡时灭掉周围所有的火，并杀死周围所有的远古烈焰人
     private void removeFireAndBlazes() {
         BlockPos blockpos = this.getOnPos();
         AABB aabb = (new AABB(blockpos)).inflate(48.0D);
-        for (BlockPos pos : BlockPos.withinManhattan(blockpos, 32, 16, 32)) {
+        for (BlockPos pos : BlockPos.withinManhattan(blockpos, 32, 8, 32)) {
             if (level.getBlockState(pos).is(Blocks.FIRE)) {
                 level.removeBlock(pos, false);
             }
         }
-        for(Blaze blaze : this.level.getEntitiesOfClass(Blaze.class, aabb)) {
+        for(AncientBlaze blaze : this.level.getEntitiesOfClass(AncientBlaze.class, aabb)) {
             BlockPos blazePos = blaze.getOnPos();
             double d0 = blazePos.getX();
             double d1 = blazePos.getY();
             double d2 = blazePos.getZ();
-            int c = 4;
+            int c = 2;
             for(int i = -c; i <= c; ++i) {
                 for(int j = -c; j <= c; ++j) {
                     for(int k = -c; k <= c; ++k) {
                         double d3 = (double)j + (this.random.nextDouble() - this.random.nextDouble()) * 0.5D;
                         double d4 = (double)i + (this.random.nextDouble() - this.random.nextDouble()) * 0.5D;
                         double d5 = (double)k + (this.random.nextDouble() - this.random.nextDouble()) * 0.5D;
-                        double d6 = Math.sqrt(d3 * d3 + d4 * d4 + d5 * d5) / 0.5D + this.random.nextGaussian() * 0.05D;
+                        double d6 = Math.sqrt(d3 * d3 + d4 * d4 + d5 * d5) / 0.2D + this.random.nextGaussian() * 0.05D;
                         this.level.addParticle(ParticleTypes.FLAME, d0, d1, d2, d3 / d6, d4 / d6, d5 / d6);
                         if (i != -c && i != c && j != -c && j != c) {
                             k += c * 2 - 1;
@@ -138,7 +140,7 @@ public class WildfireEntity extends Monster {
         }
     }
 
-    //检测跟踪范围内是否存在烈焰人，有则回血
+    //检测跟踪范围内是否存在远古烈焰人，有则回血
     private void checkBlazes() {
         int blazeCount = this.getBlazeAround(this.getAttributeValue(Attributes.FOLLOW_RANGE)).size();
         if (this.tickCount % 10 == 0 && this.getHealth() < this.getMaxHealth() && blazeCount > 0) {
@@ -237,11 +239,11 @@ public class WildfireEntity extends Monster {
         this.entityData.define(VARIANT, 0);
     }
 
-    //获取一定范围内的烈焰人数量
-    private List<Blaze> getBlazeAround(double radius) {
+    //获取一定范围内的远古烈焰人数量
+    private List<AncientBlaze> getBlazeAround(double radius) {
         BlockPos blockpos = this.getOnPos();
         AABB aabb = (new AABB(blockpos)).inflate(radius);
-        return level.getEntitiesOfClass(Blaze.class, aabb);
+        return level.getEntitiesOfClass(AncientBlaze.class, aabb);
     }
 
     public void setShielding(boolean shielding) {
@@ -329,7 +331,7 @@ public class WildfireEntity extends Monster {
         return false;
     }
 
-    //召唤一定数量的烈焰人
+    //随机召唤一定数量的远古烈焰人
     class SpawnMinionsGoal extends Goal {
 
         @Override
@@ -345,13 +347,14 @@ public class WildfireEntity extends Monster {
 
         @Override
         public void tick() {
-            int blazeCount = getBlazeAround(64.0D).size();
-            if (isOnFire() && blazeCount < 10) {
+            int count = random.nextInt(4) + 3;
+            int blazeCount = getBlazeAround(32.0D).size();
+            if (blazeCount < 5 && getHealth() < getMaxHealth() / 2.0D) {
                 double xx = getTarget().getX() - getX();
                 double yy = getTarget().getY() - getY();
                 double zz = getTarget().getZ() - getZ();
-                for (int i = (int)Math.ceil((double)(getHealth() / getMaxHealth()) * 5.0D); i > 0; --i) {
-                    Blaze blaze = EntityType.BLAZE.create(level);
+                for (int i = (int)Math.ceil((double)(getHealth() / getMaxHealth()) * (double) count); i > 0; --i) {
+                    AncientBlaze blaze = EPEntity.ANCIENT_BLAZE.get().create(level);
                     double x = getX() + (double)(random.nextFloat() - random.nextFloat());
                     double y = getY() + (double)(random.nextFloat() * 0.5F);
                     double z = getZ() + (double)(random.nextFloat() - random.nextFloat());

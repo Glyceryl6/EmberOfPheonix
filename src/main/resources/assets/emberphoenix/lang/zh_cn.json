@@ -64,6 +64,7 @@
   "item.emberphoenix.spark":"火种",
 
   "item.emberphoenix.wildfire_spawn_egg":"野火刷怪蛋",
+  "item.emberphoenix.ancient_blaze_spawn_egg":"远古烈焰人刷怪蛋",
 
   "sound.emberphoenix.ash_block_dig": "灰烬块：挖掘",
   "sound.emberphoenix.ash_block_step": "灰烬块：踩踏",
@@ -73,7 +74,9 @@
   "sound.emberphoenix.equip_emberium": "余烬钢护甲：铿锵",
 
   "entity.emberphoenix.wildfire": "野火",
+  "entity.emberphoenix.ancient_blaze": "远古烈焰人",
   "entity.emberphoenix.small_crack": "小爆裂弹",
+  "entity.emberphoenix.pale_fireball": "苍白火球",
 
   "enchantment.emberphoenix.magma_strider":"岩浆探索者",
   "enchantment.emberphoenix.heat_wave":"热浪",

@@ -15,7 +15,7 @@ public class WildfireRenderer extends MobRenderer<WildfireEntity, WildfireModel<
     private static final ResourceLocation BLAZE_LOCATION = EmberOfPhoenix.prefix("textures/entity/wildfire.png");
 
     public WildfireRenderer(EntityRendererProvider.Context context) {
-        super(context, new WildfireModel<>(context.bakeLayer(EPModelLayers.LAYER_LOCATION)), 0.5F);
+        super(context, new WildfireModel<>(context.bakeLayer(EPModelLayers.WILDFIRE_LAYER)), 0.5F);
     }
 
     protected int getBlockLightLevel(WildfireEntity wildfireEntity, BlockPos blockPos) {

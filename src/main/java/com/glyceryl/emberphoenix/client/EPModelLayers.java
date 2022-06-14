@@ -6,7 +6,8 @@ import net.minecraft.resources.ResourceLocation;
 
 public class EPModelLayers {
 
-    public static final ModelLayerLocation LAYER_LOCATION = register("wildfire");
+    public static final ModelLayerLocation WILDFIRE_LAYER = register("wildfire");
+    public static final ModelLayerLocation ANCIENT_BLAZE_LAYER = register("ancient_blaze");
 
     private static ModelLayerLocation register(String s) {
         return register(s, "main");

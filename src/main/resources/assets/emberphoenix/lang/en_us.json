@@ -64,6 +64,7 @@
   "item.emberphoenix.spark":"Spark",
 
   "item.emberphoenix.wildfire_spawn_egg":"Wildfire Spawn Egg",
+  "item.emberphoenix.ancient_blaze_spawn_egg":"Ancient Blaze Spawn Egg",
 
   "sound.emberphoenix.ash_block_dig": "Ash Block Digging",
   "sound.emberphoenix.ash_block_step": "Ash Block Stepping",
@@ -73,7 +74,9 @@
   "sound.emberphoenix.equip_emberium": "Ember armor clanks",
 
   "entity.emberphoenix.wildfire": "Wildfire",
+  "entity.emberphoenix.ancient_blaze": "Ancient Blaze",
   "entity.emberphoenix.small_crack": "Small Crack",
+  "entity.emberphoenix.pale_fireball": "Pale Fireball",
 
   "enchantment.emberphoenix.magma_strider":"Magma Strider",
   "enchantment.emberphoenix.heat_wave":"Heat Wave",

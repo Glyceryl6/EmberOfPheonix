@@ -1,6 +1,8 @@
 package com.glyceryl.emberphoenix.client;
 
 import com.glyceryl.emberphoenix.EmberOfPhoenix;
+import com.glyceryl.emberphoenix.client.renderer.AncientBlazeRenderer;
+import com.glyceryl.emberphoenix.client.renderer.PaleFireballRenderer;
 import com.glyceryl.emberphoenix.client.renderer.SmallCrackRenderer;
 import com.glyceryl.emberphoenix.client.renderer.WildfireRenderer;
 import com.glyceryl.emberphoenix.registry.EPEntity;
@@ -17,7 +19,9 @@ public class EPEntityRenderer {
     @SubscribeEvent
     public static void registerEntityRenderer(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(EPEntity.WILDFIRE.get(), WildfireRenderer::new);
+        event.registerEntityRenderer(EPEntity.ANCIENT_BLAZE.get(), AncientBlazeRenderer::new);
         event.registerEntityRenderer(EPEntity.SMALL_CRACK.get(), SmallCrackRenderer::new);
+        event.registerEntityRenderer(EPEntity.PALE_FIREBALL.get(), PaleFireballRenderer::new);
     }
 
 }
