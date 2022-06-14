@@ -17,7 +17,7 @@ public class EPBlocks {
     private static final BlockBehaviour.Properties STRENGTH_SCARLET_STONE = BlockBehaviour.Properties.copy(Blocks.STONE).strength(3.0F, 6.0F).sound(SoundType.NETHERRACK);
     private static final BlockBehaviour.Properties STRENGTH_HARD_SLATE = BlockBehaviour.Properties.copy(Blocks.STONE).strength(3.5F, 8.0F).sound(SoundType.DEEPSLATE);
     private static final BlockBehaviour.Properties STRENGTH_EMBER_ORE = BlockBehaviour.Properties.copy(Blocks.STONE).strength(3.5F, 8.0F).sound(SoundType.NETHER_ORE);
-    private static final BlockBehaviour.Properties PLANT_PROPERTIES = BlockBehaviour.Properties.of(Material.REPLACEABLE_PLANT).noCollission().instabreak().sound(SoundType.GRASS);
+    private static final BlockBehaviour.Properties PLANT_PROPERTIES = BlockBehaviour.Properties.of(Material.REPLACEABLE_PLANT).noCollission().sound(SoundType.GRASS);
 
     //注册一般的方块
     public static final RegistryObject<Block> HARD_SLATE = normal("hardslate", STRENGTH_HARD_SLATE);
@@ -36,11 +36,13 @@ public class EPBlocks {
                     .noDrops().noCollission().strength(-1.0F, 3600000.0F).lightLevel((state) -> 15).sound(SoundType.WOOL)));
     //注册植物类方块
     public static final RegistryObject<EPTallGrass> BARREN_GRASS = RegistryBase.registerBlock("barren_grass",
-            () -> new EPTallGrass(PLANT_PROPERTIES), RegistryBase.EP_TAB);
+            () -> new EPTallGrass(PLANT_PROPERTIES.instabreak()), RegistryBase.EP_TAB);
     public static final RegistryObject<EPDoublePlant> BARREN_TALL_GRASS = RegistryBase.registerBlock("barren_tall_grass",
-            () -> new EPDoublePlant(PLANT_PROPERTIES), RegistryBase.EP_TAB);
+            () -> new EPDoublePlant(PLANT_PROPERTIES.instabreak()), RegistryBase.EP_TAB);
     public static final RegistryObject<FireFlower> FIRE_FLOWER = RegistryBase.registerBlock("fire_flower",
-            () -> new FireFlower(PLANT_PROPERTIES), RegistryBase.EP_TAB);
+            () -> new FireFlower(PLANT_PROPERTIES.instabreak()), RegistryBase.EP_TAB);
+    public static final RegistryObject<Tumbleweed> TUMBLEWEED = RegistryBase.registerBlock("tumbleweed",
+            () -> new Tumbleweed(PLANT_PROPERTIES.strength(0.3F)), RegistryBase.EP_TAB);
     //注册矿石方块
     public static final RegistryObject<Block> SCARLET_COAL_ORE = ore("scarlet_coal_ore");
     public static final RegistryObject<Block> SCARLET_IRON_ORE = ore("scarlet_iron_ore");

@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "filled=false": {
+      "model": "emberphoenix:block/tumbleweed"
+    },
+    "filled=true": {
+      "model": "emberphoenix:block/tumbleweed_filled"
+    }
+  }
+}

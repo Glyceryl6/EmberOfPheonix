@@ -43,6 +43,7 @@ public class EmberOfPhoenix {
     }
 
     private void setupClient(FMLClientSetupEvent event) {
+        ItemBlockRenderTypes.setRenderLayer(EPBlocks.TUMBLEWEED.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(EPBlocks.FIRE_FLOWER.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(EPBlocks.ETERNAL_FIRE.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(EPBlocks.BARREN_GRASS.get(), RenderType.cutout());

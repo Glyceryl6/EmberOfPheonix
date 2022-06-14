@@ -2,12 +2,14 @@ package com.glyceryl.emberphoenix.common.world;
 
 import com.glyceryl.emberphoenix.common.world.ore.EPOrePlacements;
 import net.minecraft.core.Holder;
-import net.minecraft.data.worldgen.features.VegetationFeatures;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.world.level.biome.BiomeGenerationSettings;
 import net.minecraft.world.level.levelgen.GenerationStep;
-import net.minecraft.world.level.levelgen.placement.*;
+import net.minecraft.world.level.levelgen.placement.BiomeFilter;
+import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import net.minecraft.world.level.levelgen.placement.RarityFilter;
 
 public class EPPlacedFeatures {
 
@@ -16,6 +18,10 @@ public class EPPlacedFeatures {
 
     public static final Holder<PlacedFeature> PATCH_BARREN_GRASS = PlacementUtils.register("patch_barren_grass",
             EPVegetationFeatures.PATCH_BARREN_GRASS, VegetationPlacements.worldSurfaceSquaredWithCount(20));
+
+    public static final Holder<PlacedFeature> PATCH_TUMBLEWEED = PlacementUtils.register("patch_tumbleweed",
+            EPVegetationFeatures.PATCH_TUMBLEWEED, RarityFilter.onAverageOnceEvery(5),
+            InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
 
     public static final Holder<PlacedFeature> PATCH_BARREN_TALL_GRASS = PlacementUtils.register("patch_barren_tall_grass",
             EPVegetationFeatures.PATCH_BARREN_TALL_GRASS, RarityFilter.onAverageOnceEvery(5),
