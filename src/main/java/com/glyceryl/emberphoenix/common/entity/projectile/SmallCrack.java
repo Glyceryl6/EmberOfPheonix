@@ -29,6 +29,7 @@ import net.minecraftforge.network.NetworkHooks;
 import java.util.List;
 import java.util.Map;
 
+@SuppressWarnings("all")
 public class SmallCrack extends AbstractHurtingProjectile {
 
     public SmallCrack(EntityType<? extends SmallCrack> type, Level level) {
@@ -59,8 +60,8 @@ public class SmallCrack extends AbstractHurtingProjectile {
         if (!this.level.isClientSide) {
             this.createFireAndParticles(3);
             this.hurtParticularEntity(3.0F);
+            this.discard();
         }
-        this.discard();
     }
 
     //制造一个假的爆炸效果

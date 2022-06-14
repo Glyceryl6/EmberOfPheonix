@@ -412,7 +412,6 @@ public class WildfireEntity extends Monster {
                         double x = this.wildfire.getX() + vec3.x * 5.0D;
                         double y = this.wildfire.getY(0.5D) + 0.5D;
                         double z = smallCrack.getZ() + vec3.z * 5.0D;
-                        smallCrack.setSecondsOnFire(Integer.MAX_VALUE);
                         smallCrack.setPos(x, y, z);
                         level.addFreshEntity(smallCrack);
                         this.chargeTime = -40;
