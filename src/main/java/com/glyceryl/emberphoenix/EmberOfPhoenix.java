@@ -1,9 +1,7 @@
 package com.glyceryl.emberphoenix;
 
 import com.glyceryl.emberphoenix.common.world.biomes.EPBiomesCreator;
-import com.glyceryl.emberphoenix.event.LivingWalkOnMagma;
-import com.glyceryl.emberphoenix.event.PlayerUseTrident;
-import com.glyceryl.emberphoenix.event.RenderHorizon;
+import com.glyceryl.emberphoenix.event.*;
 import com.glyceryl.emberphoenix.registry.*;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
@@ -36,6 +34,7 @@ public class EmberOfPhoenix {
         EPEnchantments.register(eventBus);
         eventBus.addListener(this::setupClient);
         eventBus.addGenericListener(SoundEvent.class, EPSounds::registerSounds);
+        MinecraftForge.EVENT_BUS.register(new ProjectileHit());
         MinecraftForge.EVENT_BUS.register(new LivingWalkOnMagma());
         MinecraftForge.EVENT_BUS.register(new PlayerUseTrident());
         MinecraftForge.EVENT_BUS.register(new RenderHorizon());
