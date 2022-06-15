@@ -4,7 +4,7 @@ import com.glyceryl.emberphoenix.EmberOfPhoenix;
 import com.glyceryl.emberphoenix.RegistryBase;
 import com.glyceryl.emberphoenix.common.entity.EPEntityNames;
 import com.glyceryl.emberphoenix.common.entity.monster.AncientBlaze;
-import com.glyceryl.emberphoenix.common.entity.monster.WildfireEntity;
+import com.glyceryl.emberphoenix.common.entity.boss.WildfireEntity;
 import com.glyceryl.emberphoenix.common.entity.projectile.PaleFireball;
 import com.glyceryl.emberphoenix.common.entity.projectile.SmallCrack;
 import net.minecraft.resources.ResourceLocation;

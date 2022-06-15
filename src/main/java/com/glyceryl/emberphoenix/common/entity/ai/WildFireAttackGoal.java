@@ -1,6 +1,6 @@
 package com.glyceryl.emberphoenix.common.entity.ai;
 
-import com.glyceryl.emberphoenix.common.entity.monster.WildfireEntity;
+import com.glyceryl.emberphoenix.common.entity.boss.WildfireEntity;
 import com.glyceryl.emberphoenix.common.entity.projectile.WildfireFireball;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.LivingEntity;

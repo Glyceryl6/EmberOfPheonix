@@ -3,7 +3,7 @@ package com.glyceryl.emberphoenix.client.renderer;
 import com.glyceryl.emberphoenix.EmberOfPhoenix;
 import com.glyceryl.emberphoenix.client.EPModelLayers;
 import com.glyceryl.emberphoenix.client.model.WildfireModel;
-import com.glyceryl.emberphoenix.common.entity.monster.WildfireEntity;
+import com.glyceryl.emberphoenix.common.entity.boss.WildfireEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;

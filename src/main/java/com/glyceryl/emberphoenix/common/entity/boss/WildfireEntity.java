@@ -1,6 +1,7 @@
-package com.glyceryl.emberphoenix.common.entity.monster;
+package com.glyceryl.emberphoenix.common.entity.boss;
 
 import com.glyceryl.emberphoenix.common.entity.ai.WildFireAttackGoal;
+import com.glyceryl.emberphoenix.common.entity.monster.AncientBlaze;
 import com.glyceryl.emberphoenix.common.entity.projectile.SmallCrack;
 import com.glyceryl.emberphoenix.registry.EPEntity;
 import net.minecraft.core.BlockPos;
@@ -17,6 +18,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.BossEvent;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.EntityDamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -25,6 +27,8 @@ import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.SmallFireball;
+import net.minecraft.world.entity.projectile.Snowball;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
@@ -33,9 +37,10 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
 import java.util.List;
 
-public class WildfireEntity extends Monster {
+public class WildfireEntity extends Monster implements PowerableMob {
 
     private static final EntityDataAccessor<Byte> ON_FIRE = SynchedEntityData.defineId(WildfireEntity.class, EntityDataSerializers.BYTE);
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(WildfireEntity.class, EntityDataSerializers.INT);
@@ -65,7 +70,7 @@ public class WildfireEntity extends Monster {
                 .add(Attributes.ATTACK_KNOCKBACK, 4.0D)
                 .add(Attributes.ARMOR, 10.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.3D)
-                .add(Attributes.FOLLOW_RANGE, 48.0D);
+                .add(Attributes.FOLLOW_RANGE, 128.0D);
     }
 
     protected void registerGoals() {
@@ -105,22 +110,23 @@ public class WildfireEntity extends Monster {
         return 1.0F;
     }
 
-    //死亡时灭掉周围所有的火，并杀死周围所有的远古烈焰人
+    //死亡时灭掉周围所有的火，并杀死周围所有的远古烈焰人，同时灭掉玩家身上的火
     private void removeFireAndBlazes() {
         BlockPos blockpos = this.getOnPos();
-        AABB aabb = (new AABB(blockpos)).inflate(64.0D);
-        for (BlockPos pos : BlockPos.withinManhattan(blockpos, 32, 8, 32)) {
+        AABB aabb = (new AABB(blockpos)).inflate(128.0D);
+        List<Player> playerList = this.level.getEntitiesOfClass(Player.class, aabb);
+        List<AncientBlaze> blazeList = this.level.getEntitiesOfClass(AncientBlaze.class, aabb);
+        for (BlockPos pos : BlockPos.withinManhattan(blockpos, 48, 8, 48)) {
             if (level.getBlockState(pos).is(Blocks.FIRE)) {
                 level.removeBlock(pos, false);
             }
         }
-        List<Player> range = this.level.getEntitiesOfClass(Player.class, aabb);
-        for (Player player : range) {
-            if (range.size() > 0) {
+        for (Player player : playerList) {
+            if (playerList.size() > 0) {
                 player.clearFire();
             }
         }
-        for(AncientBlaze blaze : this.level.getEntitiesOfClass(AncientBlaze.class, aabb)) {
+        for(AncientBlaze blaze : blazeList) {
             BlockPos blazePos = blaze.getOnPos();
             double d0 = blazePos.getX();
             double d1 = blazePos.getY();
@@ -145,10 +151,10 @@ public class WildfireEntity extends Monster {
     }
 
     //检测跟踪范围内是否存在远古烈焰人，有则回血
-    private void checkBlazes() {
+    private void checkBlazesForHeal() {
         int blazeCount = this.getBlazeAround(this.getAttributeValue(Attributes.FOLLOW_RANGE)).size();
         if (this.tickCount % 10 == 0 && this.getHealth() < this.getMaxHealth() && blazeCount > 0) {
-            this.heal(1.5F);
+            this.heal(1.0F);
         }
     }
 
@@ -182,7 +188,7 @@ public class WildfireEntity extends Monster {
                 this.level.addParticle(ParticleTypes.LAVA, getRandomX(0.75D), this.getRandomY(), this.getRandomZ(0.75D), 0.0D, 0.0D, 0.0D);
             }
         }
-        this.checkBlazes();
+        this.checkBlazesForHeal();
         super.aiStep();
     }
 
@@ -221,8 +227,29 @@ public class WildfireEntity extends Monster {
             this.setDeltaMovement(this.getDeltaMovement().add(0.0D, ((double)0.3F - vec3.y) * (double)0.3F, 0.0D));
             this.hasImpulse = true;
         }
+
+        if (random.nextInt(100) < 10 && this.tickCount % 20 == 0 && !this.level.isClientSide() && this.isAlive()) {
+            this.throwFireBall();
+        }
         this.bossEvent.setProgress(this.getHealth() / this.getMaxHealth());
         super.customServerAiStep();
+    }
+
+    //发射出大量火球
+    private void throwFireBall() {
+        float pitch = 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F);
+        this.playSound(SoundEvents.BLAZE_SHOOT, 1.0F, pitch);
+        if (!this.level.isClientSide) {
+            for (int i = 0; i < 256; i++) {
+                float f = (float)(Math.random() * Math.PI);
+                double x = (-((float)Math.sin(f)) * 0.75F);
+                double y = Math.abs(Math.random() * 0.75F);
+                double z = (-((float)Math.cos(f)) * 0.75F);
+                SmallFireball snowball = new SmallFireball(this.level, this, this.getX(), this.getY(), this.getZ());
+                snowball.setDeltaMovement(x / 3.0F, y, z / 3.0F);
+                this.level.addFreshEntity(snowball);
+            }
+        }
     }
 
     public void startSeenByPlayer(ServerPlayer serverPlayer) {
@@ -264,6 +291,10 @@ public class WildfireEntity extends Monster {
         } else {
             this.entityData.set(SHIELDING, Boolean.FALSE);
         }
+    }
+
+    public boolean isPowered() {
+        return this.getHealth() <= this.getMaxHealth() / 3.0F;
     }
 
     public boolean getShielding() {
@@ -338,7 +369,7 @@ public class WildfireEntity extends Monster {
     }
 
     public boolean isInvulnerableTo(DamageSource source) {
-        if ((source == DamageSource.GENERIC) && !source.isCreativePlayer())
+        if ((source == DamageSource.GENERIC || (source instanceof EntityDamageSource && this.isOnFire())) && !source.isCreativePlayer())
             return isInvulnerable();
         return false;
     }
@@ -359,12 +390,13 @@ public class WildfireEntity extends Monster {
 
         @Override
         public void tick() {
+            LivingEntity livingentity = getTarget();
             int count = random.nextInt(4) + 3;
             int blazeCount = getBlazeAround(32.0D).size();
-            if (blazeCount < 5 && getHealth() < getMaxHealth() / 2.0D) {
-                double xx = getTarget().getX() - getX();
-                double yy = getTarget().getY() - getY();
-                double zz = getTarget().getZ() - getZ();
+            if (blazeCount < 3 && getHealth() < getMaxHealth() / 2.0D && livingentity != null) {
+                double xx = livingentity.getX() - getX();
+                double yy = livingentity.getY() - getY();
+                double zz = livingentity.getZ() - getZ();
                 for (int i = (int)Math.ceil((double)(getHealth() / getMaxHealth()) * (double) count); i > 0; --i) {
                     AncientBlaze blaze = EPEntity.ANCIENT_BLAZE.get().create(level);
                     double x = getX() + (double)(random.nextFloat() - random.nextFloat());
@@ -389,8 +421,8 @@ public class WildfireEntity extends Monster {
         private final WildfireEntity wildfire;
         public int chargeTime;
 
-        public ShootSmallCrackGoal(WildfireEntity p_32776_) {
-            this.wildfire = p_32776_;
+        public ShootSmallCrackGoal(WildfireEntity wildfire) {
+            this.wildfire = wildfire;
         }
 
         public boolean canUse() {
