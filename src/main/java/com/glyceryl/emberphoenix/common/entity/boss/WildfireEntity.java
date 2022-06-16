@@ -2,6 +2,7 @@ package com.glyceryl.emberphoenix.common.entity.boss;
 
 import com.glyceryl.emberphoenix.common.entity.ai.WildFireAttackGoal;
 import com.glyceryl.emberphoenix.common.entity.monster.AncientBlaze;
+import com.glyceryl.emberphoenix.common.entity.projectile.FallingFireball;
 import com.glyceryl.emberphoenix.common.entity.projectile.SmallCrack;
 import com.glyceryl.emberphoenix.registry.EPEntity;
 import net.minecraft.core.BlockPos;
@@ -27,8 +28,6 @@ import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.SmallFireball;
-import net.minecraft.world.entity.projectile.Snowball;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
@@ -37,7 +36,6 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
 import java.util.List;
 
 public class WildfireEntity extends Monster implements PowerableMob {
@@ -121,12 +119,14 @@ public class WildfireEntity extends Monster implements PowerableMob {
                 level.removeBlock(pos, false);
             }
         }
+
         for (Player player : playerList) {
             if (playerList.size() > 0) {
                 player.clearFire();
             }
         }
-        for(AncientBlaze blaze : blazeList) {
+
+        for (AncientBlaze blaze : blazeList) {
             BlockPos blazePos = blaze.getOnPos();
             double d0 = blazePos.getX();
             double d1 = blazePos.getY();
@@ -228,27 +228,25 @@ public class WildfireEntity extends Monster implements PowerableMob {
             this.hasImpulse = true;
         }
 
-        if (random.nextInt(100) < 10 && this.tickCount % 20 == 0 && !this.level.isClientSide() && this.isAlive()) {
+        if (random.nextInt(100) < 5 && this.tickCount % 40 == 0 && !this.level.isClientSide() && this.isAlive()) {
             this.throwFireBall();
         }
         this.bossEvent.setProgress(this.getHealth() / this.getMaxHealth());
         super.customServerAiStep();
     }
 
-    //发射出大量火球
+    //发射出大量的火球
     private void throwFireBall() {
         float pitch = 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F);
         this.playSound(SoundEvents.BLAZE_SHOOT, 1.0F, pitch);
-        if (!this.level.isClientSide) {
-            for (int i = 0; i < 256; i++) {
-                float f = (float)(Math.random() * Math.PI);
-                double x = (-((float)Math.sin(f)) * 0.75F);
-                double y = Math.abs(Math.random() * 0.75F);
-                double z = (-((float)Math.cos(f)) * 0.75F);
-                SmallFireball snowball = new SmallFireball(this.level, this, this.getX(), this.getY(), this.getZ());
-                snowball.setDeltaMovement(x / 3.0F, y, z / 3.0F);
-                this.level.addFreshEntity(snowball);
-            }
+        for (int i = 0; i < 256; i++) {
+            float f = (float)(Math.random() * Math.PI * 2.0D);
+            double x = (-((float)Math.sin(f)) * 0.75F);
+            double y = Math.abs(Math.random() * 0.75D);
+            double z = (-((float)Math.cos(f)) * 0.75F);
+            FallingFireball entity = new FallingFireball(this.getX(), this.getY(), this.getZ(), this.level);
+            entity.setDeltaMovement(x / 2.0D, y * 1.5D, z / 2.0D);
+            this.level.addFreshEntity(entity);
         }
     }
 
@@ -369,7 +367,7 @@ public class WildfireEntity extends Monster implements PowerableMob {
     }
 
     public boolean isInvulnerableTo(DamageSource source) {
-        if ((source == DamageSource.GENERIC || (source instanceof EntityDamageSource && this.isOnFire())) && !source.isCreativePlayer())
+        if ((source == DamageSource.GENERIC || (source instanceof EntityDamageSource && this.isOnFire()) || source.isExplosion()) && !source.isCreativePlayer())
             return isInvulnerable();
         return false;
     }

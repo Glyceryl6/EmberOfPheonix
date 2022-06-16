@@ -6,6 +6,7 @@ import com.glyceryl.emberphoenix.client.renderer.PaleFireballRenderer;
 import com.glyceryl.emberphoenix.client.renderer.SmallCrackRenderer;
 import com.glyceryl.emberphoenix.client.renderer.WildfireRenderer;
 import com.glyceryl.emberphoenix.registry.EPEntity;
+import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.EntityRenderersEvent;
@@ -22,6 +23,7 @@ public class EPEntityRenderer {
         event.registerEntityRenderer(EPEntity.ANCIENT_BLAZE.get(), AncientBlazeRenderer::new);
         event.registerEntityRenderer(EPEntity.SMALL_CRACK.get(), SmallCrackRenderer::new);
         event.registerEntityRenderer(EPEntity.PALE_FIREBALL.get(), PaleFireballRenderer::new);
+        event.registerEntityRenderer(EPEntity.FALLING_FIREBALL.get(), ThrownItemRenderer::new);
     }
 
 }

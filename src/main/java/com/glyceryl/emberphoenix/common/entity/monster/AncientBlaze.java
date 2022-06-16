@@ -110,6 +110,12 @@ public class AncientBlaze extends Monster {
         return false;
     }
 
+    public boolean isInvulnerableTo(DamageSource source) {
+        if ((source == DamageSource.GENERIC || source.isExplosion()) && !source.isCreativePlayer())
+            return isInvulnerable();
+        return false;
+    }
+
     static class BlazeAttackGoal extends Goal {
         private final AncientBlaze blaze;
         private int attackStep;
