@@ -1,6 +1,7 @@
 package com.glyceryl.emberphoenix.common.entity.monster;
 
 import com.glyceryl.emberphoenix.common.entity.projectile.PaleFireball;
+import com.glyceryl.emberphoenix.registry.EPSounds;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -52,15 +53,15 @@ public class AncientBlaze extends Monster {
     }
 
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.BLAZE_AMBIENT;
+        return EPSounds.ANCIENT_BLAZE_BREATHE;
     }
 
     protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.BLAZE_HURT;
+        return EPSounds.ANCIENT_BLAZE_HIT;
     }
 
     protected SoundEvent getDeathSound() {
-        return SoundEvents.BLAZE_DEATH;
+        return EPSounds.ANCIENT_BLAZE_DEATH;
     }
 
     public float getBrightness() {

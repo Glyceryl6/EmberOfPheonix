@@ -5,6 +5,7 @@ import com.glyceryl.emberphoenix.common.entity.monster.AncientBlaze;
 import com.glyceryl.emberphoenix.common.entity.projectile.FallingFireball;
 import com.glyceryl.emberphoenix.common.entity.projectile.SmallCrack;
 import com.glyceryl.emberphoenix.registry.EPEntity;
+import com.glyceryl.emberphoenix.registry.EPSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -49,6 +50,7 @@ public class WildfireEntity extends Monster implements PowerableMob {
     private final ServerBossEvent bossEvent = (ServerBossEvent)(new ServerBossEvent(this.getDisplayName(), BossEvent.BossBarColor.YELLOW, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(true);
 
     private float heightOffset = 0.5F;
+    private int roarTime = 100;
     private int heightOffsetUpdateTime;
     public boolean shieldDisabled = false;
 
@@ -86,12 +88,12 @@ public class WildfireEntity extends Monster implements PowerableMob {
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.BLAZE_AMBIENT;
+        return EPSounds.WILDFIRE_RESPIRE;
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource p_32235_) {
-        return SoundEvents.BLAZE_HURT;
+        return EPSounds.WILDFIRE_HIT;
     }
 
     @Override
@@ -171,6 +173,11 @@ public class WildfireEntity extends Monster implements PowerableMob {
         }
 
         if (this.level.isClientSide) {
+            if (!this.isSilent() && --this.roarTime < 0) {
+                this.level.playLocalSound(this.getX(), this.getY(), this.getZ(), EPSounds.WILDFIRE_ROAR, this.getSoundSource(), 2.5F, 0.8F + this.random.nextFloat() * 0.3F, false);
+                this.roarTime = 200 + this.random.nextInt(200);
+            }
+
             if (this.random.nextInt(24) == 0 && !this.isSilent()) {
                 float volume = 1.0F + this.random.nextFloat();
                 float pitch = this.random.nextFloat() * 0.7F + 0.3F;
@@ -237,14 +244,16 @@ public class WildfireEntity extends Monster implements PowerableMob {
     private void spawnFlameRain() {
         float pitch = 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F);
         this.playSound(SoundEvents.BLAZE_SHOOT, 1.0F, pitch);
-        for (int i = 0; i < 256; i++) {
-            float f = (float)(Math.random() * Math.PI * 2.0D);
-            double x = (-((float)Math.sin(f)) * 0.75F);
-            double y = Math.abs(Math.random() * 0.75D);
-            double z = (-((float)Math.cos(f)) * 0.75F);
-            FallingFireball entity = new FallingFireball(this.getX(), this.getY(), this.getZ(), this.level);
-            entity.setDeltaMovement(x / 2.0D, y * 1.5D, z / 2.0D);
-            this.level.addFreshEntity(entity);
+        if (!this.level.isClientSide) {
+            for (int i = 0; i < 256; i++) {
+                float f = (float)(Math.random() * Math.PI * 2.0D);
+                double x = (-((float)Math.sin(f)) * 0.75F);
+                double y = Math.abs(Math.random() * 0.75D);
+                double z = (-((float)Math.cos(f)) * 0.75F);
+                FallingFireball entity = new FallingFireball(this.getX(), this.getY(), this.getZ(), this.level);
+                entity.setDeltaMovement(x / 2.0D, y * 1.5D, z / 2.0D);
+                this.level.addFreshEntity(entity);
+            }
         }
     }
 
@@ -430,8 +439,7 @@ public class WildfireEntity extends Monster implements PowerableMob {
         @Override
         public void tick() {
             this.counter++;
-            LivingEntity livingentity = getTarget();
-            if (getHealth() <= getMaxHealth() / 3.0F && isOnFire() && livingentity != null && this.counter % 20 ==0) {
+            if (getHealth() <= getMaxHealth() / 2.0F && isOnFire() && this.counter % 10 == 0) {
                 spawnFlameRain();
             }
         }

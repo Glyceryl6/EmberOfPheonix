@@ -53,5 +53,66 @@
       "emberphoenix:equip_emberium2",
       "emberphoenix:equip_emberium3"
     ]
+  },
+  "ancient_blaze_breathe": {
+    "subtitle": "sound.emberphoenix.ancient_blaze_breathe",
+    "sounds": [
+      "emberphoenix:ancient_blaze_breathe_1",
+      "emberphoenix:ancient_blaze_breathe_2",
+      "emberphoenix:ancient_blaze_breathe_3",
+      "emberphoenix:ancient_blaze_breathe_4"
+    ]
+  },
+  "ancient_blaze_death": {
+    "subtitle": "sound.emberphoenix.ancient_blaze_death",
+    "sounds": [
+      "emberphoenix:ancient_blaze_death"
+    ]
+  },
+  "ancient_blaze_hit": {
+    "subtitle": "sound.emberphoenix.ancient_blaze_hit",
+    "sounds": [
+      "emberphoenix:ancient_blaze_hit_1",
+      "emberphoenix:ancient_blaze_hit_2",
+      "emberphoenix:ancient_blaze_hit_3",
+      "emberphoenix:ancient_blaze_hit_4"
+    ]
+  },
+  "wildfire_teleport": {
+    "subtitle": "sound.emberphoenix.wildfire_teleport",
+    "sounds": [
+      "emberphoenix:wildfire_teleport"
+    ]
+  },
+  "wildfire_respire": {
+    "subtitle": "sound.emberphoenix.wildfire_respire",
+    "sounds": [
+      "emberphoenix:wildfire_respire_1",
+      "emberphoenix:wildfire_respire_2",
+      "emberphoenix:wildfire_respire_3"
+    ]
+  },
+  "wildfire_ignite": {
+    "subtitle": "sound.emberphoenix.wildfire_ignite",
+    "sounds": [
+      "emberphoenix:wildfire_ignite"
+    ]
+  },
+  "wildfire_roar": {
+    "subtitle": "sound.emberphoenix.wildfire_roar",
+    "sounds": [
+      "emberphoenix:wildfire_roar_1",
+      "emberphoenix:wildfire_roar_2",
+      "emberphoenix:wildfire_roar_3"
+    ]
+  },
+  "wildfire_hit": {
+    "subtitle": "sound.emberphoenix.wildfire_hit",
+    "sounds": [
+      "emberphoenix:wildfire_hit_1",
+      "emberphoenix:wildfire_hit_2",
+      "emberphoenix:wildfire_hit_3",
+      "emberphoenix:wildfire_hit_4"
+    ]
   }
 }

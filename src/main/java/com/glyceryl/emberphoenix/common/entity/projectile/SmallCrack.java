@@ -73,7 +73,7 @@ public class SmallCrack extends AbstractHurtingProjectile {
 
     private void explode() {
         if (!this.level.isClientSide) {
-            this.level.explode(null, this.getX(), this.getY(), this.getZ(), 3.0F, true, Explosion.BlockInteraction.NONE);
+            this.level.explode(null, this.getX(), this.getY(), this.getZ(), 2.0F, true, Explosion.BlockInteraction.NONE);
             this.discard();
         }
     }
