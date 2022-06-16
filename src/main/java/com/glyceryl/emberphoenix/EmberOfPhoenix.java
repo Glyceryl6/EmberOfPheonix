@@ -37,6 +37,7 @@ public class EmberOfPhoenix {
         MinecraftForge.EVENT_BUS.register(new LivingWalkOnMagma());
         MinecraftForge.EVENT_BUS.register(new PlayerUseTrident());
         MinecraftForge.EVENT_BUS.register(new ExplosionImmune());
+        MinecraftForge.EVENT_BUS.register(new ThrowFireCharge());
         MinecraftForge.EVENT_BUS.register(new ProjectileHit());
         MinecraftForge.EVENT_BUS.register(new RenderHorizon());
         MinecraftForge.EVENT_BUS.register(this);
