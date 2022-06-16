@@ -74,6 +74,7 @@ public class WildfireEntity extends Monster implements PowerableMob {
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new WildFireAttackGoal(this));
         this.goalSelector.addGoal(1, new WildfireEntity.SpawnMinionsGoal());
+        this.goalSelector.addGoal(3, new WildfireEntity.SpawnFlameRainGoal());
         this.goalSelector.addGoal(4, new WildfireEntity.ShootSmallCrackGoal(this));
         this.goalSelector.addGoal(2, new MoveTowardsRestrictionGoal(this, 1.0D));
         this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0D, 0.0F));
@@ -228,15 +229,12 @@ public class WildfireEntity extends Monster implements PowerableMob {
             this.hasImpulse = true;
         }
 
-        if (random.nextInt(100) < 5 && this.tickCount % 40 == 0 && !this.level.isClientSide() && this.isAlive()) {
-            this.throwFireBall();
-        }
         this.bossEvent.setProgress(this.getHealth() / this.getMaxHealth());
         super.customServerAiStep();
     }
 
     //发射出大量的火球
-    private void throwFireBall() {
+    private void spawnFlameRain() {
         float pitch = 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F);
         this.playSound(SoundEvents.BLAZE_SHOOT, 1.0F, pitch);
         for (int i = 0; i < 256; i++) {
@@ -353,7 +351,7 @@ public class WildfireEntity extends Monster implements PowerableMob {
                 }
             }
             if (isInvulnerableTo(source)) {
-                playSound(SoundEvents.ANVIL_PLACE, 0.3F, 0.5F);
+                playSound(SoundEvents.SHIELD_BLOCK, 0.3F, 0.5F);
                 if (source.getDirectEntity() != null)
                     if (source.isProjectile()) {
                         source.getDirectEntity().setSecondsOnFire(12);
@@ -408,6 +406,33 @@ public class WildfireEntity extends Monster implements PowerableMob {
                     blaze.setTarget(getTarget());
                     level.addFreshEntity(blaze);
                 }
+            }
+        }
+
+    }
+
+    //发射火焰流星雨
+    class SpawnFlameRainGoal extends Goal{
+
+        private int counter = 0;
+
+        @Override
+        public boolean canUse() {
+            return getTarget() != null && distanceToSqr(getTarget()) <= 1024.0D && random.nextFloat() * 100.0F < 0.5F;
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            LivingEntity livingentity = getTarget();
+            return livingentity != null && livingentity.isAlive() && canAttack(livingentity);
+        }
+
+        @Override
+        public void tick() {
+            this.counter++;
+            LivingEntity livingentity = getTarget();
+            if (getHealth() <= getMaxHealth() / 3.0F && isOnFire() && livingentity != null && this.counter % 20 ==0) {
+                spawnFlameRain();
             }
         }
 
