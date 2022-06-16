@@ -110,6 +110,21 @@ public class AncientBlaze extends Monster {
         return false;
     }
 
+    @Override
+    public boolean hurt(DamageSource source, float amount) {
+        if (isInvulnerableTo(source)) {
+            playSound(SoundEvents.SHIELD_BLOCK, 0.3F, 0.5F);
+            if (source.getDirectEntity() != null)
+                if (source.isProjectile()) {
+                    source.getDirectEntity().setSecondsOnFire(12);
+                } else {
+                    source.getDirectEntity().setSecondsOnFire(8);
+                }
+            return false;
+        }
+        return super.hurt(source, amount);
+    }
+
     public boolean isInvulnerableTo(DamageSource source) {
         if ((source == DamageSource.GENERIC || source.isExplosion()) && !source.isCreativePlayer())
             return isInvulnerable();
