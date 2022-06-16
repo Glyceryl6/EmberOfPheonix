@@ -7,7 +7,6 @@ import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
@@ -39,23 +38,11 @@ public class SmallCrack extends AbstractHurtingProjectile {
     }
 
     @Override
-    protected void onHitEntity(EntityHitResult hitResult) {
-        super.onHitEntity(hitResult);
-        if (!this.level.isClientSide) {
-            Entity entity = hitResult.getEntity();
-            Entity entity1 = this.getOwner();
-            if (entity1 instanceof LivingEntity && !entity1.fireImmune()) {
-                this.doEnchantDamageEffects((LivingEntity)entity1, entity);
-            }
-        }
-    }
-
-    @Override
-    protected void onHit(HitResult result) {
-        if (result instanceof EntityHitResult) {
-            if (((EntityHitResult)result).getEntity() instanceof WildfireEntity
-                    || ((EntityHitResult)result).getEntity() instanceof SmallCrack
-                    || ((EntityHitResult)result).getEntity() instanceof AncientBlaze) {
+    protected void onHit(HitResult hitResult) {
+        if (hitResult instanceof EntityHitResult) {
+            if (((EntityHitResult)hitResult).getEntity() instanceof WildfireEntity
+                    || ((EntityHitResult)hitResult).getEntity() instanceof SmallCrack
+                    || ((EntityHitResult)hitResult).getEntity() instanceof AncientBlaze) {
                 return;
             }
         }
