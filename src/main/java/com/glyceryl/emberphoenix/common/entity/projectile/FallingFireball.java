@@ -3,6 +3,7 @@ package com.glyceryl.emberphoenix.common.entity.projectile;
 import com.glyceryl.emberphoenix.registry.EPEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -17,6 +18,7 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
+@SuppressWarnings("unused")
 public class FallingFireball extends ThrowableItemProjectile {
 
     public FallingFireball(EntityType<? extends FallingFireball> type, Level level) {
@@ -68,7 +70,7 @@ public class FallingFireball extends ThrowableItemProjectile {
     @Override
     protected void onHit(HitResult hitResult) {
         super.onHit(hitResult);
-        if (!this.level.isClientSide) {
+        if (this.level instanceof ServerLevel) {
             this.makeFlameParticles();
             this.discard();
         }
@@ -82,7 +84,7 @@ public class FallingFireball extends ThrowableItemProjectile {
             double d0 = this.random.nextGaussian() * 0.02D;
             double d1 = this.random.nextGaussian() * 0.02D;
             double d2 = this.random.nextGaussian() * 0.02D;
-            this.level.addParticle(ParticleTypes.FLAME, dx, dy, dz, d0, d1, d2);
+            this.level.addParticle(ParticleTypes.LAVA, dx, dy, dz, d0, d1, d2);
         }
     }
 

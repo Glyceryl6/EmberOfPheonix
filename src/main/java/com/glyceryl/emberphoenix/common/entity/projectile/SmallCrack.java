@@ -28,6 +28,7 @@ public class SmallCrack extends AbstractHurtingProjectile {
         super(EPEntity.SMALL_CRACK.get(), entity, x, y, z, level);
     }
 
+    //设置火球在生成时间超过10秒之后消失
     @Override
     public void tick() {
         super.tick();
@@ -73,7 +74,9 @@ public class SmallCrack extends AbstractHurtingProjectile {
 
     private void explode() {
         if (!this.level.isClientSide) {
-            this.level.explode(null, this.getX(), this.getY(), this.getZ(), 2.0F, true, Explosion.BlockInteraction.NONE);
+            boolean b = random.nextInt(100) % 2 == 0;
+            Explosion.BlockInteraction type = Explosion.BlockInteraction.NONE;
+            this.level.explode(null, this.getX(), this.getY(), this.getZ(), 2.0F, b, type);
             this.discard();
         }
     }
