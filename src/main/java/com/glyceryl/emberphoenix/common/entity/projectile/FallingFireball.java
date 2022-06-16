@@ -1,13 +1,14 @@
 package com.glyceryl.emberphoenix.common.entity.projectile;
 
+import com.glyceryl.emberphoenix.common.entity.boss.WildfireEntity;
 import com.glyceryl.emberphoenix.registry.EPEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -23,6 +24,10 @@ public class FallingFireball extends ThrowableItemProjectile {
 
     public FallingFireball(EntityType<? extends FallingFireball> type, Level level) {
         super(type, level);
+    }
+
+    public FallingFireball(Level level, LivingEntity livingEntity) {
+        super(EPEntity.FALLING_FIREBALL.get(), livingEntity, level);
     }
 
     public FallingFireball(double x, double y, double z, Level level) {
@@ -62,7 +67,12 @@ public class FallingFireball extends ThrowableItemProjectile {
         if (!this.level.isClientSide) {
             BlockPos blockpos = result.getBlockPos().relative(result.getDirection());
             if (this.level.isEmptyBlock(blockpos)) {
-                this.level.setBlockAndUpdate(blockpos, BaseFireBlock.getState(this.level, blockpos));
+                boolean canMakeFire = random.nextInt(100) % 3 == 0;
+                boolean isPlayerOwner = this.getOwner() instanceof Player;
+                boolean isWildfireOwner = this.getOwner() instanceof WildfireEntity;
+                if (isPlayerOwner || (canMakeFire && isWildfireOwner)) {
+                    this.level.setBlockAndUpdate(blockpos, BaseFireBlock.getState(this.level, blockpos));
+                }
             }
         }
     }
@@ -70,7 +80,7 @@ public class FallingFireball extends ThrowableItemProjectile {
     @Override
     protected void onHit(HitResult hitResult) {
         super.onHit(hitResult);
-        if (this.level instanceof ServerLevel) {
+        if (this.level.isClientSide) {
             this.makeFlameParticles();
             this.discard();
         }
