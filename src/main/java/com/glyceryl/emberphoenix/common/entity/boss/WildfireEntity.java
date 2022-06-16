@@ -47,7 +47,9 @@ public class WildfireEntity extends Monster implements PowerableMob {
     private static final EntityDataAccessor<Boolean> ATTACKING = SynchedEntityData.defineId(WildfireEntity.class, EntityDataSerializers.BOOLEAN);
 
     //给BOSS添加一个黄色的血条
-    private final ServerBossEvent bossEvent = (ServerBossEvent)(new ServerBossEvent(this.getDisplayName(), BossEvent.BossBarColor.YELLOW, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(true);
+    private final ServerBossEvent bossEvent = (ServerBossEvent)(new ServerBossEvent(this.getDisplayName(),
+            BossEvent.BossBarColor.YELLOW, BossEvent.BossBarOverlay.PROGRESS))
+            .setDarkenScreen(true).setCreateWorldFog(true);
 
     private float heightOffset = 0.5F;
     private int roarTime = 100;
@@ -56,21 +58,22 @@ public class WildfireEntity extends Monster implements PowerableMob {
 
     public WildfireEntity(EntityType<? extends Monster> type, Level level) {
         super(type, level);
-        this.setPathfindingMalus(BlockPathTypes.WATER, -1.0F);
+        this.xpReward = 20;
         this.setPathfindingMalus(BlockPathTypes.LAVA, 8.0F);
+        this.setPathfindingMalus(BlockPathTypes.WATER, -1.0F);
         this.setPathfindingMalus(BlockPathTypes.DANGER_FIRE, 0.0F);
         this.setPathfindingMalus(BlockPathTypes.DAMAGE_FIRE, 0.0F);
-        this.xpReward = 20;
     }
 
     public static AttributeSupplier.Builder setCustomAttributes() {
         return Monster.createMonsterAttributes()
+                .add(Attributes.ARMOR, 10.0D)
                 .add(Attributes.MAX_HEALTH, 200.0D)
                 .add(Attributes.ATTACK_DAMAGE, 6.0D)
-                .add(Attributes.ATTACK_KNOCKBACK, 4.0D)
-                .add(Attributes.ARMOR, 10.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.3D)
-                .add(Attributes.FOLLOW_RANGE, 128.0D);
+                .add(Attributes.FOLLOW_RANGE, 128.0D)
+                .add(Attributes.ATTACK_KNOCKBACK, 4.0D)
+                .add(Attributes.KNOCKBACK_RESISTANCE, 0.75D);
     }
 
     protected void registerGoals() {
@@ -92,7 +95,7 @@ public class WildfireEntity extends Monster implements PowerableMob {
     }
 
     @Override
-    protected SoundEvent getHurtSound(DamageSource p_32235_) {
+    protected SoundEvent getHurtSound(DamageSource source) {
         return EPSounds.WILDFIRE_HIT;
     }
 
@@ -111,24 +114,76 @@ public class WildfireEntity extends Monster implements PowerableMob {
         return 1.0F;
     }
 
-    //死亡时灭掉周围所有的火，并杀死周围所有的远古烈焰人，同时灭掉玩家身上的火
+    public void teleportToSightOfEntity(@Nullable Entity entity) {
+        Vec3 dest = findVecInLOSOf(entity);
+        double srcX = getX();
+        double srcY = getY();
+        double srcZ = getZ();
+        if (dest != null && entity != null) {
+            teleportToNoChecks(dest.x, dest.y, dest.z);
+            this.getLookControl().setLookAt(entity, 100F, 100F);
+            this.yBodyRot = this.getYRot();
+            if (!this.getSensing().hasLineOfSight(entity)) {
+                teleportToNoChecks(srcX, srcY, srcZ);
+            }
+        }
+    }
+
+    //返回一个合适的坐标，如果没有则返回空值
+    @Nullable
+    public Vec3 findVecInLOSOf(@Nullable Entity targetEntity) {
+        if (targetEntity == null) return null;
+        double origX = getX();
+        double origY = getY();
+        double origZ = getZ();
+        int tries = 100;
+        for (int i = 0; i < tries; i++) {
+            double range = random.nextDouble(12.0D) + 12.0D;
+            double tx = targetEntity.getX() + random.nextGaussian() * range;
+            double ty = targetEntity.getY();
+            double tz = targetEntity.getZ() + random.nextGaussian() * range;
+            boolean destClear = randomTeleport(tx, ty, tz, true);
+            boolean canSeeTargetAtDest = hasLineOfSight(targetEntity);
+            this.teleportTo(origX, origY, origZ);
+            if (destClear && canSeeTargetAtDest) {
+                return new Vec3(tx, ty, tz);
+            }
+        }
+
+        return null;
+    }
+
+    //如果该传送地点有效，则不用进行检测，直接进行传送
+    private void teleportToNoChecks(double destX, double destY, double destZ) {
+        SoundEvent sound = EPSounds.WILDFIRE_TELEPORT;
+        double srcX = getX();
+        double srcY = getY();
+        double srcZ = getZ();
+        this.teleportTo(destX, destY, destZ);
+        this.level.playSound(null, srcX, srcY, srcZ, sound, this.getSoundSource(), 1.0F, 1.0F);
+        this.playSound(sound, 1.0F, 1.0F);
+        this.jumping = false;
+    }
+
+    //死亡时触发的事件
     private void removeFireAndBlazes() {
         BlockPos blockpos = this.getOnPos();
         AABB aabb = (new AABB(blockpos)).inflate(128.0D);
         List<Player> playerList = this.level.getEntitiesOfClass(Player.class, aabb);
         List<AncientBlaze> blazeList = this.level.getEntitiesOfClass(AncientBlaze.class, aabb);
+        //灭掉周围所有的火（以自身为中心 96×16×96 的范围）
         for (BlockPos pos : BlockPos.withinManhattan(blockpos, 48, 8, 48)) {
             if (level.getBlockState(pos).is(Blocks.FIRE)) {
                 level.removeBlock(pos, false);
             }
         }
-
+        //灭掉周围玩家身上的火
         for (Player player : playerList) {
             if (playerList.size() > 0) {
                 player.clearFire();
             }
         }
-
+        //杀死周围所有的远古烈焰人
         for (AncientBlaze blaze : blazeList) {
             BlockPos blazePos = blaze.getOnPos();
             double d0 = blazePos.getX();
@@ -240,18 +295,18 @@ public class WildfireEntity extends Monster implements PowerableMob {
         super.customServerAiStep();
     }
 
-    //发射出大量的火球
-    private void spawnFlameRain() {
+    //发射出流星雨状的火球
+    private void spawnFlameShower() {
         float pitch = 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F);
         this.playSound(SoundEvents.BLAZE_SHOOT, 1.0F, pitch);
         if (!this.level.isClientSide) {
             for (int i = 0; i < 256; i++) {
                 float f = (float)(Math.random() * Math.PI * 2.0D);
-                double x = (-((float)Math.sin(f)) * 0.75F);
-                double y = Math.abs(Math.random() * 0.75D);
-                double z = (-((float)Math.cos(f)) * 0.75F);
+                double x = (-((float)Math.sin(f)) * 0.75F) / 2.0D;
+                double y = Math.abs(Math.random() * 0.75D) * 1.5D;
+                double z = (-((float)Math.cos(f)) * 0.75F) / 2.0D;
                 FallingFireball entity = new FallingFireball(this.getX(), this.getY(), this.getZ(), this.level);
-                entity.setDeltaMovement(x / 2.0D, y * 1.5D, z / 2.0D);
+                entity.setDeltaMovement(x, y, z);
                 this.level.addFreshEntity(entity);
             }
         }
@@ -276,7 +331,8 @@ public class WildfireEntity extends Monster implements PowerableMob {
     }
 
     public void checkDespawn() {
-        if (this.level.getDifficulty() == Difficulty.PEACEFUL && this.shouldDespawnInPeaceful()) {
+        boolean isPeaceful = this.level.getDifficulty() == Difficulty.PEACEFUL;
+        if (isPeaceful && this.shouldDespawnInPeaceful()) {
             this.discard();
         } else {
             this.noActionTime = 0;
@@ -299,7 +355,7 @@ public class WildfireEntity extends Monster implements PowerableMob {
     }
 
     public boolean isPowered() {
-        return this.getHealth() <= this.getMaxHealth() / 3.0F;
+        return this.getHealth() <= this.getMaxHealth() / 2.0F;
     }
 
     public boolean getShielding() {
@@ -361,12 +417,10 @@ public class WildfireEntity extends Monster implements PowerableMob {
             }
             if (isInvulnerableTo(source)) {
                 playSound(SoundEvents.SHIELD_BLOCK, 0.3F, 0.5F);
-                if (source.getDirectEntity() != null)
-                    if (source.isProjectile()) {
-                        source.getDirectEntity().setSecondsOnFire(12);
-                    } else {
-                        source.getDirectEntity().setSecondsOnFire(8);
-                    }
+                if (source.getDirectEntity() != null) {
+                    int seconds = source.isProjectile() ? 12 : 8;
+                    source.getDirectEntity().setSecondsOnFire(seconds);
+                }
                 return false;
             }
         }
@@ -374,7 +428,8 @@ public class WildfireEntity extends Monster implements PowerableMob {
     }
 
     public boolean isInvulnerableTo(DamageSource source) {
-        if ((source == DamageSource.GENERIC || (source instanceof EntityDamageSource && this.isOnFire()) || source.isExplosion()) && !source.isCreativePlayer())
+        boolean b = source instanceof EntityDamageSource && this.isOnFire();
+        if ((source == DamageSource.GENERIC || b || source.isExplosion()) && !source.isCreativePlayer())
             return isInvulnerable();
         return false;
     }
@@ -394,6 +449,7 @@ public class WildfireEntity extends Monster implements PowerableMob {
         }
 
         @Override
+        @SuppressWarnings("all")
         public void tick() {
             LivingEntity livingentity = getTarget();
             int count = random.nextInt(4) + 3;
@@ -421,13 +477,13 @@ public class WildfireEntity extends Monster implements PowerableMob {
     }
 
     //发射火焰流星雨
-    class SpawnFlameRainGoal extends Goal{
+    class SpawnFlameRainGoal extends Goal {
 
         private int counter = 0;
 
         @Override
         public boolean canUse() {
-            return getTarget() != null && distanceToSqr(getTarget()) <= 1024.0D && random.nextFloat() * 100.0F < 0.5F;
+            return getTarget() != null && distanceToSqr(getTarget()) <= 1024.0D && random.nextFloat() * 100.0F < 1.5F;
         }
 
         @Override
@@ -439,8 +495,12 @@ public class WildfireEntity extends Monster implements PowerableMob {
         @Override
         public void tick() {
             this.counter++;
-            if (getHealth() <= getMaxHealth() / 2.0F && isOnFire() && this.counter % 10 == 0) {
-                spawnFlameRain();
+            LivingEntity livingentity = getTarget();
+            if (isPowered() && isOnFire() && this.counter % 10 == 0 && livingentity != null) {
+                if (distanceTo(livingentity) > 30.0D || distanceTo(livingentity) < 8.0D) {
+                    spawnFlameShower();
+                    teleportToSightOfEntity(getTarget());
+                }
             }
         }
 
