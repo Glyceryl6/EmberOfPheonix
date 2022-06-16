@@ -210,9 +210,14 @@ public class WildfireEntity extends Monster implements PowerableMob {
 
     //检测跟踪范围内是否存在远古烈焰人，有则回血
     private void checkBlazesForHeal() {
-        int blazeCount = this.getBlazeAround(this.getAttributeValue(Attributes.FOLLOW_RANGE)).size();
-        if (this.tickCount % 10 == 0 && this.getHealth() < this.getMaxHealth() && blazeCount > 0) {
-            this.heal(1.0F);
+        int blazeCount = getBlazeAround(this.getAttributeValue(Attributes.FOLLOW_RANGE)).size();
+        if (this.getHealth() < this.getMaxHealth() && blazeCount > 0) {
+            this.bossEvent.setColor(BossEvent.BossBarColor.GREEN);
+            if (this.tickCount % 10 == 0) {
+                this.heal(1.0F);
+            }
+        } else {
+            this.bossEvent.setColor(BossEvent.BossBarColor.YELLOW);
         }
     }
 
@@ -306,6 +311,7 @@ public class WildfireEntity extends Monster implements PowerableMob {
                 double y = Math.abs(Math.random() * 0.75D) * 1.5D;
                 double z = (-((float)Math.cos(f)) * 0.75F) / 2.0D;
                 FallingFireball entity = new FallingFireball(this.getX(), this.getY(), this.getZ(), this.level);
+                entity.setOwner(this);
                 entity.setDeltaMovement(x, y, z);
                 this.level.addFreshEntity(entity);
             }
@@ -454,7 +460,7 @@ public class WildfireEntity extends Monster implements PowerableMob {
             LivingEntity livingentity = getTarget();
             int count = random.nextInt(4) + 3;
             int blazeCount = getBlazeAround(32.0D).size();
-            if (blazeCount < 3 && getHealth() < getMaxHealth() / 2.0D && livingentity != null) {
+            if (blazeCount < 3 && isPowered() && livingentity != null) {
                 double xx = livingentity.getX() - getX();
                 double yy = livingentity.getY() - getY();
                 double zz = livingentity.getZ() - getZ();
