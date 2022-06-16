@@ -47,9 +47,10 @@ public class AncientBlaze extends Monster {
 
     public static AttributeSupplier.Builder createAttributes() {
         return Monster.createMonsterAttributes()
+                .add(Attributes.MAX_HEALTH, 30.0F)
+                .add(Attributes.FOLLOW_RANGE, 48.0D)
                 .add(Attributes.ATTACK_DAMAGE, 6.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.23F)
-                .add(Attributes.FOLLOW_RANGE, 48.0D);
+                .add(Attributes.MOVEMENT_SPEED, 0.23F);
     }
 
     protected SoundEvent getAmbientSound() {
@@ -115,12 +116,10 @@ public class AncientBlaze extends Monster {
     public boolean hurt(DamageSource source, float amount) {
         if (isInvulnerableTo(source)) {
             playSound(SoundEvents.SHIELD_BLOCK, 0.3F, 0.5F);
-            if (source.getDirectEntity() != null)
-                if (source.isProjectile()) {
-                    source.getDirectEntity().setSecondsOnFire(12);
-                } else {
-                    source.getDirectEntity().setSecondsOnFire(8);
-                }
+            if (source.getDirectEntity() != null) {
+                int seconds = source.isProjectile() ? 12 : 8;
+                source.getDirectEntity().setSecondsOnFire(seconds);
+            }
             return false;
         }
         return super.hurt(source, amount);
