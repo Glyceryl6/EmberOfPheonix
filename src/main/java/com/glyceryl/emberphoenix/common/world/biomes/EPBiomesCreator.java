@@ -25,7 +25,7 @@ public class EPBiomesCreator {
                 .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, EPPlacedFeatures.BIGGER_LAKE_LAVA_SURFACE);
         return (new Biome.BiomeBuilder()).precipitation(Biome.Precipitation.NONE).biomeCategory(Biome.BiomeCategory.NETHER).temperature(temperature).downfall(0.0F)
                 .specialEffects((new BiomeSpecialEffects.Builder()).waterColor(4159204).waterFogColor(329011).fogColor(3344392)
-                .skyColor(OverworldBiomes.calculateSkyColor(0.5F)).build()).mobSpawnSettings(mobspawnsettings).generationSettings(builder.build()).build();
+                .skyColor(OverworldBiomes.calculateSkyColor(0.1F)).build()).mobSpawnSettings(mobspawnsettings).generationSettings(builder.build()).build();
     }
 
     public static Biome createRosaaniaVolcano() {
@@ -38,7 +38,7 @@ public class EPBiomesCreator {
                 .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, EPPlacedFeatures.BIGGER_LAKE_LAVA_SURFACE);
         return (new Biome.BiomeBuilder()).precipitation(Biome.Precipitation.NONE).biomeCategory(Biome.BiomeCategory.NETHER).temperature(2.8F).downfall(0.0F)
                 .specialEffects((new BiomeSpecialEffects.Builder()).waterColor(4159204).waterFogColor(329011).fogColor(3344392)
-                .skyColor(OverworldBiomes.calculateSkyColor(0.8F)).build()).mobSpawnSettings(mobspawnsettings).generationSettings(builder.build()).build();
+                .skyColor(OverworldBiomes.calculateSkyColor(0.3F)).build()).mobSpawnSettings(mobspawnsettings).generationSettings(builder.build()).build();
     }
 
     public static Biome createAshPlain() {
@@ -51,7 +51,7 @@ public class EPBiomesCreator {
                 .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, EPPlacedFeatures.BIGGER_LAKE_LAVA_SURFACE);
         return (new Biome.BiomeBuilder()).precipitation(Biome.Precipitation.NONE).biomeCategory(Biome.BiomeCategory.NETHER).temperature(1.8F).downfall(0.0F)
                 .specialEffects((new BiomeSpecialEffects.Builder()).waterColor(4159204).waterFogColor(329011).fogColor(3344392)
-                .skyColor(OverworldBiomes.calculateSkyColor(0.7F)).build()).mobSpawnSettings(mobspawnsettings).generationSettings(builder.build()).build();
+                .skyColor(OverworldBiomes.calculateSkyColor(0.2F)).build()).mobSpawnSettings(mobspawnsettings).generationSettings(builder.build()).build();
     }
 
     public static void init() {}
