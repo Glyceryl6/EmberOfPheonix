@@ -2,6 +2,7 @@ package com.glyceryl.emberphoenix.event;
 
 import com.glyceryl.emberphoenix.common.enchantments.EPEnchantHelper;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.RenderBlockOverlayEvent;
@@ -13,13 +14,14 @@ public class RenderHorizon {
     @OnlyIn(Dist.CLIENT)
     public void renderOverlay(RenderBlockOverlayEvent event) {
         float f6 = EPEnchantHelper.getMagmaStrider(event.getPlayer());
+        boolean hasEffect = event.getPlayer().hasEffect(MobEffects.FIRE_RESISTANCE);
         if (event.getOverlayType() != RenderBlockOverlayEvent.OverlayType.FIRE) {
             return;
         }
-        if (f6 > 0.0F) {
+        if (f6 > 0.0F || hasEffect) {
             if (event.getPlayer().isCreative()) {
                 event.setCanceled(true);
-            } else if (event.getPlayer().isEyeInFluid(FluidTags.LAVA)) {
+            } else {
                 event.getPoseStack().translate(0, -0.25, 0);
             }
         }
