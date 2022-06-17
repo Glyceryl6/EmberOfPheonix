@@ -1,13 +1,10 @@
 package com.glyceryl.emberphoenix.mixin;
 
 import com.glyceryl.emberphoenix.common.enchantments.EPEnchantHelper;
-import com.glyceryl.emberphoenix.registry.EPEnchantments;
 import net.minecraft.client.renderer.FogRenderer;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
