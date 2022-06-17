@@ -5,6 +5,7 @@ import com.glyceryl.emberphoenix.common.entity.monster.AncientBlaze;
 import com.glyceryl.emberphoenix.registry.EPEntity;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
@@ -14,11 +15,14 @@ import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
+import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.network.NetworkHooks;
 
 public class SmallCrack extends AbstractHurtingProjectile {
 
     public int time;
+    public int explosionPower = 2;
+    public boolean makeFire = true;
 
     public SmallCrack(EntityType<? extends SmallCrack> type, Level level) {
         super(type, level);
@@ -56,6 +60,24 @@ public class SmallCrack extends AbstractHurtingProjectile {
     }
 
     @Override
+    public void addAdditionalSaveData(CompoundTag compoundTag) {
+        super.addAdditionalSaveData(compoundTag);
+        compoundTag.putInt("ExplosionPower", this.explosionPower);
+        compoundTag.putBoolean("MakeFire", this.makeFire);
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag compoundTag) {
+        super.readAdditionalSaveData(compoundTag);
+        if (compoundTag.contains("ExplosionPower", 99)) {
+            this.explosionPower = compoundTag.getInt("ExplosionPower");
+        }
+        if (compoundTag.contains("MakeFire", 99)) {
+            this.makeFire = compoundTag.getBoolean("MakeFire");
+        }
+    }
+
+    @Override
     public boolean isPickable() {
         return false;
     }
@@ -74,9 +96,10 @@ public class SmallCrack extends AbstractHurtingProjectile {
 
     private void explode() {
         if (!this.level.isClientSide) {
-            boolean b = random.nextInt(100) % 2 == 0;
-            Explosion.BlockInteraction type = Explosion.BlockInteraction.NONE;
-            this.level.explode(null, this.getX(), this.getY(), this.getZ(), 2.0F, b, type);
+            boolean b = random.nextInt(100) % 2 == 0 && this.makeFire;
+            boolean flag = ForgeEventFactory.getMobGriefingEvent(this.level, this.getOwner());
+            Explosion.BlockInteraction type = flag ? Explosion.BlockInteraction.DESTROY : Explosion.BlockInteraction.NONE;
+            this.level.explode(null, this.getX(), this.getY(), this.getZ(), (float)this.explosionPower, b, type);
             this.discard();
         }
     }
