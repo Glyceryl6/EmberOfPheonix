@@ -1,25 +1,25 @@
 package com.glyceryl.emberphoenix.common.entity.projectile;
 
-import com.glyceryl.emberphoenix.common.entity.boss.WildfireEntity;
 import com.glyceryl.emberphoenix.registry.EPEntity;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.BaseFireBlock;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.FireBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
-@SuppressWarnings("unused")
 public class FallingFireball extends ThrowableItemProjectile {
 
     public FallingFireball(EntityType<? extends FallingFireball> type, Level level) {
@@ -38,7 +38,7 @@ public class FallingFireball extends ThrowableItemProjectile {
     public void tick() {
         super.tick();
         if (this.level.isClientSide) {
-            this.makeTrail2();
+            this.makeTrail(ParticleTypes.FLAME);
         }
     }
 
@@ -66,13 +66,9 @@ public class FallingFireball extends ThrowableItemProjectile {
         super.onHitBlock(result);
         if (!this.level.isClientSide) {
             BlockPos blockpos = result.getBlockPos().relative(result.getDirection());
+            BlockState fireBlock = Blocks.FIRE.defaultBlockState().setValue(FireBlock.AGE, 5);
             if (this.level.isEmptyBlock(blockpos)) {
-                boolean canMakeFire = random.nextInt(100) % 3 == 0;
-                boolean isPlayerOwner = this.getOwner() instanceof Player;
-                boolean isWildfireOwner = this.getOwner() instanceof WildfireEntity;
-                if (isPlayerOwner || (canMakeFire && isWildfireOwner)) {
-                    this.level.setBlockAndUpdate(blockpos, BaseFireBlock.getState(this.level, blockpos));
-                }
+                this.level.setBlockAndUpdate(blockpos, fireBlock);
             }
         }
     }
@@ -98,24 +94,12 @@ public class FallingFireball extends ThrowableItemProjectile {
         }
     }
 
-    private void makeTrail() {
-        for (int i = 0; i < 1; i++) {
-            double sx = 0.5 * (random.nextDouble() - random.nextDouble()) + this.getDeltaMovement().x();
-            double sy = 0.5 * (random.nextDouble() - random.nextDouble()) + this.getDeltaMovement().y();
-            double sz = 0.5 * (random.nextDouble() - random.nextDouble()) + this.getDeltaMovement().z();
-            double dx = getX() + sx;
-            double dy = getY() + sy;
-            double dz = getZ() + sz;
-            level.addParticle(ParticleTypes.FLAME, dx, dy, dz, sx * -0.25, sy * -0.25, sz * -0.25);
-        }
-    }
-
-    private void makeTrail2() {
+    public void makeTrail(ParticleOptions particle) {
         Vec3 vec3 = this.getDeltaMovement();
         double d0 = this.getX() + vec3.x;
         double d1 = this.getY() + vec3.y;
         double d2 = this.getZ() + vec3.z;
-        this.level.addParticle(ParticleTypes.FLAME, d0, d1 + 0.5D, d2, 0.0D, 0.0D, 0.0D);
+        this.level.addParticle(particle, d0, d1 + 0.5D, d2, 0.0D, 0.0D, 0.0D);
     }
 
     @Override

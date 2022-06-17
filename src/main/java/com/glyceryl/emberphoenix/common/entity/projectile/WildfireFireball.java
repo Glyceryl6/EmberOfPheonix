@@ -1,13 +1,17 @@
 package com.glyceryl.emberphoenix.common.entity.projectile;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.Fireball;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.BaseFireBlock;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.FireBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 
@@ -16,7 +20,7 @@ public class WildfireFireball extends Fireball {
     public WildfireFireball(Level level, LivingEntity livingEntity, double x, double y, double z) {
         super(EntityType.SMALL_FIREBALL, livingEntity, x, y, z, level);
     }
-    
+
     @Override
     protected void onHitEntity(EntityHitResult result) {
         super.onHitEntity(result);
@@ -41,10 +45,16 @@ public class WildfireFireball extends Fireball {
         super.onHitBlock(result);
         if (!this.level.isClientSide) {
             BlockPos blockpos = result.getBlockPos().relative(result.getDirection());
+            BlockState fireBlock = Blocks.FIRE.defaultBlockState().setValue(FireBlock.AGE, 5);
             if (this.level.isEmptyBlock(blockpos)) {
-                this.level.setBlockAndUpdate(blockpos, BaseFireBlock.getState(this.level, blockpos));
+                this.level.setBlockAndUpdate(blockpos, fireBlock);
             }
         }
+    }
+
+    @Override
+    protected ParticleOptions getTrailParticle() {
+        return ParticleTypes.FLAME;
     }
 
     @Override
