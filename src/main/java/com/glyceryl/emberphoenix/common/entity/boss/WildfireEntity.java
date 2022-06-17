@@ -47,7 +47,7 @@ public class WildfireEntity extends Monster implements PowerableMob {
     private static final EntityDataAccessor<Boolean> ATTACKING = SynchedEntityData.defineId(WildfireEntity.class, EntityDataSerializers.BOOLEAN);
 
     //给BOSS添加一个黄色的血条
-    private final ServerBossEvent bossEvent = (ServerBossEvent)(new ServerBossEvent(this.getDisplayName(),
+    private final ServerBossEvent bossEvent = (ServerBossEvent) (new ServerBossEvent(this.getDisplayName(),
             BossEvent.BossBarColor.YELLOW, BossEvent.BossBarOverlay.PROGRESS))
             .setDarkenScreen(true).setCreateWorldFog(true);
 
@@ -67,24 +67,25 @@ public class WildfireEntity extends Monster implements PowerableMob {
 
     public static AttributeSupplier.Builder setCustomAttributes() {
         return Monster.createMonsterAttributes()
-                .add(Attributes.ARMOR, 10.0D)
+                .add(Attributes.ARMOR, 12.0D)
                 .add(Attributes.MAX_HEALTH, 200.0D)
                 .add(Attributes.ATTACK_DAMAGE, 6.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.3D)
                 .add(Attributes.FOLLOW_RANGE, 128.0D)
+                .add(Attributes.MOVEMENT_SPEED, 0.3D)
                 .add(Attributes.ATTACK_KNOCKBACK, 4.0D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.75D);
     }
 
     protected void registerGoals() {
+        this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(1, new WildFireAttackGoal(this));
         this.goalSelector.addGoal(1, new WildfireEntity.SpawnMinionsGoal());
         this.goalSelector.addGoal(3, new WildfireEntity.SpawnFlameRainGoal());
         this.goalSelector.addGoal(4, new WildfireEntity.ShootSmallCrackGoal(this));
+        this.goalSelector.addGoal(3, new MeleeAttackGoal(this, 1.0D, false));
+        this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(2, new MoveTowardsRestrictionGoal(this, 1.0D));
         this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0D, 0.0F));
-        this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 8.0F));
-        this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers());
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
     }
@@ -273,6 +274,14 @@ public class WildfireEntity extends Monster implements PowerableMob {
         }
     }
 
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(SHIELDING, Boolean.FALSE);
+        this.entityData.define(ATTACKING, Boolean.FALSE);
+        this.entityData.define(ON_FIRE, (byte) 0);
+        this.entityData.define(VARIANT, 0);
+    }
+
     public void setCustomName(@Nullable Component component) {
         super.setCustomName(component);
         this.bossEvent.setName(this.getDisplayName());
@@ -311,7 +320,6 @@ public class WildfireEntity extends Monster implements PowerableMob {
                 double y = Math.abs(Math.random() * 0.75D) * 1.5D;
                 double z = (-((float)Math.cos(f)) * 0.75F) / 2.0D;
                 FallingFireball entity = new FallingFireball(this.getX(), this.getY(), this.getZ(), this.level);
-                entity.setOwner(this);
                 entity.setDeltaMovement(x, y, z);
                 this.level.addFreshEntity(entity);
             }
@@ -327,17 +335,9 @@ public class WildfireEntity extends Monster implements PowerableMob {
         super.stopSeenByPlayer(serverPlayer);
         this.bossEvent.removePlayer(serverPlayer);
     }
-    
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(SHIELDING, Boolean.FALSE);
-        this.entityData.define(ATTACKING, Boolean.FALSE);
-        this.entityData.define(ON_FIRE, (byte) 0);
-        this.entityData.define(VARIANT, 0);
-    }
 
     public void checkDespawn() {
-        boolean isPeaceful = this.level.getDifficulty() == Difficulty.PEACEFUL;
+        boolean isPeaceful = level.getDifficulty() == Difficulty.PEACEFUL;
         if (isPeaceful && this.shouldDespawnInPeaceful()) {
             this.discard();
         } else {

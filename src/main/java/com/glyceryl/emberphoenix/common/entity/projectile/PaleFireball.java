@@ -56,7 +56,7 @@ public class PaleFireball extends AbstractHurtingProjectile {
     public void tick() {
         super.tick();
         ++this.time;
-        if (this.time >= 600) {
+        if (this.time >= 200) {
             this.discard();
         }
     }
@@ -85,7 +85,7 @@ public class PaleFireball extends AbstractHurtingProjectile {
     @Override
     protected void onHit(HitResult hitResult) {
         super.onHit(hitResult);
-        if (!this.level.isClientSide) {
+        if (this.level.isClientSide) {
             this.makePoofParticles();
             this.discard();
         }
@@ -102,7 +102,7 @@ public class PaleFireball extends AbstractHurtingProjectile {
     }
 
     @Override
-    public boolean hurt(DamageSource source, float p_36911_) {
+    public boolean hurt(DamageSource source, float amount) {
         return false;
     }
 
