@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/handheld",
   "textures": {
-    "layer0": "emberphoenix:item/ember_pickaxe"
+    "layer0": "emberphoenix:item/emberium_pickaxe"
   }
 }
