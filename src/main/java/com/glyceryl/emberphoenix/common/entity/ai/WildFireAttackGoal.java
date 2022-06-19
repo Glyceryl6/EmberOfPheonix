@@ -105,7 +105,7 @@ public class WildFireAttackGoal extends Goal {
                             this.wildfire.level.playSound(null, this.wildfire.getOnPos(), SoundEvents.BLAZE_SHOOT, this.wildfire.getSoundSource(), 1.0F, 1.0F);
                         }
 
-                        double fireballCount = 17;
+                        double fireballCount = this.wildfire.getEntityData().get(this.wildfire.FIREBALL_COUNT);
                         double offsetangle = toRadians(4.0F);
                         double maxdepressangle = toRadians(50.0F);
 

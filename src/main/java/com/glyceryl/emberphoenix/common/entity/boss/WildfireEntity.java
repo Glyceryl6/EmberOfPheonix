@@ -41,14 +41,17 @@ import java.util.List;
 
 public class WildfireEntity extends Monster implements PowerableMob {
 
-    private static final EntityDataAccessor<Byte> ON_FIRE = SynchedEntityData.defineId(WildfireEntity.class, EntityDataSerializers.BYTE);
-    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(WildfireEntity.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Boolean> SHIELDING = SynchedEntityData.defineId(WildfireEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Boolean> ATTACKING = SynchedEntityData.defineId(WildfireEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Integer> SMALL_CRACK_POWER = SynchedEntityData.defineId(WildfireEntity.class, EntityDataSerializers.INT);
+    public static final EntityDataAccessor<Byte> ON_FIRE = SynchedEntityData.defineId(WildfireEntity.class, EntityDataSerializers.BYTE);
+    public static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(WildfireEntity.class, EntityDataSerializers.INT);
+    public static final EntityDataAccessor<Boolean> SHIELDING = SynchedEntityData.defineId(WildfireEntity.class, EntityDataSerializers.BOOLEAN);
+    public static final EntityDataAccessor<Boolean> ATTACKING = SynchedEntityData.defineId(WildfireEntity.class, EntityDataSerializers.BOOLEAN);
+    public static final EntityDataAccessor<Integer> FIREBALL_COUNT = SynchedEntityData.defineId(WildfireEntity.class, EntityDataSerializers.INT);
+    public static final EntityDataAccessor<Integer> SMALL_CRACK_POWER = SynchedEntityData.defineId(WildfireEntity.class, EntityDataSerializers.INT);
+    public static final EntityDataAccessor<Integer> FLAME_SHOWER_DENSITY = SynchedEntityData.defineId(WildfireEntity.class, EntityDataSerializers.INT);
 
     //给BOSS添加一个黄色的血条
-    private final ServerBossEvent bossEvent = (ServerBossEvent) (new ServerBossEvent(this.getDisplayName(),
+    private final ServerBossEvent bossEvent =
+            (ServerBossEvent) (new ServerBossEvent(this.getDisplayName(),
             BossEvent.BossBarColor.YELLOW, BossEvent.BossBarOverlay.PROGRESS))
             .setDarkenScreen(true).setCreateWorldFog(true);
 
@@ -168,24 +171,36 @@ public class WildfireEntity extends Monster implements PowerableMob {
     }
 
     //死亡时触发的事件
-    private void removeFireAndBlazes() {
+    private void triggerEvent() {
         BlockPos blockpos = this.getOnPos();
         AABB aabb = (new AABB(blockpos)).inflate(128.0D);
         List<Player> playerList = this.level.getEntitiesOfClass(Player.class, aabb);
         List<AncientBlaze> blazeList = this.level.getEntitiesOfClass(AncientBlaze.class, aabb);
-        //灭掉周围所有的火（以自身为中心 96×16×96 的范围）
+        this.removeFire(blockpos);
+        this.clearPlayerFire(playerList);
+        this.killallBlazes(blazeList);
+    }
+
+    //扑灭周围所有的火（以自身为中心 96×16×96 的范围）
+    private void removeFire(BlockPos blockpos) {
         for (BlockPos pos : BlockPos.withinManhattan(blockpos, 48, 8, 48)) {
             if (level.getBlockState(pos).is(Blocks.FIRE)) {
                 level.removeBlock(pos, false);
             }
         }
-        //灭掉周围玩家身上的火
+    }
+
+    //灭掉周围玩家身上的火
+    private void clearPlayerFire(List<Player> playerList) {
         for (Player player : playerList) {
             if (playerList.size() > 0) {
                 player.clearFire();
             }
         }
-        //杀死周围所有的远古烈焰人
+    }
+
+    //杀死周围所有的远古烈焰人
+    private void killallBlazes(List<AncientBlaze> blazeList) {
         for (AncientBlaze blaze : blazeList) {
             BlockPos blazePos = blaze.getOnPos();
             double d0 = blazePos.getX();
@@ -225,7 +240,7 @@ public class WildfireEntity extends Monster implements PowerableMob {
 
     @Override
     protected void tickDeath() {
-        this.removeFireAndBlazes();
+        this.triggerEvent();
         super.tickDeath();
     }
 
@@ -265,13 +280,17 @@ public class WildfireEntity extends Monster implements PowerableMob {
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putInt("Variant", this.entityData.get(VARIANT));
-        compound.putInt("Power", this.entityData.get(SMALL_CRACK_POWER));
+        compound.putInt("FireballCount", this.entityData.get(FIREBALL_COUNT));
+        compound.putInt("SmallCrackPower", this.entityData.get(SMALL_CRACK_POWER));
+        compound.putInt("FlameShowerDensity", this.entityData.get(FLAME_SHOWER_DENSITY));
     }
 
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         this.entityData.set(VARIANT, compound.getInt("Variant"));
-        this.entityData.set(SMALL_CRACK_POWER, compound.getInt("Power"));
+        this.entityData.set(FIREBALL_COUNT, compound.getInt("FireballCount"));
+        this.entityData.set(SMALL_CRACK_POWER, compound.getInt("SmallCrackPower"));
+        this.entityData.set(FLAME_SHOWER_DENSITY, compound.getInt("FlameShowerDensity"));
         if (this.hasCustomName()) {
             this.bossEvent.setName(this.getDisplayName());
         }
@@ -283,7 +302,9 @@ public class WildfireEntity extends Monster implements PowerableMob {
         this.entityData.define(ATTACKING, Boolean.FALSE);
         this.entityData.define(ON_FIRE, (byte) 0);
         this.entityData.define(VARIANT, 0);
+        this.entityData.define(FIREBALL_COUNT, 17);
         this.entityData.define(SMALL_CRACK_POWER, 2);
+        this.entityData.define(FLAME_SHOWER_DENSITY, 256);
     }
 
     public void setCustomName(@Nullable Component component) {
@@ -313,16 +334,12 @@ public class WildfireEntity extends Monster implements PowerableMob {
         super.customServerAiStep();
     }
 
-    public int getSmallCrackPower() {
-        return this.entityData.get(SMALL_CRACK_POWER);
-    }
-
     //发射出流星雨状的火球
     private void spawnFlameShower() {
         float pitch = 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F);
         this.playSound(SoundEvents.BLAZE_SHOOT, 1.0F, pitch);
         if (!this.level.isClientSide) {
-            for (int i = 0; i < 256; i++) {
+            for (int i = 0; i < entityData.get(FLAME_SHOWER_DENSITY); i++) {
                 float f = (float)(Math.random() * Math.PI * 2.0D);
                 double x = (-((float)Math.sin(f)) * 0.75F) / 2.0D;
                 double y = Math.abs(Math.random() * 0.75D) * 1.5D;
@@ -564,7 +581,7 @@ public class WildfireEntity extends Monster implements PowerableMob {
                         double x = this.wildfire.getX() + vec3.x * 5.0D;
                         double y = this.wildfire.getY(0.5D) + 0.5D;
                         double z = smallCrack.getZ() + vec3.z * 5.0D;
-                        smallCrack.setExplosionPower(getSmallCrackPower());
+                        smallCrack.setExplosionPower(entityData.get(SMALL_CRACK_POWER));
                         smallCrack.setPos(x, y, z);
                         level.addFreshEntity(smallCrack);
                         this.chargeTime = -40;
