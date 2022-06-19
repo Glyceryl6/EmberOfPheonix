@@ -21,8 +21,8 @@ import net.minecraftforge.network.NetworkHooks;
 public class SmallCrack extends AbstractHurtingProjectile {
 
     public int time;
-    public int explosionPower = 2;
-    public boolean makeFire = true;
+    private int explosionPower = 2;
+    private boolean makeFire = true;
 
     public SmallCrack(EntityType<? extends SmallCrack> type, Level level) {
         super(type, level);
@@ -92,6 +92,10 @@ public class SmallCrack extends AbstractHurtingProjectile {
         } else {
             return false;
         }
+    }
+
+    public void setExplosionPower(int power) {
+        this.explosionPower = power;
     }
 
     private void explode() {

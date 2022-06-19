@@ -45,6 +45,7 @@ public class WildfireEntity extends Monster implements PowerableMob {
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(WildfireEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> SHIELDING = SynchedEntityData.defineId(WildfireEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> ATTACKING = SynchedEntityData.defineId(WildfireEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> SMALL_CRACK_POWER = SynchedEntityData.defineId(WildfireEntity.class, EntityDataSerializers.INT);
 
     //给BOSS添加一个黄色的血条
     private final ServerBossEvent bossEvent = (ServerBossEvent) (new ServerBossEvent(this.getDisplayName(),
@@ -264,11 +265,13 @@ public class WildfireEntity extends Monster implements PowerableMob {
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putInt("Variant", this.entityData.get(VARIANT));
+        compound.putInt("Power", this.entityData.get(SMALL_CRACK_POWER));
     }
 
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         this.entityData.set(VARIANT, compound.getInt("Variant"));
+        this.entityData.set(SMALL_CRACK_POWER, compound.getInt("Power"));
         if (this.hasCustomName()) {
             this.bossEvent.setName(this.getDisplayName());
         }
@@ -280,6 +283,7 @@ public class WildfireEntity extends Monster implements PowerableMob {
         this.entityData.define(ATTACKING, Boolean.FALSE);
         this.entityData.define(ON_FIRE, (byte) 0);
         this.entityData.define(VARIANT, 0);
+        this.entityData.define(SMALL_CRACK_POWER, 2);
     }
 
     public void setCustomName(@Nullable Component component) {
@@ -307,6 +311,10 @@ public class WildfireEntity extends Monster implements PowerableMob {
 
         this.bossEvent.setProgress(this.getHealth() / this.getMaxHealth());
         super.customServerAiStep();
+    }
+
+    public int getSmallCrackPower() {
+        return this.entityData.get(SMALL_CRACK_POWER);
     }
 
     //发射出流星雨状的火球
@@ -556,6 +564,7 @@ public class WildfireEntity extends Monster implements PowerableMob {
                         double x = this.wildfire.getX() + vec3.x * 5.0D;
                         double y = this.wildfire.getY(0.5D) + 0.5D;
                         double z = smallCrack.getZ() + vec3.z * 5.0D;
+                        smallCrack.setExplosionPower(getSmallCrackPower());
                         smallCrack.setPos(x, y, z);
                         level.addFreshEntity(smallCrack);
                         this.chargeTime = -40;
