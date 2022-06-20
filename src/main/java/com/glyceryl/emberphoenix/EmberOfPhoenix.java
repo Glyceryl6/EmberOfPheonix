@@ -31,7 +31,6 @@ public class EmberOfPhoenix {
         EPSounds.register(eventBus);
         EPFeatures.register(eventBus);
         EPContainers.register(eventBus);
-        EPStructures.register(eventBus);
         EPEnchantments.register(eventBus);
         eventBus.addListener(this::setupClient);
         eventBus.addGenericListener(SoundEvent.class, EPSounds::registerSounds);
