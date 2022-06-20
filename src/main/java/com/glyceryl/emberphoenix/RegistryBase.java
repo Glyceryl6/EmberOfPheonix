@@ -13,7 +13,6 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraftforge.registries.*;
 
@@ -29,7 +28,6 @@ public class RegistryBase {
     public static final DeferredRegister<Feature<?>> FEATURES = create(ForgeRegistries.FEATURES);
     public static final DeferredRegister<EntityType<?>> ENTITY = create(ForgeRegistries.ENTITIES);
     public static final DeferredRegister<BlockEntityType<?>> CONTAINER = create(ForgeRegistries.BLOCK_ENTITIES);
-    public static final DeferredRegister<StructureFeature<?>> STRUCTURES = create(ForgeRegistries.STRUCTURE_FEATURES);
 
     private static <B extends IForgeRegistryEntry<B>> DeferredRegister<B> create(IForgeRegistry<B> reg) {
         return DeferredRegister.create(reg, EmberOfPhoenix.MOD_ID);
