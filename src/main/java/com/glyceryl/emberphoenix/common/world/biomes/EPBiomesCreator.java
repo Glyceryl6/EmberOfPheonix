@@ -12,7 +12,7 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 
 public class EPBiomesCreator {
 
-    public static Biome createDefaultBiomes(float temperature) {
+    public static Biome createRosaaniaPlains() {
         MobSpawnSettings mobspawnsettings = (new MobSpawnSettings.Builder()).build();
         BiomeGenerationSettings.Builder builder = (new BiomeGenerationSettings.Builder());
         EPPlacedFeatures.addDefaultPhoenixOres(builder);
@@ -23,7 +23,19 @@ public class EPBiomesCreator {
                 .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, EPPlacedFeatures.PATCH_BARREN_GRASS)
                 .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, EPPlacedFeatures.PATCH_BARREN_TALL_GRASS)
                 .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, EPPlacedFeatures.BIGGER_LAKE_LAVA_SURFACE);
-        return (new Biome.BiomeBuilder()).precipitation(Biome.Precipitation.NONE).biomeCategory(Biome.BiomeCategory.NETHER).temperature(temperature).downfall(0.0F)
+        return (new Biome.BiomeBuilder()).precipitation(Biome.Precipitation.NONE).biomeCategory(Biome.BiomeCategory.NETHER).temperature(2.2F).downfall(0.0F)
+                .specialEffects((new BiomeSpecialEffects.Builder()).waterColor(4159204).waterFogColor(329011).fogColor(3344392)
+                .skyColor(OverworldBiomes.calculateSkyColor(0.1F)).build()).mobSpawnSettings(mobspawnsettings).generationSettings(builder.build()).build();
+    }
+
+    public static Biome createRosaaniaBarren() {
+        MobSpawnSettings mobspawnsettings = (new MobSpawnSettings.Builder()).build();
+        BiomeGenerationSettings.Builder builder = (new BiomeGenerationSettings.Builder());
+        EPPlacedFeatures.addDefaultPhoenixOres(builder);
+        EPPlacedFeatures.addDefaultPhoenixUndergroundVariety(builder);
+        builder.addCarver(GenerationStep.Carving.AIR, Carvers.CAVE)
+                .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, EPPlacedFeatures.BIGGER_LAKE_LAVA_SURFACE);
+        return (new Biome.BiomeBuilder()).precipitation(Biome.Precipitation.NONE).biomeCategory(Biome.BiomeCategory.NETHER).temperature(2.0F).downfall(0.0F)
                 .specialEffects((new BiomeSpecialEffects.Builder()).waterColor(4159204).waterFogColor(329011).fogColor(3344392)
                 .skyColor(OverworldBiomes.calculateSkyColor(0.1F)).build()).mobSpawnSettings(mobspawnsettings).generationSettings(builder.build()).build();
     }

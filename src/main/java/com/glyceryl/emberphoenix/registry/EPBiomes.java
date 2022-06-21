@@ -18,8 +18,8 @@ public class EPBiomes {
     }
 
     static {
-        ROSAANIA_BARREN = RegistryBase.BIOMES.register("rosaania_barren", () -> EPBiomesCreator.createDefaultBiomes(2.0F));
-        ROSAANIA_PLAIN = RegistryBase.BIOMES.register("rosaania_plain", () -> EPBiomesCreator.createDefaultBiomes(2.2F));
+        ROSAANIA_BARREN = RegistryBase.BIOMES.register("rosaania_barren", EPBiomesCreator::createRosaaniaBarren);
+        ROSAANIA_PLAIN = RegistryBase.BIOMES.register("rosaania_plain", EPBiomesCreator::createRosaaniaPlains);
         ROSAANIA_VOLCANO = RegistryBase.BIOMES.register("rosaania_volcano", EPBiomesCreator::createRosaaniaVolcano);
         ASH_PLAIN = RegistryBase.BIOMES.register("ash_plain", EPBiomesCreator::createAshPlain);
     }
