@@ -8,15 +8,20 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.IndirectEntityDamageSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
+import net.minecraft.world.entity.projectile.Fireball;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.network.NetworkHooks;
+
+import javax.annotation.Nullable;
 
 public class SmallCrack extends AbstractHurtingProjectile {
 
@@ -32,6 +37,10 @@ public class SmallCrack extends AbstractHurtingProjectile {
         super(EPEntity.SMALL_CRACK.get(), entity, x, y, z, level);
     }
 
+    private static DamageSource fireball(SmallCrack p_19350_, @Nullable Entity p_19351_) {
+        return p_19351_ == null ? (new IndirectEntityDamageSource("onFire", p_19350_, p_19350_)).setIsFire().setProjectile() : (new IndirectEntityDamageSource("fireball", p_19350_, p_19351_)).setIsFire().setProjectile();
+    }
+
     //设置火球在生成时间超过10秒之后消失
     @Override
     public void tick() {
@@ -39,6 +48,23 @@ public class SmallCrack extends AbstractHurtingProjectile {
         ++this.time;
         if (this.time >= 200) {
             this.discard();
+        }
+    }
+
+    @Override
+    protected void onHitEntity(EntityHitResult hitResult) {
+        if (hitResult.getEntity() instanceof WildfireEntity
+                || hitResult.getEntity() instanceof SmallCrack
+                || hitResult.getEntity() instanceof AncientBlaze) {
+            return;
+        }
+        if (!this.level.isClientSide) {
+            Entity entity = hitResult.getEntity();
+            Entity entity1 = this.getOwner();
+            entity.hurt(fireball(this, entity1), 6.0F);
+            if (entity1 instanceof LivingEntity) {
+                this.doEnchantDamageEffects((LivingEntity)entity1, entity);
+            }
         }
     }
 
