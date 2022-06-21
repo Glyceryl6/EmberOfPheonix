@@ -23,7 +23,7 @@ public class EPBiomesCreator {
                 .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, EPPlacedFeatures.PATCH_BARREN_GRASS)
                 .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, EPPlacedFeatures.PATCH_BARREN_TALL_GRASS)
                 .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, EPPlacedFeatures.BIGGER_LAKE_LAVA_SURFACE);
-        return (new Biome.BiomeBuilder()).precipitation(Biome.Precipitation.NONE).biomeCategory(Biome.BiomeCategory.NETHER).temperature(2.2F).downfall(0.0F)
+        return (new Biome.BiomeBuilder()).precipitation(Biome.Precipitation.NONE).biomeCategory(Biome.BiomeCategory.PLAINS).temperature(2.2F).downfall(0.0F)
                 .specialEffects((new BiomeSpecialEffects.Builder()).waterColor(4159204).waterFogColor(329011).fogColor(3344392)
                 .skyColor(OverworldBiomes.calculateSkyColor(0.1F)).build()).mobSpawnSettings(mobspawnsettings).generationSettings(builder.build()).build();
     }
@@ -35,7 +35,7 @@ public class EPBiomesCreator {
         EPPlacedFeatures.addDefaultPhoenixUndergroundVariety(builder);
         builder.addCarver(GenerationStep.Carving.AIR, Carvers.CAVE)
                 .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, EPPlacedFeatures.BIGGER_LAKE_LAVA_SURFACE);
-        return (new Biome.BiomeBuilder()).precipitation(Biome.Precipitation.NONE).biomeCategory(Biome.BiomeCategory.NETHER).temperature(2.0F).downfall(0.0F)
+        return (new Biome.BiomeBuilder()).precipitation(Biome.Precipitation.NONE).biomeCategory(Biome.BiomeCategory.EXTREME_HILLS).temperature(2.0F).downfall(0.0F)
                 .specialEffects((new BiomeSpecialEffects.Builder()).waterColor(4159204).waterFogColor(329011).fogColor(3344392)
                 .skyColor(OverworldBiomes.calculateSkyColor(0.1F)).build()).mobSpawnSettings(mobspawnsettings).generationSettings(builder.build()).build();
     }
@@ -48,7 +48,7 @@ public class EPBiomesCreator {
         builder.addCarver(GenerationStep.Carving.AIR, Carvers.CAVE)
                 .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, EPPlacedFeatures.SURFACE_HOLE)
                 .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, EPPlacedFeatures.BIGGER_LAKE_LAVA_SURFACE);
-        return (new Biome.BiomeBuilder()).precipitation(Biome.Precipitation.NONE).biomeCategory(Biome.BiomeCategory.NETHER).temperature(2.8F).downfall(0.0F)
+        return (new Biome.BiomeBuilder()).precipitation(Biome.Precipitation.NONE).biomeCategory(Biome.BiomeCategory.MESA).temperature(2.8F).downfall(0.0F)
                 .specialEffects((new BiomeSpecialEffects.Builder()).waterColor(4159204).waterFogColor(329011).fogColor(3344392)
                 .skyColor(OverworldBiomes.calculateSkyColor(0.3F)).build()).mobSpawnSettings(mobspawnsettings).generationSettings(builder.build()).build();
     }
@@ -61,7 +61,7 @@ public class EPBiomesCreator {
         builder.addCarver(GenerationStep.Carving.AIR, Carvers.CAVE)
                 .addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, EPOrePlacements.ORE_ASH_BLOCK)
                 .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, EPPlacedFeatures.BIGGER_LAKE_LAVA_SURFACE);
-        return (new Biome.BiomeBuilder()).precipitation(Biome.Precipitation.NONE).biomeCategory(Biome.BiomeCategory.NETHER).temperature(1.8F).downfall(0.0F)
+        return (new Biome.BiomeBuilder()).precipitation(Biome.Precipitation.NONE).biomeCategory(Biome.BiomeCategory.DESERT).temperature(1.8F).downfall(0.0F)
                 .specialEffects((new BiomeSpecialEffects.Builder()).waterColor(4159204).waterFogColor(329011).fogColor(3344392)
                 .skyColor(OverworldBiomes.calculateSkyColor(0.2F)).build()).mobSpawnSettings(mobspawnsettings).generationSettings(builder.build()).build();
     }
