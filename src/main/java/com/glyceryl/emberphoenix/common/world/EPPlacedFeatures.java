@@ -38,6 +38,9 @@ public class EPPlacedFeatures {
             EPConfiguredFeatures.SURFACE_HOLE, RarityFilter.onAverageOnceEvery(4),
             InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
 
+    public static final Holder<PlacedFeature> PETRIFIED_MUSHROOM = PlacementUtils.register("petrified_mushroom",
+            EPConfiguredFeatures.PETRIFIED_MUSHROOM, VegetationPlacements.worldSurfaceSquaredWithCount(5));
+
     public static void addDefaultPhoenixUndergroundVariety(BiomeGenerationSettings.Builder builder) {
         builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, EPOrePlacements.ORE_PHOENIX_HARDSLATE);
         builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, EPOrePlacements.ORE_PHOENIX_SMOOTH_BASALT);
