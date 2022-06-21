@@ -2932,7 +2932,9 @@
         "if_true": {
           "type": "minecraft:biome",
           "biome_is": [
-            "rosaania_barren"
+            "emberphoenix:rosaania_barren",
+            "emberphoenix:rosaania_barren_hills",
+            "emberphoenix:rosaania_barren_forest"
           ]
         },
         "then_run": {
@@ -3007,7 +3009,9 @@
         "if_true": {
           "type": "minecraft:biome",
           "biome_is": [
-            "emberphoenix:rosaania_plain"
+            "emberphoenix:rosaania_plain",
+            "emberphoenix:rosaania_plain_edge",
+            "emberphoenix:tumbleweed_plain"
           ]
         },
         "then_run": {
@@ -3082,7 +3086,8 @@
         "if_true": {
           "type": "minecraft:biome",
           "biome_is": [
-            "emberphoenix:rosaania_volcano"
+            "emberphoenix:rosaania_volcano",
+            "emberphoenix:rosaania_volcano_plain"
           ]
         },
         "then_run": {
