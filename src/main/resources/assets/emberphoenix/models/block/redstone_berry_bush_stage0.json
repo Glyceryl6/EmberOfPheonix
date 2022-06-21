@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "emberphoenix:block/redstone_berry_bush_stage0"
+  }
+}
