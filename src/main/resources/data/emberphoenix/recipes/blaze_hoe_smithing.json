@@ -1,7 +1,7 @@
 {
   "type": "minecraft:smithing",
   "base": {
-    "item": "emberphoenix:ember_hoe"
+    "item": "emberphoenix:emberium_hoe"
   },
   "addition": {
     "item": "emberphoenix:blaze_ruby"
