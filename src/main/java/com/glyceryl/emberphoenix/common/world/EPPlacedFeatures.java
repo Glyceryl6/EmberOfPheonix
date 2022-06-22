@@ -31,7 +31,7 @@ public class EPPlacedFeatures {
 
     //生成风滚草
     public static final Holder<PlacedFeature> PATCH_TUMBLEWEED = PlacementUtils.register("patch_tumbleweed",
-            EPVegetationFeatures.PATCH_TUMBLEWEED, VegetationPlacements.worldSurfaceSquaredWithCount(3));
+            EPVegetationFeatures.PATCH_TUMBLEWEED, VegetationPlacements.worldSurfaceSquaredWithCount(2));
 
     //生成贫瘠高草丛
     public static final Holder<PlacedFeature> PATCH_BARREN_TALL_GRASS = PlacementUtils.register("patch_barren_tall_grass",

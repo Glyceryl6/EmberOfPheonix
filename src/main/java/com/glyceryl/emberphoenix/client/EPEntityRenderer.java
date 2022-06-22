@@ -1,10 +1,7 @@
 package com.glyceryl.emberphoenix.client;
 
 import com.glyceryl.emberphoenix.EmberOfPhoenix;
-import com.glyceryl.emberphoenix.client.renderer.AncientBlazeRenderer;
-import com.glyceryl.emberphoenix.client.renderer.PaleFireballRenderer;
-import com.glyceryl.emberphoenix.client.renderer.SmallCrackRenderer;
-import com.glyceryl.emberphoenix.client.renderer.WildfireRenderer;
+import com.glyceryl.emberphoenix.client.renderer.*;
 import com.glyceryl.emberphoenix.registry.EPEntity;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraftforge.api.distmarker.Dist;
@@ -24,6 +21,7 @@ public class EPEntityRenderer {
         event.registerEntityRenderer(EPEntity.SMALL_CRACK.get(), SmallCrackRenderer::new);
         event.registerEntityRenderer(EPEntity.PALE_FIREBALL.get(), PaleFireballRenderer::new);
         event.registerEntityRenderer(EPEntity.FALLING_FIREBALL.get(), ThrownItemRenderer::new);
+        event.registerEntityRenderer(EPEntity.PHOENIX_GATEWAY.get(), PhoenixGatewayRenderer::new);
     }
 
 }

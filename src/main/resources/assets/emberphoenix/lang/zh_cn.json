@@ -71,6 +71,16 @@
   "item.emberphoenix.wildfire_spawn_egg":"野火刷怪蛋",
   "item.emberphoenix.ancient_blaze_spawn_egg":"远古烈焰人刷怪蛋",
 
+  "biome.emberphoenix.rosaania_barren": "赤鸢荒滩",
+  "biome.emberphoenix.rosaania_barren_hills": "赤鸢荒滩丘陵",
+  "biome.emberphoenix.rosaania_barren_forest": "赤鸢荒滩石林",
+  "biome.emberphoenix.rosaania_plain": "赤鸢莽原",
+  "biome.emberphoenix.rosaania_plain_edge": "赤鸢莽原边缘",
+  "biome.emberphoenix.rosaania_volcano": "赤鸢火山",
+  "biome.emberphoenix.rosaania_volcano_plain": "赤鸢火山平原",
+  "biome.emberphoenix.tumbleweed_plain": "风滚草平原",
+  "biome.emberphoenix.ash_plain": "灰烬平原",
+
   "sound.emberphoenix.ash_block_dig": "灰烬：散落",
   "sound.emberphoenix.ash_block_step": "灰烬：挤压",
   "sound.emberphoenix.emberium_dig": "余烬：迸发",
@@ -90,6 +100,7 @@
   "entity.emberphoenix.ancient_blaze": "远古烈焰人",
   "entity.emberphoenix.small_crack": "小爆裂弹",
   "entity.emberphoenix.pale_fireball": "苍白火球",
+  "entity.emberphoenix.phoenix_gateway": "赤鸢传送门",
   "entity.emberphoenix.falling_fireball": "下落的火球",
 
   "enchantment.emberphoenix.magma_strider":"岩浆探索者",
