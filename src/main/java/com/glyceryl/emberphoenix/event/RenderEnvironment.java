@@ -15,11 +15,10 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class RenderEnvironment {
 
-    Minecraft mc = Minecraft.getInstance();
-
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
     public void renderSun(RenderLevelLastEvent event) {
+        Minecraft mc = Minecraft.getInstance();
         Player player = mc.player;
         if (player != null) {
             Level level = player.level;
