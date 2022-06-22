@@ -31,9 +31,10 @@ public class PhoenixGatewayRenderer extends EntityRenderer<PhoenixGateway> {
 
     public void render(PhoenixGateway phoenixGateway, float p_114081_, float p_114082_, PoseStack poseStack, MultiBufferSource source, int p_114085_) {
         poseStack.pushPose();
+        PoseStack.Pose pose = poseStack.last();
+        poseStack.scale(2.0F, 2.0F, 2.0F);
         poseStack.mulPose(this.entityRenderDispatcher.cameraOrientation());
         poseStack.mulPose(Vector3f.YP.rotationDegrees(180.0F));
-        PoseStack.Pose pose = poseStack.last();
         float f = Mth.rotLerp(p_114082_, phoenixGateway.yRotO, phoenixGateway.yRotO);
         this.setupRotations(phoenixGateway, poseStack, f);
         Matrix4f matrix4f = pose.pose();

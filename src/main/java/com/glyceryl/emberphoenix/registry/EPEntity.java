@@ -26,7 +26,7 @@ public class EPEntity {
     public static final RegistryObject<EntityType<SmallCrack>> SMALL_CRACK = build(EPEntityNames.SMALL_CRACK, makeCastedBuilder(SmallCrack.class, SmallCrack::new, 1.0F, 1.0F, 4, 10), true);
     public static final RegistryObject<EntityType<PaleFireball>> PALE_FIREBALL = build(EPEntityNames.PALE_FIREBALL, makeCastedBuilder(PaleFireball.class, PaleFireball::new, 0.3125F, 0.3125F, 4, 10), true);
     public static final RegistryObject<EntityType<FallingFireball>> FALLING_FIREBALL = build(EPEntityNames.FALLING_FIREBALL, makeCastedBuilder(FallingFireball.class, FallingFireball::new, 0.5F, 0.5F, 4, 10), true);
-    public static final RegistryObject<EntityType<PhoenixGateway>> PHOENIX_GATEWAY = build(EPEntityNames.PHOENIX_GATEWAY, makeCastedBuilder(PhoenixGateway.class, PhoenixGateway::new, 4.0F, 4.0F, 4, 4), true);
+    public static final RegistryObject<EntityType<PhoenixGateway>> PHOENIX_GATEWAY = build(EPEntityNames.PHOENIX_GATEWAY, makeCastedBuilder(PhoenixGateway.class, PhoenixGateway::new, 1.0F, 1.0F, 4, 4), true);
 
     private static <E extends Entity> RegistryObject<EntityType<E>> make(ResourceLocation id, EntityType.EntityFactory<E> factory, MobCategory classification, float width, float height, int primary, int secondary) {
         return make(id, factory, classification, width, height, false, primary, secondary);
