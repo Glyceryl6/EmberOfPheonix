@@ -33,15 +33,15 @@ public class RegistryBase {
         return DeferredRegister.create(reg, EmberOfPhoenix.MOD_ID);
     }
 
-    public static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block, CreativeModeTab tab) {
+    public static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);
-        ITEMS.register(name, () -> new BlockItem(toReturn.get(), new Item.Properties().tab(tab)));
+        ITEMS.register(name, () -> new BlockItem(toReturn.get(), new Item.Properties().tab(RegistryBase.EP_TAB)));
         return toReturn;
     }
 
-    public static <T extends Block> RegistryObject<T> registerFireProofBlock(String name, Supplier<T> block, CreativeModeTab tab) {
+    public static <T extends Block> RegistryObject<T> registerFireProofBlock(String name, Supplier<T> block) {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);
-        ITEMS.register(name, () -> new BlockItem(toReturn.get(), new Item.Properties().fireResistant().tab(tab)));
+        ITEMS.register(name, () -> new BlockItem(toReturn.get(), new Item.Properties().fireResistant().tab(RegistryBase.EP_TAB)));
         return toReturn;
     }
 
