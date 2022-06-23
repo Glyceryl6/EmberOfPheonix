@@ -1,13 +1,21 @@
 package com.glyceryl.emberphoenix.common.entity.projectile;
 
+import com.glyceryl.emberphoenix.registry.EPDimensions;
 import com.glyceryl.emberphoenix.registry.EPEntity;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
+
+import java.util.List;
 
 @SuppressWarnings("unused")
 public class PhoenixGateway extends Entity {
@@ -48,6 +56,22 @@ public class PhoenixGateway extends Entity {
                 this.count = 0.49F;
             }
             this.size = 4 * Mth.abs(Mth.sin(Mth.PI * count));
+        }
+        this.checkInsideBlocks();
+        List<Entity> list = this.level.getEntities(this, this.getBoundingBox());
+        if (!list.isEmpty() && this.count >= 0.5F) {
+            for (Entity entity : list) {
+                BlockPos centerPos = new BlockPos(Vec3.atCenterOf(this.getOnPos()));
+                boolean flag = !entity.isPassenger() && entity.canChangeDimensions();
+                if (entity instanceof LivingEntity && entity.getBbWidth() < this.getBbWidth() && this.level instanceof ServerLevel && flag) {
+                    ResourceKey<Level> resourceKey = this.level.dimension() == EPDimensions.PHOENIX_KEY ? Level.OVERWORLD : EPDimensions.PHOENIX_KEY;
+                    ServerLevel serverlevel = ((ServerLevel)this.level).getServer().getLevel(resourceKey);
+                    if (serverlevel == null) {
+                        return;
+                    }
+                    entity.changeDimension(serverlevel);
+                }
+            }
         }
     }
 

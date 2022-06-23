@@ -107,7 +107,7 @@ public class GatewayCreator extends Entity {
                     gateway.setPos(Vec3.atCenterOf(this.getOnPos()));
                     this.level.explode(this, this.getX(), this.getY(), this.getZ(), 2.0F, false, Explosion.BlockInteraction.NONE);
                     this.level.removeBlock(this.getOnPos().relative(Direction.DOWN), false);
-                    this.level.addFreshEntity(gateway);
+                    //this.level.addFreshEntity(gateway);
                     this.discard();
                 }
             }
