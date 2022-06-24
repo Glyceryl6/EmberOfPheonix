@@ -18,6 +18,7 @@
   "block.emberphoenix.fire_flower":"火流花",
   "block.emberphoenix.barren_grass":"贫瘠草丛",
   "block.emberphoenix.barren_tall_grass":"贫瘠高草丛",
+  "block.emberphoenix.redstone_berry_bush":"红石浆果丛",
 
   "block.emberphoenix.chiseled_scarlet_stone":"錾制猩红岩",
   "block.emberphoenix.polished_scarlet_stone":"磨制猩红岩",
@@ -65,6 +66,7 @@
   "item.emberphoenix.emberium_chestplate":"余烬钢胸甲",
   "item.emberphoenix.emberium_leggings":"余烬钢护腿",
   "item.emberphoenix.emberium_boots":"余烬钢靴子",
+  "item.emberphoenix.redstone_berries":"红石浆果",
   "item.emberphoenix.tumbleseed":"风滚草种子",
   "item.emberphoenix.spark":"火种",
 

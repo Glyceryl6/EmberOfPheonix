@@ -2,8 +2,12 @@ package com.glyceryl.emberphoenix.registry;
 
 import com.glyceryl.emberphoenix.RegistryBase;
 import com.glyceryl.emberphoenix.common.blocks.*;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -24,25 +28,26 @@ public class EPBlocks {
     public static final RegistryObject<Block> SCARLET_STONE = normal("scarlet_stone", STRENGTH_SCARLET_STONE);
     //注册一些有特定功能的方块
     public static final RegistryObject<Block> SCARLET_DIRT = RegistryBase.registerBlock("scarlet_dirt",
-            () -> new ScarletDirt(BlockBehaviour.Properties.copy(Blocks.DIRT)), RegistryBase.EP_TAB);
+            () -> new ScarletDirt(BlockBehaviour.Properties.copy(Blocks.DIRT)));
     public static final RegistryObject<AshBlock> ASH_BLOCK = RegistryBase.registerBlock("ash_block",
             () -> new AshBlock(BlockBehaviour.Properties.of(Material.SAND, MaterialColor.SAND).strength(20.0F, 3.0F)
-                    .sound(EPSounds.ASH_BLOCK).requiresCorrectToolForDrops()), RegistryBase.EP_TAB);
+                    .sound(EPSounds.ASH_BLOCK).requiresCorrectToolForDrops()));
     public static final RegistryObject<EternalFireAltar> ETERNAL_FIRE_ALTAR = RegistryBase.registerBlock("eternal_fire_altar",
             () -> new EternalFireAltar(BlockBehaviour.Properties.of(Material.STONE).strength(5.0F, 6.0F)
-                    .sound(SoundType.STONE).requiresCorrectToolForDrops()), RegistryBase.EP_TAB);
+                    .sound(SoundType.STONE).requiresCorrectToolForDrops()));
     public static final RegistryObject<EternalFire> ETERNAL_FIRE = RegistryBase.BLOCKS.register("eternal_fire",
             () -> new EternalFire(BlockBehaviour.Properties.of(Material.FIRE, MaterialColor.COLOR_LIGHT_GREEN)
-                    .noDrops().noCollission().strength(-1.0F, 3600000.0F).lightLevel((state) -> 15).sound(SoundType.WOOL)));
+                    .strength(-1.0F, 3600000.0F).noDrops().noCollission().lightLevel((state) -> 15).sound(SoundType.WOOL)));
+    public static final RegistryObject<Block> INVISIBLE_BARRIER = RegistryBase.BLOCKS.register("invisible_barrier",
+            () -> new BarrierBlock(BlockBehaviour.Properties.of(Material.BARRIER).strength(-1.0F, 3600000.0F)
+                    .noDrops().noCollission().isValidSpawn(EPBlocks::never).sound(SoundType.STONE)));
     //注册植物类方块
-    public static final RegistryObject<EPTallGrass> BARREN_GRASS = RegistryBase.registerBlock("barren_grass",
-            () -> new EPTallGrass(PLANT_PROPERTIES.instabreak()), RegistryBase.EP_TAB);
-    public static final RegistryObject<EPDoublePlant> BARREN_TALL_GRASS = RegistryBase.registerBlock("barren_tall_grass",
-            () -> new EPDoublePlant(PLANT_PROPERTIES.instabreak()), RegistryBase.EP_TAB);
-    public static final RegistryObject<FireFlower> FIRE_FLOWER = RegistryBase.registerBlock("fire_flower",
-            () -> new FireFlower(PLANT_PROPERTIES.instabreak()), RegistryBase.EP_TAB);
-    public static final RegistryObject<Tumbleweed> TUMBLEWEED = RegistryBase.registerBlock("tumbleweed",
-            () -> new Tumbleweed(PLANT_PROPERTIES.strength(0.3F)), RegistryBase.EP_TAB);
+    public static final RegistryObject<EPTallGrass> BARREN_GRASS = RegistryBase.registerBlock("barren_grass", () -> new EPTallGrass(PLANT_PROPERTIES.instabreak()));
+    public static final RegistryObject<FireFlower> FIRE_FLOWER = RegistryBase.registerBlock("fire_flower", () -> new FireFlower(PLANT_PROPERTIES.instabreak()));
+    public static final RegistryObject<Tumbleweed> TUMBLEWEED = RegistryBase.registerBlock("tumbleweed", () -> new Tumbleweed(PLANT_PROPERTIES.strength(0.3F)));
+    public static final RegistryObject<EPDoublePlant> BARREN_TALL_GRASS = RegistryBase.registerBlock("barren_tall_grass", () -> new EPDoublePlant(PLANT_PROPERTIES.instabreak()));
+    public static final RegistryObject<RedstoneBerryBush> REDSTONE_BERRY_BUSH = RegistryBase.BLOCKS.register("redstone_berry_bush",
+            () -> new RedstoneBerryBush(BlockBehaviour.Properties.of(Material.PLANT).randomTicks().noCollission().sound(SoundType.SWEET_BERRY_BUSH)));
     //注册矿石方块
     public static final RegistryObject<Block> SCARLET_COAL_ORE = ore("scarlet_coal_ore");
     public static final RegistryObject<Block> SCARLET_IRON_ORE = ore("scarlet_iron_ore");
@@ -82,28 +87,32 @@ public class EPBlocks {
     public static final RegistryObject<Block> SCARLET_STONE_STAIR = stair("scarlet_stone_stair", SCARLET_STONE, STRENGTH_SCARLET_STONE);
     public static final RegistryObject<Block> HARD_SLATE_STAIR = stair("hardslate_stair", HARD_SLATE, STRENGTH_HARD_SLATE);
 
+    private static Boolean never(BlockState state, BlockGetter getter, BlockPos pos, EntityType<?> type) {
+        return false;
+    }
+
     private static RegistryObject<Block> normal(String name, BlockBehaviour.Properties properties) {
-        return RegistryBase.registerBlock(name, () -> new Block(properties), RegistryBase.EP_TAB);
+        return RegistryBase.registerBlock(name, () -> new Block(properties));
     }
 
     private static RegistryObject<Block> fireProof(String name, BlockBehaviour.Properties properties) {
-        return RegistryBase.registerFireProofBlock(name, () -> new Block(properties), RegistryBase.EP_TAB);
+        return RegistryBase.registerFireProofBlock(name, () -> new Block(properties));
     }
 
     private static RegistryObject<Block> ore(String name) {
-        return RegistryBase.registerBlock(name, () -> new OreBlock(STRENGTH_EMBER_ORE), RegistryBase.EP_TAB);
+        return RegistryBase.registerBlock(name, () -> new OreBlock(STRENGTH_EMBER_ORE));
     }
 
     private static RegistryObject<Block> wall(String name) {
-        return RegistryBase.registerBlock(name, () -> new WallBlock(STRENGTH_HARD_SLATE), RegistryBase.EP_TAB);
+        return RegistryBase.registerBlock(name, () -> new WallBlock(STRENGTH_HARD_SLATE));
     }
 
     private static RegistryObject<Block> slab(String name, BlockBehaviour.Properties properties) {
-        return RegistryBase.registerBlock(name, () -> new SlabBlock(properties), RegistryBase.EP_TAB);
+        return RegistryBase.registerBlock(name, () -> new SlabBlock(properties));
     }
 
     private static <T extends Block> RegistryObject<Block> stair(String name, Supplier<T> block, BlockBehaviour.Properties properties) {
-        return RegistryBase.registerBlock(name, () -> new StairBlock(() -> block.get().defaultBlockState(), properties), RegistryBase.EP_TAB);
+        return RegistryBase.registerBlock(name, () -> new StairBlock(() -> block.get().defaultBlockState(), properties));
     }
 
     public static void register(IEventBus eventBus) {
