@@ -26,6 +26,7 @@ public class ActivateAltar {
 
     @SubscribeEvent
     public void onUseDiamondOnAltar(PlayerInteractEvent.RightClickBlock event) {
+        int range = 2;
         Level level = event.getWorld();
         Player player = event.getPlayer();
         InteractionHand hand = player.getUsedItemHand();
@@ -48,14 +49,12 @@ public class ActivateAltar {
                 int gatewayCount = level.getEntitiesOfClass(PhoenixGateway.class, aabb).size();
                 //检测祭坛周围区域是否已存在创建器实体或传送门实体，没有则继续
                 if (creatorCount <= 0 && gatewayCount <= 0) {
-                    //检测中心祭坛底座的方块是否在 5×5 区域内均为完整固体方块，且与中心祭坛底下的方块一致
-                    List<BlockPos> consistentBlockCount = new ArrayList<>(List.of());
-                    BlockPos downPos = centerPos.relative(Direction.DOWN, 2);
-                    for (BlockPos pos : BlockPos.withinManhattan(downPos, 2, 0, 2)) {
-                        if (level.getBlockState(pos).isCollisionShapeFullBlock(level, pos)) {
-                            if (level.getBlockState(pos) == level.getBlockState(downPos)) {
-                                consistentBlockCount.add(pos);
-                            }
+                    List<BlockPos> baseBlockCount = new ArrayList<>(List.of());
+                    BlockPos downPos = centerPos.relative(Direction.DOWN);
+                    //检测召唤区域内是否还存在其它的无关方块
+                    for (BlockPos pos : BlockPos.withinManhattan(downPos, range, 1, range)) {
+                        if (!level.getBlockState(pos).isAir()) {
+                            baseBlockCount.add(pos);
                         }
                     }
                     //检测四个角是否均存在永恒之火
@@ -65,8 +64,8 @@ public class ActivateAltar {
                     BlockState state3 = level.getBlockState(centerPos.relative(Direction.WEST, 2).relative(Direction.NORTH, 2));
                     BlockState state4 = level.getBlockState(centerPos.relative(Direction.WEST, 2).relative(Direction.SOUTH, 2));
                     boolean hasEternalFire = state1.is(fire) && state2.is(fire) && state3.is(fire) && state4.is(fire);
-                    //满足所有条件后，召唤一个传送门创建器
-                    if (consistentBlockCount.size() == 25 && hasEternalFire) {
+                    //满足剩余所有条件后，召唤一个传送门创建器
+                    if (baseBlockCount.size() == 9 && hasEternalFire) {
                         GatewayCreator creator = new GatewayCreator(EPEntity.GATEWAY_CREATOR.get(), level);
                         creator.setPos(Vec3.atCenterOf(blockPos));
                         creator.setActivated(true);

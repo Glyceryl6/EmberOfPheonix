@@ -49,24 +49,6 @@ public class PhoenixGateway extends Entity {
             }
             this.size = 4 * Mth.abs(Mth.sin(Mth.PI * count));
         }
-        /*
-        this.checkInsideBlocks();
-        List<Entity> list = this.level.getEntities(this, this.getBoundingBox());
-        if (!list.isEmpty()) {
-            for (Entity entity : list) {
-                BlockPos centerPos = new BlockPos(Vec3.atCenterOf(this.getOnPos()));
-                boolean flag = !entity.isPassenger() && entity.canChangeDimensions();
-                if (entity instanceof LivingEntity && entity.getBbWidth() < this.getBbWidth() && this.level instanceof ServerLevel && flag) {
-                    ResourceKey<Level> resourceKey = this.level.dimension() == EPDimensions.PHOENIX_KEY ? Level.OVERWORLD : EPDimensions.PHOENIX_KEY;
-                    ServerLevel serverLevel = ((ServerLevel)this.level).getServer().getLevel(resourceKey);
-                    if (serverLevel == null) {
-                        return;
-                    }
-                    entity.changeDimension(serverLevel);
-                }
-            }
-        }
-        */
     }
 
     @Override

@@ -66,6 +66,7 @@ public class GatewayCreator extends Entity {
         ++this.delay;
         int r = 3;
         double d = 0.15D;
+        double y = 0.1D;
         if (this.isActivated()) {
             if (this.delay <= 100) {
                 Block fire = EPBlocks.ETERNAL_FIRE.get();
@@ -87,11 +88,32 @@ public class GatewayCreator extends Entity {
                 boolean flag4 = this.level.getBlockState(pos4).is(fire);
                 boolean hasEternalFire = flag1 && flag2 && flag3 && flag4;
                 if (this.level.isClientSide && hasEternalFire && this.delay <= 70) {
-                    ParticleOptions particle = ParticleTypes.SOUL_FIRE_FLAME;
-                    this.level.addParticle(particle, (float)pos1.getX() + 0.5F, pos1.getY(), (float)pos1.getZ() + 0.5F, -d, 0.06D, d);
-                    this.level.addParticle(particle, (float)pos2.getX() + 0.5F, pos2.getY(), (float)pos2.getZ() + 0.5F, -d, 0.06D, -d);
-                    this.level.addParticle(particle, (float)pos3.getX() + 0.5F, pos3.getY(), (float)pos3.getZ() + 0.5F, d, 0.06D, d);
-                    this.level.addParticle(particle, (float)pos4.getX() + 0.5F, pos4.getY(), (float)pos4.getZ() + 0.5F, d, 0.06D, -d);
+                    ParticleOptions particle = ParticleTypes.FLAME;
+                    //中间的粒子发射点
+                    this.level.addParticle(particle, (float)pos1.getX() + 0.5F, pos1.getY(), (float)pos1.getZ() + 0.5F, -d, y, d);
+                    this.level.addParticle(particle, (float)pos2.getX() + 0.5F, pos2.getY(), (float)pos2.getZ() + 0.5F, -d, y, -d);
+                    this.level.addParticle(particle, (float)pos3.getX() + 0.5F, pos3.getY(), (float)pos3.getZ() + 0.5F, d, y, d);
+                    this.level.addParticle(particle, (float)pos4.getX() + 0.5F, pos4.getY(), (float)pos4.getZ() + 0.5F, d, y, -d);
+                    //向东南方向偏移
+                    this.level.addParticle(particle, (float)pos1.getX() + 1.0F, pos1.getY(), (float)pos1.getZ() + 1.0F, -d, y, d);
+                    this.level.addParticle(particle, (float)pos2.getX() + 1.0F, pos2.getY(), (float)pos2.getZ() + 1.0F, -d, y, -d);
+                    this.level.addParticle(particle, (float)pos3.getX() + 1.0F, pos3.getY(), (float)pos3.getZ() + 1.0F, d, y, d);
+                    this.level.addParticle(particle, (float)pos4.getX() + 1.0F, pos4.getY(), (float)pos4.getZ() + 1.0F, d, y, -d);
+                    //向东北方向偏移
+                    this.level.addParticle(particle, (float)pos1.getX() + 1.0F, pos1.getY(), (float)pos1.getZ(), -d, y, d);
+                    this.level.addParticle(particle, (float)pos2.getX() + 1.0F, pos2.getY(), (float)pos2.getZ(), -d, y, -d);
+                    this.level.addParticle(particle, (float)pos3.getX() + 1.0F, pos3.getY(), (float)pos3.getZ(), d, y, d);
+                    this.level.addParticle(particle, (float)pos4.getX() + 1.0F, pos4.getY(), (float)pos4.getZ(), d, y, -d);
+                    //向西南方向偏移
+                    this.level.addParticle(particle, (float)pos1.getX(), pos1.getY(), (float)pos1.getZ() + 1.0F, -d, y, d);
+                    this.level.addParticle(particle, (float)pos2.getX(), pos2.getY(), (float)pos2.getZ() + 1.0F, -d, y, -d);
+                    this.level.addParticle(particle, (float)pos3.getX(), pos3.getY(), (float)pos3.getZ() + 1.0F, d, y, d);
+                    this.level.addParticle(particle, (float)pos4.getX(), pos4.getY(), (float)pos4.getZ() + 1.0F, d, y, -d);
+                    //向西北方向偏移
+                    this.level.addParticle(particle, (float)pos1.getX(), pos1.getY(), (float)pos1.getZ(), -d, y, d);
+                    this.level.addParticle(particle, (float)pos2.getX(), pos2.getY(), (float)pos2.getZ(), -d, y, -d);
+                    this.level.addParticle(particle, (float)pos3.getX(), pos3.getY(), (float)pos3.getZ(), d, y, d);
+                    this.level.addParticle(particle, (float)pos4.getX(), pos4.getY(), (float)pos4.getZ(), d, y, -d);
                 }
             } else {
                 if (!this.level.isClientSide) {
@@ -103,11 +125,13 @@ public class GatewayCreator extends Entity {
                             this.level.removeBlock(blockPos, false);
                         }
                     }
-                    PhoenixGateway gateway = new PhoenixGateway(EPEntity.PHOENIX_GATEWAY.get(), level);
-                    gateway.setPos(Vec3.atCenterOf(this.getOnPos()));
                     this.level.explode(this, this.getX(), this.getY(), this.getZ(), 2.0F, false, Explosion.BlockInteraction.NONE);
                     this.level.removeBlock(this.getOnPos().relative(Direction.DOWN), false);
-                    //this.level.addFreshEntity(gateway);
+                    if (gatewayCount == 0) {
+                        PhoenixGateway gateway = new PhoenixGateway(EPEntity.PHOENIX_GATEWAY.get(), level);
+                        gateway.setPos(Vec3.atCenterOf(this.getOnPos()));
+                        this.level.addFreshEntity(gateway);
+                    }
                     this.discard();
                 }
             }
