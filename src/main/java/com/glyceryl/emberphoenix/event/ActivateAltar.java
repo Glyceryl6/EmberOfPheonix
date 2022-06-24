@@ -50,9 +50,8 @@ public class ActivateAltar {
                 //检测祭坛周围区域是否已存在创建器实体或传送门实体，没有则继续
                 if (creatorCount <= 0 && gatewayCount <= 0) {
                     List<BlockPos> baseBlockCount = new ArrayList<>(List.of());
-                    BlockPos downPos = centerPos.relative(Direction.DOWN);
                     //检测召唤区域内是否还存在其它的无关方块
-                    for (BlockPos pos : BlockPos.withinManhattan(downPos, range, 1, range)) {
+                    for (BlockPos pos : BlockPos.withinManhattan(centerPos, range, 1, range)) {
                         if (!level.getBlockState(pos).isAir()) {
                             baseBlockCount.add(pos);
                         }
