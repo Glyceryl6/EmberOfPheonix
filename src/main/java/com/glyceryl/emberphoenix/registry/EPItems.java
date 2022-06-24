@@ -34,6 +34,8 @@ public class EPItems {
     public static final RegistryObject<Item> EMBER_LEGGINGS = RegistryBase.ITEMS.register("emberium_leggings", () -> new ArmorItem(EPArmorMaterials.EMBERIUM, EquipmentSlot.LEGS, fireProof()));
     public static final RegistryObject<Item> EMBER_HELMET = RegistryBase.ITEMS.register("emberium_helmet", () -> new ArmorItem(EPArmorMaterials.EMBERIUM, EquipmentSlot.HEAD, fireProof()));
     public static final RegistryObject<Item> EMBER_BOOTS = RegistryBase.ITEMS.register("emberium_boots", () -> new ArmorItem(EPArmorMaterials.EMBERIUM, EquipmentSlot.FEET, fireProof()));
+    //注册新的食物
+    public static final RegistryObject<Item> REDSTONE_BERRIES = RegistryBase.ITEMS.register("redstone_berries", () -> new ItemNameBlockItem(EPBlocks.REDSTONE_BERRY_BUSH.get(), defaultBuilder().food(EPFoods.REDSTONE_BERRIES)));
     //注册带有特殊性质的物品
     public static final RegistryObject<Item> SPARK = RegistryBase.ITEMS.register("spark", () -> new Spark(defaultBuilder()));
     public static final RegistryObject<Item> DEAD_HEART_OF_THE_VULCAN = RegistryBase.ITEMS.register("dead_heart_of_the_vulcan", () -> new Item(defaultBuilder().rarity(Rarity.RARE)));

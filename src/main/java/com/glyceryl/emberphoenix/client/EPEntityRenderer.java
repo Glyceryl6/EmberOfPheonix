@@ -21,6 +21,7 @@ public class EPEntityRenderer {
         event.registerEntityRenderer(EPEntity.SMALL_CRACK.get(), SmallCrackRenderer::new);
         event.registerEntityRenderer(EPEntity.PALE_FIREBALL.get(), PaleFireballRenderer::new);
         event.registerEntityRenderer(EPEntity.FALLING_FIREBALL.get(), ThrownItemRenderer::new);
+        event.registerEntityRenderer(EPEntity.GATEWAY_CREATOR.get(), GatewayCreatorRenderer::new);
         event.registerEntityRenderer(EPEntity.PHOENIX_GATEWAY.get(), PhoenixGatewayRenderer::new);
     }
 

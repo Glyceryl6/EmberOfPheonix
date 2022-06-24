@@ -18,6 +18,7 @@
   "block.emberphoenix.fire_flower":"Fire Flower",
   "block.emberphoenix.barren_grass":"Barren Grass",
   "block.emberphoenix.barren_tall_grass":"Barren Tall Grass",
+  "block.emberphoenix.redstone_berry_bush":"Redstone Berry Bush",
 
   "block.emberphoenix.chiseled_scarlet_stone":"Chiseled Scarlet Stone",
   "block.emberphoenix.polished_scarlet_stone":"Polished Scarlet Stone",
@@ -65,6 +66,7 @@
   "item.emberphoenix.emberium_chestplate":"Ember Chestplate",
   "item.emberphoenix.emberium_leggings":"Ember Leggings",
   "item.emberphoenix.emberium_boots":"Ember Boots",
+  "item.emberphoenix.redstone_berries":"Redstone Berries",
   "item.emberphoenix.tumbleseed":"Tumbleweed Seed",
   "item.emberphoenix.spark":"Spark",
 

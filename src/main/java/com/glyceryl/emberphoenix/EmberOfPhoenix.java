@@ -42,6 +42,7 @@ public class EmberOfPhoenix {
         MinecraftForge.EVENT_BUS.register(new ThrowFireCharge());
         MinecraftForge.EVENT_BUS.register(new ProjectileHit());
         MinecraftForge.EVENT_BUS.register(new RenderHorizon());
+        MinecraftForge.EVENT_BUS.register(new ActivateAltar());
         MinecraftForge.EVENT_BUS.register(this);
     }
 
@@ -51,6 +52,7 @@ public class EmberOfPhoenix {
         ItemBlockRenderTypes.setRenderLayer(EPBlocks.ETERNAL_FIRE.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(EPBlocks.BARREN_GRASS.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(EPBlocks.BARREN_TALL_GRASS.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(EPBlocks.REDSTONE_BERRY_BUSH.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(EPBlocks.ETERNAL_FIRE_ALTAR.get(), RenderType.cutoutMipped());
     }
 

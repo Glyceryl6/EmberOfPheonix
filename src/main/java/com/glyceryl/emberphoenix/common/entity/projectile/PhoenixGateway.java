@@ -9,6 +9,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
 
+@SuppressWarnings("unused")
 public class PhoenixGateway extends Entity {
 
     public float size = 1.0F;
@@ -44,7 +45,7 @@ public class PhoenixGateway extends Entity {
         if (this.level.isClientSide) {
             this.count += 0.01F;
             if (this.count >= 0.5F) {
-                this.count = 0.5F;
+                this.count = 0.49F;
             }
             this.size = 4 * Mth.abs(Mth.sin(Mth.PI * count));
         }
@@ -59,4 +60,5 @@ public class PhoenixGateway extends Entity {
     public Packet<?> getAddEntityPacket() {
         return new ClientboundAddEntityPacket(this);
     }
+
 }
