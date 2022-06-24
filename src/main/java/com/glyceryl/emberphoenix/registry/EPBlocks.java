@@ -46,6 +46,8 @@ public class EPBlocks {
     public static final RegistryObject<FireFlower> FIRE_FLOWER = RegistryBase.registerBlock("fire_flower", () -> new FireFlower(PLANT_PROPERTIES.instabreak()));
     public static final RegistryObject<Tumbleweed> TUMBLEWEED = RegistryBase.registerBlock("tumbleweed", () -> new Tumbleweed(PLANT_PROPERTIES.strength(0.3F)));
     public static final RegistryObject<EPDoublePlant> BARREN_TALL_GRASS = RegistryBase.registerBlock("barren_tall_grass", () -> new EPDoublePlant(PLANT_PROPERTIES.instabreak()));
+    public static final RegistryObject<RedstoneBerryBush> REDSTONE_BERRY_BUSH = RegistryBase.BLOCKS.register("redstone_berry_bush",
+            () -> new RedstoneBerryBush(BlockBehaviour.Properties.of(Material.PLANT).randomTicks().noCollission().sound(SoundType.SWEET_BERRY_BUSH)));
     //注册矿石方块
     public static final RegistryObject<Block> SCARLET_COAL_ORE = ore("scarlet_coal_ore");
     public static final RegistryObject<Block> SCARLET_IRON_ORE = ore("scarlet_iron_ore");
@@ -85,7 +87,7 @@ public class EPBlocks {
     public static final RegistryObject<Block> SCARLET_STONE_STAIR = stair("scarlet_stone_stair", SCARLET_STONE, STRENGTH_SCARLET_STONE);
     public static final RegistryObject<Block> HARD_SLATE_STAIR = stair("hardslate_stair", HARD_SLATE, STRENGTH_HARD_SLATE);
 
-    private static Boolean never(BlockState p_50779_, BlockGetter p_50780_, BlockPos p_50781_, EntityType<?> p_50782_) {
+    private static Boolean never(BlockState state, BlockGetter getter, BlockPos pos, EntityType<?> type) {
         return false;
     }
 

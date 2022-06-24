@@ -43,6 +43,14 @@ public class EPPlacedFeatures {
             EPVegetationFeatures.PATCH_BARREN_TALL_GRASS, RarityFilter.onAverageOnceEvery(3),
             InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
 
+    //生成红石浆果丛
+    public static final Holder<PlacedFeature> PATCH_REDSTONE_BERRY_COMMON = PlacementUtils.register("patch_redstone_berry_common",
+            EPVegetationFeatures.PATCH_REDSTONE_BERRY_BUSH, VegetationPlacements.worldSurfaceSquaredWithCount(4));
+
+    //生成稀少的红石浆果丛
+    public static final Holder<PlacedFeature> PATCH_REDSTONE_BERRY_RARE = PlacementUtils.register("patch_redstone_berry_rare",
+            EPVegetationFeatures.PATCH_REDSTONE_BERRY_BUSH, VegetationPlacements.worldSurfaceSquaredWithCount(1));
+
     //对猩红壤使用骨粉时生成的贫瘠草丛
     public static final Holder<PlacedFeature> SINGLE_PIECE_OF_BARREN_GRASS = PlacementUtils.register("barren_grass_bonemeal",
             EPVegetationFeatures.SINGLE_PIECE_OF_BARREN_GRASS, PlacementUtils.isEmpty());
