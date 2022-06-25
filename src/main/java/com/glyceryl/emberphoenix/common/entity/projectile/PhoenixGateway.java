@@ -1,6 +1,7 @@
 package com.glyceryl.emberphoenix.common.entity.projectile;
 
 import com.glyceryl.emberphoenix.registry.EPEntity;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
@@ -48,6 +49,15 @@ public class PhoenixGateway extends Entity {
                 this.count = 0.49F;
             }
             this.size = 4 * Mth.abs(Mth.sin(Mth.PI * count));
+            for(int i = 0; i < 5; ++i) {
+                double dx = this.getRandomX(0.5D);
+                double dy = this.getRandomY() - 0.25D;
+                double dz = this.getRandomZ(0.5D);
+                double d0 = (this.random.nextDouble() - 0.5D) * 2.0D;
+                double d1 = -this.random.nextDouble();
+                double d2 = (this.random.nextDouble() - 0.5D) * 2.0D;
+                this.level.addParticle(ParticleTypes.PORTAL, dx, dy, dz, d0, d1, d2);
+            }
         }
     }
 
