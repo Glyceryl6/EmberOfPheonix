@@ -30,6 +30,7 @@ public class ThrowFireCharge {
                 float yRot = player.getYRot();
                 FallingFireball fireball = new FallingFireball(level, player);
                 fireball.setItem(itemStack);
+                fireball.setOwner(player);
                 fireball.shootFromRotation(player, xRot, yRot, 0.0F, 1.5F, 1.0F);
                 level.addFreshEntity(fireball);
             }
