@@ -4,11 +4,14 @@ import com.glyceryl.emberphoenix.registry.EPBlocks;
 import com.glyceryl.emberphoenix.registry.EPDimensions;
 import com.glyceryl.emberphoenix.registry.EPEntity;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -17,8 +20,10 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.util.ITeleporter;
 
 import java.util.ArrayList;
@@ -74,6 +79,28 @@ public class PhoenixGateway extends Entity {
                 this.level.addParticle(ParticleTypes.PORTAL, dx, dy, dz, d0, d1, d2);
             }
         }
+
+        Block altar = EPBlocks.ETERNAL_FIRE_ALTAR.get();
+        BlockPos centerPos = new BlockPos(Vec3.atCenterOf(this.getOnPos()));
+        BlockPos pos1 = centerPos.relative(Direction.EAST, 2).relative(Direction.NORTH, 2).below();
+        BlockPos pos2 = centerPos.relative(Direction.EAST, 2).relative(Direction.SOUTH, 2).below();
+        BlockPos pos3 = centerPos.relative(Direction.WEST, 2).relative(Direction.NORTH, 2).below();
+        BlockPos pos4 = centerPos.relative(Direction.WEST, 2).relative(Direction.SOUTH, 2).below();
+        boolean flag1 = this.level.getBlockState(pos1).is(altar);
+        boolean flag2 = this.level.getBlockState(pos2).is(altar);
+        boolean flag3 = this.level.getBlockState(pos3).is(altar);
+        boolean flag4 = this.level.getBlockState(pos4).is(altar);
+        boolean hasEternalFireAltar = flag1 && flag2 && flag3 && flag4;
+        if (!hasEternalFireAltar) {
+            if (this.level.isClientSide) {
+                float pitch = (1.0F + (this.level.random.nextFloat() - this.level.random.nextFloat()) * 0.2F) * 0.7F;
+                this.level.playLocalSound(this.getX(), this.getY(), this.getZ(), SoundEvents.GENERIC_EXPLODE, SoundSource.BLOCKS, 4.0F, pitch, false);
+                this.level.addParticle(ParticleTypes.EXPLOSION_EMITTER, this.getX(), this.getY(), this.getZ(), 1.0D, 0.0D, 0.0D);
+            }
+            this.discard();
+        }
+
+
         if (!this.level.isClientSide) {
             for (Entity entity : this.level.getEntities(this, getBoundingBox())) {
                 if (!entity.isPassenger() && !entity.isVehicle() && entity.canChangeDimensions()) {
