@@ -4,7 +4,6 @@ import com.glyceryl.emberphoenix.registry.EPBlocks;
 import com.glyceryl.emberphoenix.registry.EPItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -18,8 +17,6 @@ import net.minecraft.world.level.block.SweetBerryBushBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 
-import java.util.Random;
-
 @SuppressWarnings("deprecation")
 public class RedstoneBerryBush extends SweetBerryBushBlock {
 
@@ -29,49 +26,50 @@ public class RedstoneBerryBush extends SweetBerryBushBlock {
     }
 
     @Override
-    public void onPlace(BlockState blockState, Level level, BlockPos blockPos, BlockState p_55727_, boolean p_55728_) {
-        for(Direction direction : Direction.values()) {
-            if (blockState.getValue(AGE) == 3) {
+    public ItemStack getCloneItemStack(BlockGetter blockGetter, BlockPos blockPos, BlockState blockState) {
+        return new ItemStack(EPItems.REDSTONE_BERRIES.get());
+    }
+
+    @Override
+    protected boolean mayPlaceOn(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos) {
+        return blockState.is(EPBlocks.SCARLET_DIRT.get());
+    }
+
+    @Override
+    public void onPlace(BlockState blockState, Level level, BlockPos blockPos, BlockState oldState, boolean notify) {
+        if (oldState.is(blockState.setValue(AGE, 3).getBlock())) {
+            for(Direction direction : Direction.values()) {
                 level.updateNeighborsAt(blockPos.relative(direction), this);
             }
         }
     }
 
     @Override
-    public void onRemove(BlockState blockState, Level level, BlockPos blockPos, BlockState p_55709_, boolean p_55710_) {
-        if (!p_55710_) {
+    public void onRemove(BlockState blockState, Level level, BlockPos blockPos, BlockState newState, boolean moved) {
+        if (!moved && !newState.is(blockState.getBlock())) {
             for(Direction direction : Direction.values()) {
-                if (blockState.getValue(AGE) == 3) {
-                    level.updateNeighborsAt(blockPos.relative(direction), this);
-                }
+                level.updateNeighborsAt(blockPos.relative(direction), this);
             }
         }
     }
 
     @Override
-    public ItemStack getCloneItemStack(BlockGetter p_57256_, BlockPos p_57257_, BlockState p_57258_) {
-        return new ItemStack(EPItems.REDSTONE_BERRIES.get());
+    public int getDirectSignal(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, Direction direction) {
+        return blockState.getValue(AGE) == 3 ? 15 : 0;
     }
 
     @Override
-    protected boolean mayPlaceOn(BlockState state, BlockGetter getter, BlockPos pos) {
-        return state.is(EPBlocks.SCARLET_DIRT.get());
-    }
-
-    @Override
-    public int getSignal(BlockState p_60483_, BlockGetter p_60484_, BlockPos p_60485_, Direction p_60486_) {
+    public int getSignal(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, Direction direction) {
         return 15;
     }
 
-
-
     @Override
-    public boolean isSignalSource(BlockState p_55213_) {
+    public boolean isSignalSource(BlockState blockState) {
         return true;
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
+    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         int i = state.getValue(AGE);
         boolean flag = i == 3;
         if (!flag && player.getItemInHand(hand).is(Items.BONE_MEAL)) {
@@ -84,7 +82,7 @@ public class RedstoneBerryBush extends SweetBerryBushBlock {
             level.setBlock(pos, state.setValue(AGE, 1), 2);
             return InteractionResult.sidedSuccess(level.isClientSide);
         } else {
-            return super.use(state, level, pos, player, hand, result);
+            return super.use(state, level, pos, player, hand, hitResult);
         }
     }
 

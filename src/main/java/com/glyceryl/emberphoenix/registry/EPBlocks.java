@@ -87,16 +87,16 @@ public class EPBlocks {
     public static final RegistryObject<Block> SCARLET_STONE_STAIR = stair("scarlet_stone_stair", SCARLET_STONE, STRENGTH_SCARLET_STONE);
     public static final RegistryObject<Block> HARD_SLATE_STAIR = stair("hardslate_stair", HARD_SLATE, STRENGTH_HARD_SLATE);
 
-    private static Boolean never(BlockState state, BlockGetter getter, BlockPos pos, EntityType<?> type) {
+    public static Boolean never(BlockState state, BlockGetter getter, BlockPos pos, EntityType<?> type) {
         return false;
+    }
+
+    public static RegistryObject<Block> fireProof(String name, BlockBehaviour.Properties properties) {
+        return RegistryBase.registerFireProofBlock(name, () -> new Block(properties));
     }
 
     private static RegistryObject<Block> normal(String name, BlockBehaviour.Properties properties) {
         return RegistryBase.registerBlock(name, () -> new Block(properties));
-    }
-
-    private static RegistryObject<Block> fireProof(String name, BlockBehaviour.Properties properties) {
-        return RegistryBase.registerFireProofBlock(name, () -> new Block(properties));
     }
 
     private static RegistryObject<Block> ore(String name) {
