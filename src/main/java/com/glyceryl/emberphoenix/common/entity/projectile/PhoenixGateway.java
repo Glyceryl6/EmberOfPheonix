@@ -118,7 +118,7 @@ public class PhoenixGateway extends Entity {
                     }
                 }
 
-                //如果在半径256格内确实无法找到合适的落脚点，则会在玩家脚下生成一个固体方块
+                //如果在半径256格内确实无法找到合适的落脚点，则会在玩家脚下生成一个固体方块或者给予玩家缓降效果
                 if (validPosList.size() == 0) {
                     if (destWorld.getBlockState(entity.getOnPos()).getMaterial().isLiquid()) {
                         if (destWorld.getServer().getLevel(Level.OVERWORLD) == destWorld) {
@@ -127,7 +127,8 @@ public class PhoenixGateway extends Entity {
                             destWorld.setBlock(entity.getOnPos(), EPBlocks.SCARLET_DIRT.get().defaultBlockState(), 2);
                         }
                     } else if (destWorld.isEmptyBlock(entity.getOnPos()) && entity instanceof LivingEntity) {
-                        ((LivingEntity) entity).addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 20, 1, false, true));
+                        ((LivingEntity) entity).addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 600, 1, false, true));
+                        ((LivingEntity) entity).addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 200, 1, false, true));
                     }
                 }
                 validPosList.clear();
