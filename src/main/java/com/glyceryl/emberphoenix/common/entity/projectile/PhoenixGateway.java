@@ -11,8 +11,11 @@ import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -106,7 +109,7 @@ public class PhoenixGateway extends Entity {
                 entity.teleportTo(pos.getX(), y, pos.getZ());
                 List<BlockPos> validPosList = new ArrayList<>(List.of());
                 //给传送的目的地寻找一个合适且最近的落脚点，如果当前实体所在的位置符合要求，则自动跳过寻找
-                for (BlockPos blockPos : BlockPos.withinManhattan(entity.getOnPos(), 128, destWorld.getMaxBuildHeight(), 128)) {
+                for (BlockPos blockPos : BlockPos.withinManhattan(entity.getOnPos(), 256, destWorld.getLogicalHeight() / 2, 256)) {
                     if (destWorld.getBlockState(blockPos).getMaterial().isSolid() && !destWorld.getBlockState(blockPos).is(BlockTags.LEAVES)
                             && destWorld.isEmptyBlock(blockPos.above()) && destWorld.isEmptyBlock(blockPos.above(2))) {
                         entity.teleportTo(blockPos.getX(), blockPos.above().getY(), blockPos.getZ());
@@ -114,7 +117,8 @@ public class PhoenixGateway extends Entity {
                         entity.clearFire(); break;
                     }
                 }
-                //如果在半径128格内确实无法找到合适的落脚点，则会在玩家脚下生成一个固体方块
+
+                //如果在半径256格内确实无法找到合适的落脚点，则会在玩家脚下生成一个固体方块
                 if (validPosList.size() == 0) {
                     if (destWorld.getBlockState(entity.getOnPos()).getMaterial().isLiquid()) {
                         if (destWorld.getServer().getLevel(Level.OVERWORLD) == destWorld) {
@@ -122,6 +126,8 @@ public class PhoenixGateway extends Entity {
                         } else if (destWorld.getServer().getLevel(EPDimensions.PHOENIX_KEY) == destWorld) {
                             destWorld.setBlock(entity.getOnPos(), EPBlocks.SCARLET_DIRT.get().defaultBlockState(), 2);
                         }
+                    } else if (destWorld.isEmptyBlock(entity.getOnPos()) && entity instanceof LivingEntity) {
+                        ((LivingEntity) entity).addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 20, 1, false, true));
                     }
                 }
                 validPosList.clear();
