@@ -23,6 +23,8 @@ import net.minecraft.world.phys.Vec3;
 
 public class FallingFireball extends ThrowableItemProjectile {
 
+    public int time;
+
     public FallingFireball(EntityType<? extends FallingFireball> type, Level level) {
         super(type, level);
     }
@@ -38,6 +40,10 @@ public class FallingFireball extends ThrowableItemProjectile {
     @Override
     public void tick() {
         super.tick();
+        ++this.time;
+        if (this.time >= 200) {
+            this.discard();
+        }
         if (this.level.isClientSide) {
             this.makeTrail(ParticleTypes.FLAME);
         }
@@ -78,7 +84,9 @@ public class FallingFireball extends ThrowableItemProjectile {
     protected void onHit(HitResult hitResult) {
         super.onHit(hitResult);
         if (this.level.isClientSide) {
-            this.makeFlameParticles();
+            if (this.getOwner() instanceof Player) {
+                this.makeFlameParticles();
+            }
             this.discard();
         }
     }
@@ -100,7 +108,7 @@ public class FallingFireball extends ThrowableItemProjectile {
         double d0 = this.getX() + vec3.x;
         double d1 = this.getY() + vec3.y;
         double d2 = this.getZ() + vec3.z;
-        this.level.addParticle(particle, d0, d1 + 0.5D, d2, 0.0D, 0.0D, 0.0D);
+        this.level.addParticle(particle, d0, d1, d2, 0.0D, 0.0D, 0.0D);
     }
 
     @Override
