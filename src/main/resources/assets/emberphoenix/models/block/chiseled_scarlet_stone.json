@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:block/cube_column",
   "textures": {
-    "end": "emberphoenix:block/chiseled_scarlet_stone_side_top",
+    "end": "emberphoenix:block/chiseled_scarlet_stone_top",
     "side": "emberphoenix:block/chiseled_scarlet_stone_side"
   }
 }
