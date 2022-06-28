@@ -17,6 +17,7 @@ import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.Mth;
 import net.minecraft.world.BossEvent;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.damagesource.DamageSource;
@@ -29,6 +30,7 @@ import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
@@ -38,6 +40,7 @@ import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Objects;
 
 public class WildfireEntity extends Monster implements PowerableMob {
 
@@ -86,12 +89,13 @@ public class WildfireEntity extends Monster implements PowerableMob {
         this.goalSelector.addGoal(1, new WildfireEntity.SpawnMinionsGoal());
         this.goalSelector.addGoal(3, new WildfireEntity.SpawnFlameRainGoal());
         this.goalSelector.addGoal(4, new WildfireEntity.ShootSmallCrackGoal(this));
+        this.goalSelector.addGoal(4, new WildfireEntity.FireballFusilladeGoal(this));
         this.goalSelector.addGoal(3, new MeleeAttackGoal(this, 1.0D, false));
         this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(2, new MoveTowardsRestrictionGoal(this, 1.0D));
         this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0D, 0.0F));
-        this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers());
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
+        this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers());
     }
 
     @Override
@@ -181,9 +185,9 @@ public class WildfireEntity extends Monster implements PowerableMob {
         this.killallBlazes(blazeList);
     }
 
-    //扑灭周围所有的火（以自身为中心 96×16×96 的范围）
+    //扑灭周围所有的火（以自身为中心 32×8×32 的范围）
     private void removeFire(BlockPos blockpos) {
-        for (BlockPos pos : BlockPos.withinManhattan(blockpos, 48, 8, 48)) {
+        for (BlockPos pos : BlockPos.withinManhattan(blockpos, 16, 4, 16)) {
             if (level.getBlockState(pos).is(Blocks.FIRE)) {
                 level.removeBlock(pos, false);
             }
@@ -231,7 +235,7 @@ public class WildfireEntity extends Monster implements PowerableMob {
         if (this.getHealth() < this.getMaxHealth() && blazeCount > 0) {
             this.bossEvent.setColor(BossEvent.BossBarColor.GREEN);
             if (this.tickCount % 10 == 0) {
-                this.heal(1.0F);
+                this.heal(1.5F);
             }
         } else {
             this.bossEvent.setColor(BossEvent.BossBarColor.YELLOW);
@@ -346,9 +350,26 @@ public class WildfireEntity extends Monster implements PowerableMob {
                 double z = (-((float)Math.cos(f)) * 0.75F) / 2.0D;
                 FallingFireball entity = new FallingFireball(this.getX(), this.getY(), this.getZ(), this.level);
                 entity.setDeltaMovement(x, y, z);
+                entity.setInvisible(true);
                 this.level.addFreshEntity(entity);
             }
         }
+    }
+
+    public void launchProjectile(Projectile projectile) {
+        float bodyFacingAngle = ((this.yBodyRot * Mth.PI) / 180F);
+        float pitch = (this.getRandom().nextFloat() - this.getRandom().nextFloat()) * 0.2F + 1.0F;
+        double sx = getX() + (Mth.cos(bodyFacingAngle) * 0.65D);
+        double sy = getY() + (this.getBbHeight() * 0.5D);
+        double sz = getZ() + (Mth.sin(bodyFacingAngle) * 0.65D);
+        double tx = Objects.requireNonNull(this.getTarget()).getX() - sx;
+        double ty = (this.getTarget().getBoundingBox().minY + this.getTarget().getBbHeight() / 2.0F) - (this.getY() + this.getBbHeight() / 2.0F);
+        double tz = this.getTarget().getZ() - sz;
+        this.playSound(SoundEvents.BLAZE_SHOOT, 1.5F, pitch);
+        projectile.moveTo(sx, sy, sz, getYRot(), getXRot());
+        projectile.shoot(tx, ty, tz, 0.8F, 1.0F);
+        projectile.setNoGravity(true);
+        this.getLevel().addFreshEntity(projectile);
     }
 
     public void startSeenByPlayer(ServerPlayer serverPlayer) {
@@ -591,6 +612,40 @@ public class WildfireEntity extends Monster implements PowerableMob {
                 }
             }
         }
+    }
+
+    //连续发射火球
+    class FireballFusilladeGoal extends Goal {
+
+        private int counter = 0;
+        private final WildfireEntity wildfire;
+
+        public FireballFusilladeGoal(WildfireEntity entity) {
+            wildfire = entity;
+        }
+
+        @Override
+        public boolean canUse() {
+            return this.wildfire.getTarget() != null && distanceToSqr(this.wildfire.getTarget()) <= 1024.0D && random.nextFloat() * 100.0F < 0.6F;
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            LivingEntity livingentity = this.wildfire.getTarget();
+            return livingentity != null && livingentity.isAlive() && this.wildfire.canAttack(livingentity);
+        }
+
+        @Override
+        public void tick() {
+            this.counter++;
+            Level level = this.wildfire.level;
+            LivingEntity livingentity = this.wildfire.getTarget();
+            if (livingentity != null && this.counter % 2 == 0 && this.counter <= 80 && distanceTo(livingentity) < 10.0D) {
+                FallingFireball fireball = new FallingFireball(EPEntity.FALLING_FIREBALL.get(), level);
+                launchProjectile(fireball);
+            }
+        }
+
     }
 
 }
