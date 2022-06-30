@@ -2,6 +2,7 @@ package com.glyceryl.emberphoenix.common.entity.boss;
 
 import com.glyceryl.emberphoenix.common.entity.ai.WildFireAttackGoal;
 import com.glyceryl.emberphoenix.common.entity.monster.AncientBlaze;
+import com.glyceryl.emberphoenix.common.entity.projectile.BoomerangFireball;
 import com.glyceryl.emberphoenix.common.entity.projectile.FallingFireball;
 import com.glyceryl.emberphoenix.common.entity.projectile.SmallCrack;
 import com.glyceryl.emberphoenix.registry.EPEntity;
@@ -17,6 +18,7 @@ import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.BossEvent;
 import net.minecraft.world.Difficulty;
@@ -32,6 +34,7 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.AxeItem;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
@@ -89,6 +92,7 @@ public class WildfireEntity extends Monster implements PowerableMob {
         this.goalSelector.addGoal(1, new WildfireEntity.SpawnMinionsGoal());
         this.goalSelector.addGoal(3, new WildfireEntity.SpawnFlameRainGoal());
         this.goalSelector.addGoal(4, new WildfireEntity.ShootSmallCrackGoal(this));
+        this.goalSelector.addGoal(4, new WildfireEntity.ShootBoomerangFireball(this));
         this.goalSelector.addGoal(4, new WildfireEntity.FireballFusilladeGoal(this));
         this.goalSelector.addGoal(3, new MeleeAttackGoal(this, 1.0D, false));
         this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 8.0F));
@@ -149,7 +153,7 @@ public class WildfireEntity extends Monster implements PowerableMob {
         for (int i = 0; i < tries; i++) {
             double range = random.nextDouble(12.0D) + 12.0D;
             double tx = targetEntity.getX() + random.nextGaussian() * range;
-            double ty = targetEntity.getY();
+            double ty = targetEntity.getY() + random.nextGaussian() * 5.0D;
             double tz = targetEntity.getZ() + random.nextGaussian() * range;
             boolean destClear = randomTeleport(tx, ty, tz, true);
             boolean canSeeTargetAtDest = hasLineOfSight(targetEntity);
@@ -349,7 +353,9 @@ public class WildfireEntity extends Monster implements PowerableMob {
                 double y = Math.abs(Math.random() * 0.75D) * 1.5D;
                 double z = (-((float)Math.cos(f)) * 0.75F) / 2.0D;
                 FallingFireball entity = new FallingFireball(this.getX(), this.getY(), this.getZ(), this.level);
+                entity.setItem(Items.AIR.getDefaultInstance());
                 entity.setDeltaMovement(x, y, z);
+                entity.setSecondsOnFire(0);
                 entity.setInvisible(true);
                 this.level.addFreshEntity(entity);
             }
@@ -367,7 +373,7 @@ public class WildfireEntity extends Monster implements PowerableMob {
         double tz = this.getTarget().getZ() - sz;
         this.playSound(SoundEvents.BLAZE_SHOOT, 1.5F, pitch);
         projectile.moveTo(sx, sy, sz, getYRot(), getXRot());
-        projectile.shoot(tx, ty, tz, 0.8F, 1.0F);
+        projectile.shoot(tx, ty, tz, 1.0F, 0.5F);
         projectile.setNoGravity(true);
         this.getLevel().addFreshEntity(projectile);
     }
@@ -434,6 +440,11 @@ public class WildfireEntity extends Monster implements PowerableMob {
     @Override
     public boolean canChangeDimensions() {
         return false;
+    }
+
+    @Override
+    public boolean ignoreExplosion() {
+        return true;
     }
 
     public boolean isOnFire() {
@@ -598,11 +609,14 @@ public class WildfireEntity extends Monster implements PowerableMob {
                         if (!this.wildfire.isSilent()) {
                             level.levelEvent(null, 1018, this.wildfire.blockPosition(), 0);
                         }
+
                         SmallCrack smallCrack = new SmallCrack(level, this.wildfire, d2, d3, d4);
                         double x = this.wildfire.getX() + vec3.x * 5.0D;
                         double y = this.wildfire.getY(0.5D) + 0.5D;
                         double z = smallCrack.getZ() + vec3.z * 5.0D;
                         smallCrack.setExplosionPower(entityData.get(SMALL_CRACK_POWER));
+                        smallCrack.setSharedFlagOnFire(true);
+                        smallCrack.setSecondsOnFire(10);
                         smallCrack.setPos(x, y, z);
                         level.addFreshEntity(smallCrack);
                         this.chargeTime = -40;
@@ -612,6 +626,59 @@ public class WildfireEntity extends Monster implements PowerableMob {
                 }
             }
         }
+    }
+
+    //发射回旋火焰弹
+    class ShootBoomerangFireball extends Goal {
+
+        private int counter = 0;
+        private final WildfireEntity wildfire;
+
+        public ShootBoomerangFireball(WildfireEntity wildfire) {
+            this.wildfire = wildfire;
+        }
+
+        @Override
+        public boolean canUse() {
+            return getTarget() != null && distanceToSqr(getTarget()) <= 1024.0D && random.nextFloat() * 100.0F < 1.5F;
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            LivingEntity livingentity = getTarget();
+            return livingentity != null && livingentity.isAlive() && canAttack(livingentity);
+        }
+
+        @Override
+        public void tick() {
+            this.counter++;
+            LivingEntity target = this.wildfire.getTarget();
+            int boomerangCount = this.getBoomerangAround(8.0D).size();
+            if (target != null && boomerangCount == 0 && counter % 4 ==0 && distanceTo(target) < 10.0D) {
+                this.launchProjectile(wildfire);
+            }
+        }
+
+        public List<BoomerangFireball> getBoomerangAround(double radius) {
+            BlockPos blockpos = wildfire.getOnPos();
+            AABB aabb = (new AABB(blockpos)).inflate(radius);
+            return level.getEntitiesOfClass(BoomerangFireball.class, aabb);
+        }
+
+        public void launchProjectile(LivingEntity entity) {
+            double baseDamage = entity.getAttributes().getValue(Attributes.ATTACK_DAMAGE);
+            double damage = 1.0F + baseDamage * 1.2f;
+            BoomerangFireball fireball = new BoomerangFireball(EPEntity.BLAZE_BOOMERANG.get(), level);
+            fireball.setPos(entity.position().x, entity.position().y + entity.getBbHeight() / 2f, entity.position().z);
+            fireball.damage = (float) damage;
+            fireball.setSharedFlagOnFire(true);
+            fireball.setSecondsOnFire(10);
+            fireball.setOwner(wildfire);
+            fireball.shootFromRotation(entity, entity.getXRot(), entity.getYRot(), 0.0F, 1.5F, 0F);
+            level.playSound(null, blockPosition(), SoundEvents.BLAZE_SHOOT, SoundSource.PLAYERS, 1, 1.25f);
+            level.addFreshEntity(fireball);
+        }
+
     }
 
     //连续发射火球

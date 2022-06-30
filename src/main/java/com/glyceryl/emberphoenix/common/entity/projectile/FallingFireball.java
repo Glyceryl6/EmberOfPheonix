@@ -44,6 +44,9 @@ public class FallingFireball extends ThrowableItemProjectile {
         if (this.time >= 200) {
             this.discard();
         }
+        if (this.isNoGravity()) {
+            this.setSecondsOnFire(1);
+        }
         if (this.level.isClientSide) {
             this.makeTrail(ParticleTypes.FLAME);
         }
@@ -92,7 +95,7 @@ public class FallingFireball extends ThrowableItemProjectile {
     }
 
     private void makeFlameParticles() {
-        for(int i = 0; i < 5; ++i) {
+        for(int i = 0; i < 50; ++i) {
             double dx = this.getRandomX(1.0D);
             double dy = this.getRandomY() + 1.0D;
             double dz = this.getRandomZ(1.0D);
@@ -113,7 +116,7 @@ public class FallingFireball extends ThrowableItemProjectile {
 
     @Override
     protected Item getDefaultItem() {
-        return Items.FIRE_CHARGE;
+        return this.isInvisible() ? Items.AIR : Items.FIRE_CHARGE;
     }
 
     @Override

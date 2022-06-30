@@ -13,6 +13,7 @@ public class EPEntityNames {
     public static final ResourceLocation SMALL_CRACK = prefix("small_crack");
     public static final ResourceLocation PALE_FIREBALL = prefix("pale_fireball");
     public static final ResourceLocation ANCIENT_BLAZE = prefix("ancient_blaze");
+    public static final ResourceLocation BLAZE_BOOMERANG = prefix("blaze_boomerang");
     public static final ResourceLocation PHOENIX_GATEWAY = prefix("phoenix_gateway");
     public static final ResourceLocation GATEWAY_CREATOR = prefix("gateway_creator");
     public static final ResourceLocation FALLING_FIREBALL = prefix("falling_fireball");

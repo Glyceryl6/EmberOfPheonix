@@ -23,11 +23,12 @@ public class EPEntity {
 
     public static final RegistryObject<EntityType<WildfireEntity>> WILDFIRE = make(EPEntityNames.WILDFIRE, WildfireEntity::new, MobCategory.MONSTER, 1.6F, 4.0F, true, 0xf6b201, 0xfff87e);
     public static final RegistryObject<EntityType<AncientBlaze>> ANCIENT_BLAZE = make(EPEntityNames.ANCIENT_BLAZE, AncientBlaze::new, MobCategory.MONSTER, 0.6F, 1.8F, true, 0xf2d6d7, 0xf0c741);
-    public static final RegistryObject<EntityType<SmallCrack>> SMALL_CRACK = build(EPEntityNames.SMALL_CRACK, makeCastedBuilder(SmallCrack.class, SmallCrack::new, 1.0F, 1.0F, 4, 10), true);
+    public static final RegistryObject<EntityType<SmallCrack>> SMALL_CRACK = build(EPEntityNames.SMALL_CRACK, makeCastedBuilder(SmallCrack.class, SmallCrack::new, 1.0F, 1.0F, 4, 10), false);
     public static final RegistryObject<EntityType<PaleFireball>> PALE_FIREBALL = build(EPEntityNames.PALE_FIREBALL, makeCastedBuilder(PaleFireball.class, PaleFireball::new, 0.3125F, 0.3125F, 4, 10), true);
-    public static final RegistryObject<EntityType<FallingFireball>> FALLING_FIREBALL = build(EPEntityNames.FALLING_FIREBALL, makeCastedBuilder(FallingFireball.class, FallingFireball::new, 0.5F, 0.5F, 4, 10), true);
-    public static final RegistryObject<EntityType<GatewayCreator>> GATEWAY_CREATOR = build(EPEntityNames.GATEWAY_CREATOR, makeCastedBuilder(GatewayCreator.class, GatewayCreator::new, 1.5F, 1.5F, 4, 4), false);
-    public static final RegistryObject<EntityType<PhoenixGateway>> PHOENIX_GATEWAY = build(EPEntityNames.PHOENIX_GATEWAY, makeCastedBuilder(PhoenixGateway.class, PhoenixGateway::new, 2.0F, 2.0F, 4, 4), false);
+    public static final RegistryObject<EntityType<GatewayCreator>> GATEWAY_CREATOR = build(EPEntityNames.GATEWAY_CREATOR, makeCastedBuilder(GatewayCreator.class, GatewayCreator::new, 1.5F, 1.5F, 4, 4), true);
+    public static final RegistryObject<EntityType<PhoenixGateway>> PHOENIX_GATEWAY = build(EPEntityNames.PHOENIX_GATEWAY, makeCastedBuilder(PhoenixGateway.class, PhoenixGateway::new, 2.0F, 2.0F, 4, 4), true);
+    public static final RegistryObject<EntityType<FallingFireball>> FALLING_FIREBALL = build(EPEntityNames.FALLING_FIREBALL, makeCastedBuilder(FallingFireball.class, FallingFireball::new, 0.5F, 0.5F, 4, 10), false);
+    public static final RegistryObject<EntityType<BoomerangFireball>> BLAZE_BOOMERANG = build(EPEntityNames.BLAZE_BOOMERANG, makeCastedBuilder(BoomerangFireball.class, BoomerangFireball::new, 0.5F, 0.5F, 4, 10), false);
 
     @SuppressWarnings("unused")
     private static <E extends Entity> RegistryObject<EntityType<E>> make(ResourceLocation id, EntityType.EntityFactory<E> factory, MobCategory classification, float width, float height, int primary, int secondary) {
@@ -54,11 +55,11 @@ public class EPEntity {
     }
 
     @SuppressWarnings("unused")
-    private static <E extends Entity> EntityType.Builder<E> makeCastedBuilder(Class<E> cast, EntityType.EntityFactory<E> factory, float width, float height, int range, int interval) {
+    public static <E extends Entity> EntityType.Builder<E> makeCastedBuilder(Class<E> cast, EntityType.EntityFactory<E> factory, float width, float height, int range, int interval) {
         return makeBuilder(factory, MobCategory.MISC, width, height, range, interval);
     }
 
-    private static <E extends Entity> EntityType.Builder<E> makeBuilder(EntityType.EntityFactory<E> factory, MobCategory classification, float width, float height, int range, int interval) {
+    public static <E extends Entity> EntityType.Builder<E> makeBuilder(EntityType.EntityFactory<E> factory, MobCategory classification, float width, float height, int range, int interval) {
         return EntityType.Builder.of(factory, classification).sized(width, height).setTrackingRange(range).setUpdateInterval(interval).setShouldReceiveVelocityUpdates(true);
     }
 
