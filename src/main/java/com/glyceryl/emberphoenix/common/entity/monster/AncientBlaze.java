@@ -69,6 +69,7 @@ public class AncientBlaze extends Monster {
         return 1.0F;
     }
 
+    @Override
     public void aiStep() {
         if (!this.onGround && this.getDeltaMovement().y < 0.0D) {
             this.setDeltaMovement(this.getDeltaMovement().multiply(1.0D, 0.6D, 1.0D));
@@ -89,10 +90,17 @@ public class AncientBlaze extends Monster {
         super.aiStep();
     }
 
+    @Override
     public boolean isSensitiveToWater() {
         return true;
     }
 
+    @Override
+    public boolean ignoreExplosion() {
+        return true;
+    }
+
+    @Override
     protected void customServerAiStep() {
         --this.nextHeightOffsetChangeTick;
         if (this.nextHeightOffsetChangeTick <= 0) {
@@ -110,6 +118,7 @@ public class AncientBlaze extends Monster {
         super.customServerAiStep();
     }
 
+    @Override
     public boolean causeFallDamage(float p_149683_, float p_149684_, DamageSource source) {
         return false;
     }
@@ -127,6 +136,7 @@ public class AncientBlaze extends Monster {
         return super.hurt(source, amount);
     }
 
+    @Override
     public boolean isInvulnerableTo(DamageSource source) {
         if ((source == DamageSource.GENERIC || source.isExplosion()) && !source.isCreativePlayer())
             return isInvulnerable();
