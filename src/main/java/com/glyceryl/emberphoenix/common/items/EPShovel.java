@@ -8,8 +8,8 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class EPShovel extends ShovelItem {
 
-    public EPShovel(Tier tier, float p_43115_, float p_43116_, Properties properties) {
-        super(tier, p_43115_, p_43116_, properties);
+    public EPShovel(Tier tier, float pAttackDamageModifier, float pAttackSpeedModifier, Properties properties) {
+        super(tier, pAttackDamageModifier, pAttackSpeedModifier, properties);
     }
 
     @Override
