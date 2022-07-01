@@ -13,12 +13,10 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
-import net.minecraft.world.entity.projectile.Fireball;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
-import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.network.NetworkHooks;
 
 import javax.annotation.Nullable;
@@ -27,7 +25,6 @@ public class SmallCrack extends AbstractHurtingProjectile {
 
     public int time;
     private int explosionPower = 2;
-    private boolean makeFire = true;
 
     public SmallCrack(EntityType<? extends SmallCrack> type, Level level) {
         super(type, level);
@@ -37,8 +34,8 @@ public class SmallCrack extends AbstractHurtingProjectile {
         super(EPEntity.SMALL_CRACK.get(), entity, x, y, z, level);
     }
 
-    private static DamageSource fireball(SmallCrack p_19350_, @Nullable Entity p_19351_) {
-        return p_19351_ == null ? (new IndirectEntityDamageSource("onFire", p_19350_, p_19350_)).setIsFire().setProjectile() : (new IndirectEntityDamageSource("fireball", p_19350_, p_19351_)).setIsFire().setProjectile();
+    private static DamageSource fireball(SmallCrack smallCrack, @Nullable Entity entity) {
+        return entity == null ? (new IndirectEntityDamageSource("onFire", smallCrack, smallCrack)).setIsFire().setProjectile() : (new IndirectEntityDamageSource("fireball", smallCrack, entity)).setIsFire().setProjectile();
     }
 
     //设置火球在生成时间超过10秒之后消失
@@ -58,6 +55,7 @@ public class SmallCrack extends AbstractHurtingProjectile {
                 || hitResult.getEntity() instanceof AncientBlaze) {
             return;
         }
+
         if (!this.level.isClientSide) {
             Entity entity = hitResult.getEntity();
             Entity entity1 = this.getOwner();
@@ -77,6 +75,7 @@ public class SmallCrack extends AbstractHurtingProjectile {
                 return;
             }
         }
+
         explode();
     }
 
@@ -89,7 +88,6 @@ public class SmallCrack extends AbstractHurtingProjectile {
     public void addAdditionalSaveData(CompoundTag compoundTag) {
         super.addAdditionalSaveData(compoundTag);
         compoundTag.putInt("ExplosionPower", this.explosionPower);
-        compoundTag.putBoolean("MakeFire", this.makeFire);
     }
 
     @Override
@@ -97,9 +95,6 @@ public class SmallCrack extends AbstractHurtingProjectile {
         super.readAdditionalSaveData(compoundTag);
         if (compoundTag.contains("ExplosionPower", 99)) {
             this.explosionPower = compoundTag.getInt("ExplosionPower");
-        }
-        if (compoundTag.contains("MakeFire", 99)) {
-            this.makeFire = compoundTag.getBoolean("MakeFire");
         }
     }
 
@@ -112,8 +107,9 @@ public class SmallCrack extends AbstractHurtingProjectile {
     public boolean hurt(DamageSource source, float amount) {
         super.hurt(source, amount);
         if (source.getDirectEntity() != null) {
-            if (!source.isExplosion())
+            if (!source.isExplosion()) {
                 explode();
+            }
             return true;
         } else {
             return false;
@@ -126,10 +122,8 @@ public class SmallCrack extends AbstractHurtingProjectile {
 
     private void explode() {
         if (!this.level.isClientSide) {
-            boolean b = random.nextInt(100) % 2 == 0 && this.makeFire;
-            boolean flag = ForgeEventFactory.getMobGriefingEvent(this.level, this.getOwner());
-            Explosion.BlockInteraction type = flag ? Explosion.BlockInteraction.DESTROY : Explosion.BlockInteraction.NONE;
-            this.level.explode(null, this.getX(), this.getY(), this.getZ(), (float)this.explosionPower, b, type);
+            Explosion.BlockInteraction type = Explosion.BlockInteraction.NONE;
+            this.level.explode(this, this.getX(), this.getY(), this.getZ(), (float)this.explosionPower, false, type);
             this.discard();
         }
     }

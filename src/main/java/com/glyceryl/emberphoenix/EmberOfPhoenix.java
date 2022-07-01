@@ -35,6 +35,7 @@ public class EmberOfPhoenix {
         EPEnchantments.register(eventBus);
         eventBus.addListener(this::setupClient);
         eventBus.addGenericListener(SoundEvent.class, EPSounds::registerSounds);
+        MinecraftForge.EVENT_BUS.register(new ProjectileExplosion());
         MinecraftForge.EVENT_BUS.register(new RenderEnvironment());
         MinecraftForge.EVENT_BUS.register(new LivingWalkOnMagma());
         MinecraftForge.EVENT_BUS.register(new PlayerUseTrident());
