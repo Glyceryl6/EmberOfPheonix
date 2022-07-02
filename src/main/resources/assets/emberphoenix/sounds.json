@@ -98,6 +98,12 @@
       "emberphoenix:wildfire_ignite"
     ]
   },
+  "wildfire_death": {
+    "subtitle": "sound.emberphoenix.wildfire_death",
+    "sounds": [
+      "emberphoenix:wildfire_death"
+    ]
+  },
   "wildfire_roar": {
     "subtitle": "sound.emberphoenix.wildfire_roar",
     "sounds": [

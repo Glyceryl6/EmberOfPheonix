@@ -12,10 +12,10 @@ import net.minecraftforge.eventbus.api.IEventBus;
 public class EPSounds {
 
     //方块类音效
-    private static final SoundEvent ASH_BLOCK_DIG = createSoundEvent("ash_block_dig");
     private static final SoundEvent EMBERIUM_DIG = createSoundEvent("emberium_dig");
-    private static final SoundEvent ASH_BLOCK_STEP = createSoundEvent("ash_block_step");
     private static final SoundEvent EMBERIUM_STEP = createSoundEvent("emberium_step");
+    private static final SoundEvent ASH_BLOCK_DIG = createSoundEvent("ash_block_dig");
+    private static final SoundEvent ASH_BLOCK_STEP = createSoundEvent("ash_block_step");
     //装备穿戴的音效
     public static final SoundEvent EQUIP_BLAZE = createSoundEvent("equip_blaze");
     public static final SoundEvent EQUIP_EMBERIUM = createSoundEvent("equip_emberium");
@@ -26,6 +26,7 @@ public class EPSounds {
     public static final SoundEvent WILDFIRE_TELEPORT = createSoundEvent("wildfire_teleport");
     public static final SoundEvent WILDFIRE_RESPIRE = createSoundEvent("wildfire_respire");
     public static final SoundEvent WILDFIRE_IGNITE = createSoundEvent("wildfire_ignite");
+    public static final SoundEvent WILDFIRE_DEATH = createSoundEvent("wildfire_death");
     public static final SoundEvent WILDFIRE_ROAR = createSoundEvent("wildfire_roar");
     public static final SoundEvent WILDFIRE_HIT = createSoundEvent("wildfire_hit");
 
@@ -40,7 +41,7 @@ public class EPSounds {
     public static void registerSounds(RegistryEvent.Register<SoundEvent> event) {
         event.getRegistry().registerAll(EQUIP_BLAZE, EQUIP_EMBERIUM,
                 ANCIENT_BLAZE_BREATHE, ANCIENT_BLAZE_DEATH, ANCIENT_BLAZE_HIT,
-                WILDFIRE_TELEPORT, WILDFIRE_RESPIRE, WILDFIRE_IGNITE, WILDFIRE_ROAR, WILDFIRE_HIT);
+                WILDFIRE_TELEPORT, WILDFIRE_RESPIRE, WILDFIRE_IGNITE, WILDFIRE_DEATH, WILDFIRE_ROAR, WILDFIRE_HIT);
     }
 
     public static void register(IEventBus eventBus) {
