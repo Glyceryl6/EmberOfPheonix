@@ -29,10 +29,10 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.AxeItem;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
@@ -96,6 +96,7 @@ public class WildfireEntity extends Monster implements PowerableMob {
         this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(2, new MoveTowardsRestrictionGoal(this, 1.0D));
         this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0D, 0.0F));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, IronGolem.class, true));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
         this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers());
     }
@@ -112,7 +113,7 @@ public class WildfireEntity extends Monster implements PowerableMob {
 
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.BLAZE_DEATH;
+        return EPSounds.WILDFIRE_DEATH;
     }
 
     @Override
@@ -198,24 +199,16 @@ public class WildfireEntity extends Monster implements PowerableMob {
     //杀死周围所有的远古烈焰人
     private void killallBlazes(List<AncientBlaze> blazeList) {
         for (AncientBlaze blaze : blazeList) {
-            BlockPos blazePos = blaze.getOnPos();
-            double d0 = blazePos.getX();
-            double d1 = blazePos.getY();
-            double d2 = blazePos.getZ();
-            int c = 2;
-            blaze.kill();
-            for(int i = -c; i <= c; ++i) {
-                for(int j = -c; j <= c; ++j) {
-                    for(int k = -c; k <= c; ++k) {
-                        double d3 = (double)j + (this.random.nextDouble() - this.random.nextDouble()) * 0.5D;
-                        double d4 = (double)i + (this.random.nextDouble() - this.random.nextDouble()) * 0.5D;
-                        double d5 = (double)k + (this.random.nextDouble() - this.random.nextDouble()) * 0.5D;
-                        double d6 = Math.sqrt(d3 * d3 + d4 * d4 + d5 * d5) / 0.2D + this.random.nextGaussian() * 0.05D;
-                        this.level.addParticle(ParticleTypes.FLAME, d0, d1, d2, d3 / d6, d4 / d6, d5 / d6);
-                        if (i != -c && i != c && j != -c && j != c) {
-                            k += c * 2 - 1;
-                        }
-                    }
+            if (blazeList.size() > 0) {
+                blaze.kill();
+                for (int i = 0; i < 20; ++i) {
+                    double r0 = blaze.getRandomX(1.0D);
+                    double r1 = blaze.getRandomY();
+                    double r2 = blaze.getRandomZ(1.0D);
+                    double d0 = this.random.nextGaussian() * 0.02D;
+                    double d1 = this.random.nextGaussian() * 0.02D;
+                    double d2 = this.random.nextGaussian() * 0.02D;
+                    this.level.addParticle(ParticleTypes.FLAME, r0, r1, r2, d0, d1, d2);
                 }
             }
         }
@@ -353,11 +346,12 @@ public class WildfireEntity extends Monster implements PowerableMob {
     public void launchProjectile(Projectile projectile) {
         float bodyFacingAngle = ((this.yBodyRot * Mth.PI) / 180F);
         float pitch = (this.getRandom().nextFloat() - this.getRandom().nextFloat()) * 0.2F + 1.0F;
+        double ry = (this.getY() + this.getBbHeight() / 2.0F);
         double sx = getX() + (Mth.cos(bodyFacingAngle) * 0.65D);
-        double sy = getY() + (this.getBbHeight() * 0.55D);
+        double sy = getY() + (this.getBbHeight() * 0.50D);
         double sz = getZ() + (Mth.sin(bodyFacingAngle) * 0.65D);
         double tx = Objects.requireNonNull(this.getTarget()).getX() - sx;
-        double ty = (this.getTarget().getBoundingBox().minY + this.getTarget().getBbHeight() / 2.0F) - (this.getY() + this.getBbHeight() / 2.0F);
+        double ty = (this.getTarget().getBoundingBox().minY + this.getTarget().getBbHeight() / 2.0F) - ry;
         double tz = this.getTarget().getZ() - sz;
         this.playSound(SoundEvents.BLAZE_SHOOT, 1.5F, pitch);
         projectile.moveTo(sx, sy, sz, getYRot(), getXRot());
@@ -451,21 +445,6 @@ public class WildfireEntity extends Monster implements PowerableMob {
 
     public boolean hurt(DamageSource source, float amount) {
         if (!this.level.isClientSide) {
-            Entity entity = source.getDirectEntity();
-            if (entity instanceof LivingEntity livingEntity) {
-                if (isInvulnerable()) {
-                    if (livingEntity.getMainHandItem().getItem() instanceof AxeItem) {
-                        double itemDamage = (((AxeItem) livingEntity.getMainHandItem().getItem()).getAttackDamage() + 1.0F);
-                        if (amount >= itemDamage + itemDamage / 2.0D) {
-                            playSound(SoundEvents.ANVIL_PLACE, 0.3F, 1.5F);
-                            this.shieldDisabled = true;
-                            setShielding(false);
-                            setInvulnerable(false);
-                            return false;
-                        }
-                    }
-                }
-            }
             if (isInvulnerableTo(source)) {
                 playSound(SoundEvents.SHIELD_BLOCK, 0.3F, 0.5F);
                 if (source.getDirectEntity() != null) {
@@ -485,7 +464,7 @@ public class WildfireEntity extends Monster implements PowerableMob {
         return false;
     }
 
-    //随机召唤一定数量的远古烈焰人
+    //随机召唤3~6只远古烈焰人
     class SpawnMinionsGoal extends Goal {
 
         @Override
@@ -500,27 +479,28 @@ public class WildfireEntity extends Monster implements PowerableMob {
         }
 
         @Override
-        @SuppressWarnings("all")
         public void tick() {
             LivingEntity livingentity = getTarget();
             int count = random.nextInt(4) + 3;
             int blazeCount = getBlazeAround(32.0D).size();
-            if (blazeCount < 3 && isPowered() && livingentity != null) {
+            if (blazeCount < 3 && isPowered() && livingentity != null && distanceTo(livingentity) < 12.0D) {
                 double xx = livingentity.getX() - getX();
                 double yy = livingentity.getY() - getY();
                 double zz = livingentity.getZ() - getZ();
                 for (int i = (int)Math.ceil((double)(getHealth() / getMaxHealth()) * (double) count); i > 0; --i) {
                     AncientBlaze blaze = EPEntity.ANCIENT_BLAZE.get().create(level);
-                    double x = getX() + (double)(random.nextFloat() - random.nextFloat());
-                    double y = getY() + (double)(random.nextFloat() * 0.5F);
-                    double z = getZ() + (double)(random.nextFloat() - random.nextFloat());
-                    double xxx = xx * 0.15D + (double)(random.nextFloat() * 0.05F);
-                    double yyy = yy * 0.15D + (double)(random.nextFloat() * 0.05F);
-                    double zzz = zz * 0.15D + (double)(random.nextFloat() * 0.05F);
-                    blaze.setDeltaMovement(xxx, yyy, zzz);
-                    blaze.moveTo(x, y, z, getYRot(), 0.0F);
-                    blaze.setTarget(getTarget());
-                    level.addFreshEntity(blaze);
+                    if (blaze != null) {
+                        double x = getX() + (double)(random.nextFloat() - random.nextFloat());
+                        double y = getY() + (double)(random.nextFloat() * 0.5F);
+                        double z = getZ() + (double)(random.nextFloat() - random.nextFloat());
+                        double xxx = xx * 0.15D + (double)(random.nextFloat() * 0.05F);
+                        double yyy = yy * 0.15D + (double)(random.nextFloat() * 0.05F);
+                        double zzz = zz * 0.15D + (double)(random.nextFloat() * 0.05F);
+                        blaze.setDeltaMovement(xxx, yyy, zzz);
+                        blaze.moveTo(x, y, z, getYRot(), 0.0F);
+                        blaze.setTarget(getTarget());
+                        level.addFreshEntity(blaze);
+                    }
                 }
             }
         }
@@ -589,7 +569,7 @@ public class WildfireEntity extends Monster implements PowerableMob {
                         level.levelEvent(null, 1018, this.wildfire.blockPosition(), 0);
                     }
 
-                    if (isOnFire() || this.chargeTime == 40) {
+                    if (this.wildfire.isOnFire() || this.chargeTime == 40) {
                         Vec3 vec3 = this.wildfire.getViewVector(1.0F);
                         double d2 = livingentity.getX() - (this.wildfire.getX() + vec3.x * 4.0D);
                         double d3 = livingentity.getY(0.5D) - (0.5D + this.wildfire.getY(0.5D));
@@ -641,8 +621,8 @@ public class WildfireEntity extends Monster implements PowerableMob {
         public void tick() {
             this.counter++;
             LivingEntity target = this.wildfire.getTarget();
-            int boomerangCount = this.getBoomerangAround(8.0D).size();
-            if (target != null && boomerangCount == 0 && counter % 4 ==0 && distanceTo(target) < 10.0D) {
+            int boomerangCount = this.getBoomerangAround(16.0D).size();
+            if (target != null && boomerangCount == 0 && counter % 4 == 0 && distanceTo(target) < 12.0D) {
                 launchFireball(true, true);
                 launchFireball(false, true);
                 launchFireball(true, false);
@@ -656,14 +636,16 @@ public class WildfireEntity extends Monster implements PowerableMob {
             return level.getEntitiesOfClass(BoomerangFireball.class, aabb);
         }
 
+        //两个布尔值形参用于控制射出的x与z方向是否取正
         private void launchFireball(boolean positiveX, boolean positiveZ) {
-            float bodyFacingAngle = ((wildfire.yBodyRot * Mth.PI) / 180F);
+            float bodyFacingAngle = ((wildfire.yBodyRot * Mth.PI) / 90F);
             float pitch = (wildfire.getRandom().nextFloat() - wildfire.getRandom().nextFloat()) * 0.2F + 1.0F;
+            double ry = (wildfire.getY() + wildfire.getBbHeight() / 2.0F);
             double sx = getX() + (Mth.cos(bodyFacingAngle) * 0.65D);
-            double sy = getY() + (wildfire.getBbHeight() * 0.55D);
+            double sy = getY() + (wildfire.getBbHeight() * 0.60D);
             double sz = getZ() + (Mth.sin(bodyFacingAngle) * 0.65D);
             double tx = Objects.requireNonNull(wildfire.getTarget()).getX() - sx;
-            double ty = (wildfire.getTarget().getBoundingBox().minY + wildfire.getTarget().getBbHeight() / 2.0F) - (wildfire.getY() + wildfire.getBbHeight() / 2.0F);
+            double ty = (wildfire.getTarget().getBoundingBox().minY + wildfire.getTarget().getBbHeight() / 2.0F) - ry;
             double tz = wildfire.getTarget().getZ() - sz;
             double ux = positiveX ? tx : -tx;
             double uz = positiveZ ? tz : -tz;
@@ -704,7 +686,7 @@ public class WildfireEntity extends Monster implements PowerableMob {
             this.counter++;
             Level level = this.wildfire.level;
             LivingEntity livingentity = this.wildfire.getTarget();
-            if (livingentity != null && this.counter % 2 == 0 && this.counter <= 40 && distanceTo(livingentity) < 10.0D) {
+            if (livingentity != null && this.counter % 2 == 0 && this.counter <= 40 && distanceTo(livingentity) < 12.0D) {
                 FallingFireball fireball = new FallingFireball(EPEntity.FALLING_FIREBALL.get(), level);
                 launchProjectile(fireball);
             }
