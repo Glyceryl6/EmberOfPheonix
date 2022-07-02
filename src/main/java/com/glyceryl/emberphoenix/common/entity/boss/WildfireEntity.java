@@ -18,7 +18,6 @@ import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.BossEvent;
 import net.minecraft.world.Difficulty;
@@ -30,13 +29,12 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -118,7 +116,7 @@ public class WildfireEntity extends Monster implements PowerableMob {
     }
 
     @Override
-    protected float getStandingEyeHeight(Pose poseIn, EntityDimensions sizeIn) {
+    protected float getStandingEyeHeight(Pose pose, EntityDimensions size) {
         return 1.8F;
     }
 
@@ -184,18 +182,8 @@ public class WildfireEntity extends Monster implements PowerableMob {
         AABB aabb = (new AABB(blockpos)).inflate(128.0D);
         List<Player> playerList = this.level.getEntitiesOfClass(Player.class, aabb);
         List<AncientBlaze> blazeList = this.level.getEntitiesOfClass(AncientBlaze.class, aabb);
-        this.removeFire(blockpos);
         this.clearPlayerFire(playerList);
         this.killallBlazes(blazeList);
-    }
-
-    //扑灭周围所有的火（以自身为中心 32×8×32 的范围）
-    private void removeFire(BlockPos blockpos) {
-        for (BlockPos pos : BlockPos.withinManhattan(blockpos, 16, 4, 16)) {
-            if (level.getBlockState(pos).is(Blocks.FIRE)) {
-                level.removeBlock(pos, false);
-            }
-        }
     }
 
     //灭掉周围玩家身上的火
@@ -239,7 +227,7 @@ public class WildfireEntity extends Monster implements PowerableMob {
         if (this.getHealth() < this.getMaxHealth() && blazeCount > 0) {
             this.bossEvent.setColor(BossEvent.BossBarColor.GREEN);
             if (this.tickCount % 10 == 0) {
-                this.heal(1.5F);
+                this.heal(1.0F);
             }
         } else {
             this.bossEvent.setColor(BossEvent.BossBarColor.YELLOW);
@@ -366,7 +354,7 @@ public class WildfireEntity extends Monster implements PowerableMob {
         float bodyFacingAngle = ((this.yBodyRot * Mth.PI) / 180F);
         float pitch = (this.getRandom().nextFloat() - this.getRandom().nextFloat()) * 0.2F + 1.0F;
         double sx = getX() + (Mth.cos(bodyFacingAngle) * 0.65D);
-        double sy = getY() + (this.getBbHeight() * 0.5D);
+        double sy = getY() + (this.getBbHeight() * 0.55D);
         double sz = getZ() + (Mth.sin(bodyFacingAngle) * 0.65D);
         double tx = Objects.requireNonNull(this.getTarget()).getX() - sx;
         double ty = (this.getTarget().getBoundingBox().minY + this.getTarget().getBbHeight() / 2.0F) - (this.getY() + this.getBbHeight() / 2.0F);
@@ -654,8 +642,10 @@ public class WildfireEntity extends Monster implements PowerableMob {
             this.counter++;
             LivingEntity target = this.wildfire.getTarget();
             int boomerangCount = this.getBoomerangAround(8.0D).size();
-            if (target != null && boomerangCount == 0 && counter % 4 ==0 && distanceTo(target) < 10.0D) {
-                this.launchProjectile(wildfire);
+            if (target != null && boomerangCount == 0 && counter % 4 ==0 && distanceTo(target) < 10.0D && isOnFire()) {
+                BoomerangFireball fireball = new BoomerangFireball(EPEntity.BLAZE_BOOMERANG.get(), level);
+                fireball.setOwner(this.wildfire);
+                launchProjectile(fireball);
             }
         }
 
@@ -663,20 +653,6 @@ public class WildfireEntity extends Monster implements PowerableMob {
             BlockPos blockpos = wildfire.getOnPos();
             AABB aabb = (new AABB(blockpos)).inflate(radius);
             return level.getEntitiesOfClass(BoomerangFireball.class, aabb);
-        }
-
-        public void launchProjectile(LivingEntity entity) {
-            double baseDamage = entity.getAttributes().getValue(Attributes.ATTACK_DAMAGE);
-            double damage = 1.0F + baseDamage * 1.2f;
-            BoomerangFireball fireball = new BoomerangFireball(EPEntity.BLAZE_BOOMERANG.get(), level);
-            fireball.setPos(entity.position().x, entity.position().y + entity.getBbHeight() / 2f, entity.position().z);
-            fireball.damage = (float) damage;
-            fireball.setSharedFlagOnFire(true);
-            fireball.setSecondsOnFire(10);
-            fireball.setOwner(wildfire);
-            fireball.shootFromRotation(entity, entity.getXRot(), entity.getYRot(), 0.0F, 1.5F, 0F);
-            level.playSound(null, blockPosition(), SoundEvents.BLAZE_SHOOT, SoundSource.PLAYERS, 1, 1.25f);
-            level.addFreshEntity(fireball);
         }
 
     }
