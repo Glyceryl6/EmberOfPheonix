@@ -58,10 +58,11 @@ public class FallingFireball extends ThrowableItemProjectile {
         if (!this.level.isClientSide) {
             Entity entity = result.getEntity();
             if (!entity.fireImmune()) {
+                entity.setSecondsOnFire(6);
                 Entity entity1 = getOwner();
                 int i = entity.getRemainingFireTicks();
-                entity.setSecondsOnFire(6);
-                boolean flag = entity.hurt(DamageSource.ON_FIRE, 6.0F);
+                float amount = this.isNoGravity() ? 3.0F : 6.0F;
+                boolean flag = entity.hurt(DamageSource.ON_FIRE, amount);
                 if (!flag) {
                     entity.setRemainingFireTicks(i);
                 } else if (entity1 instanceof LivingEntity) {
