@@ -6,6 +6,7 @@ import com.glyceryl.emberphoenix.common.entity.projectile.BoomerangFireball;
 import com.glyceryl.emberphoenix.common.entity.projectile.FallingFireball;
 import com.glyceryl.emberphoenix.common.entity.projectile.SmallCrack;
 import com.glyceryl.emberphoenix.registry.EPEntity;
+import com.glyceryl.emberphoenix.registry.EPParticles;
 import com.glyceryl.emberphoenix.registry.EPSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -23,6 +24,8 @@ import net.minecraft.world.BossEvent;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.EntityDamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -30,6 +33,7 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.IronGolem;
+import net.minecraft.world.entity.boss.wither.WitherBoss;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
@@ -96,6 +100,7 @@ public class WildfireEntity extends Monster implements PowerableMob {
         this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(2, new MoveTowardsRestrictionGoal(this, 1.0D));
         this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0D, 0.0F));
+        this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, WitherBoss.class, true));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, IronGolem.class, true));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
         this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers());
@@ -200,15 +205,18 @@ public class WildfireEntity extends Monster implements PowerableMob {
     private void killallBlazes(List<AncientBlaze> blazeList) {
         for (AncientBlaze blaze : blazeList) {
             if (blazeList.size() > 0) {
+                blaze.setInvisible(true);
                 blaze.kill();
-                for (int i = 0; i < 20; ++i) {
-                    double r0 = blaze.getRandomX(1.0D);
+                for (int i = 0; i < 30; ++i) {
+                    double r0 = blaze.getRandomX(1.5D);
                     double r1 = blaze.getRandomY();
-                    double r2 = blaze.getRandomZ(1.0D);
+                    double r2 = blaze.getRandomZ(1.5D);
                     double d0 = this.random.nextGaussian() * 0.02D;
                     double d1 = this.random.nextGaussian() * 0.02D;
                     double d2 = this.random.nextGaussian() * 0.02D;
-                    this.level.addParticle(ParticleTypes.FLAME, r0, r1, r2, d0, d1, d2);
+                    if (this.level.isClientSide) {
+                        this.level.addParticle(ParticleTypes.POOF, r0, r1, r2, d0, d1, d2);
+                    }
                 }
             }
         }
@@ -216,14 +224,36 @@ public class WildfireEntity extends Monster implements PowerableMob {
 
     //检测跟踪范围内是否存在远古烈焰人，有则回血
     private void checkBlazesForHeal() {
+        BlockPos blockPos = this.getOnPos();
+        AABB aabb = (new AABB(blockPos)).inflate(128.0D);
+        List<AncientBlaze> blazeList = this.level.getEntitiesOfClass(AncientBlaze.class, aabb);
         int blazeCount = getBlazeAround(this.getAttributeValue(Attributes.FOLLOW_RANGE)).size();
         if (this.getHealth() < this.getMaxHealth() && blazeCount > 0) {
             this.bossEvent.setColor(BossEvent.BossBarColor.GREEN);
+            for (AncientBlaze blaze : blazeList) {
+                this.makeParticlesTo(blaze);
+            }
             if (this.tickCount % 10 == 0) {
                 this.heal(1.0F);
             }
         } else {
             this.bossEvent.setColor(BossEvent.BossBarColor.YELLOW);
+        }
+    }
+
+    //尝试用粒子特效将其与远古烈焰人连接起来
+    private void makeParticlesTo(Entity entity) {
+        if (this.level.isClientSide) {
+            BlockPos blockPos = this.getOnPos().immutable();
+            double sx = blockPos.getX() + 0.5D;
+            double sy = blockPos.getY() + 2.0D;
+            double sz = blockPos.getZ() + 0.5D;
+            double dx = sx - entity.getX();
+            double dy = sy - entity.getY() - entity.getEyeHeight();
+            double dz = sz - entity.getZ();
+            for (int i = 0; i < 5; i++) {
+                level.addParticle(EPParticles.WILDFIRE_HEAL.get(), sx, sy, sz, -dx, -dy, -dz);
+            }
         }
     }
 
@@ -343,6 +373,7 @@ public class WildfireEntity extends Monster implements PowerableMob {
         }
     }
 
+    //发射弹射物
     public void launchProjectile(Projectile projectile) {
         float bodyFacingAngle = ((this.yBodyRot * Mth.PI) / 180F);
         float pitch = (this.getRandom().nextFloat() - this.getRandom().nextFloat()) * 0.2F + 1.0F;
@@ -429,10 +460,12 @@ public class WildfireEntity extends Monster implements PowerableMob {
         return true;
     }
 
+    @Override
     public boolean isOnFire() {
         return (this.entityData.get(ON_FIRE) & 1) != 0;
     }
 
+    @Override
     public void setSharedFlagOnFire(boolean onFire) {
         byte b0 = this.entityData.get(ON_FIRE);
         if (onFire) {
@@ -443,6 +476,17 @@ public class WildfireEntity extends Monster implements PowerableMob {
         this.entityData.set(ON_FIRE, b0);
     }
 
+    @Override
+    public boolean addEffect(MobEffectInstance pEffectInstance, @Nullable Entity entity) {
+        return false;
+    }
+
+    @Override
+    public boolean canBeAffected(MobEffectInstance effect) {
+        return effect.getEffect() != MobEffects.WITHER && super.canBeAffected(effect);
+    }
+
+    @Override
     public boolean hurt(DamageSource source, float amount) {
         if (!this.level.isClientSide) {
             if (isInvulnerableTo(source)) {
@@ -457,6 +501,7 @@ public class WildfireEntity extends Monster implements PowerableMob {
         return super.hurt(source, amount);
     }
 
+    @Override
     public boolean isInvulnerableTo(DamageSource source) {
         boolean b = source instanceof EntityDamageSource && this.isOnFire();
         if ((source == DamageSource.GENERIC || b || source.isExplosion()) && !source.isCreativePlayer())
@@ -496,8 +541,8 @@ public class WildfireEntity extends Monster implements PowerableMob {
                         double xxx = xx * 0.15D + (double)(random.nextFloat() * 0.05F);
                         double yyy = yy * 0.15D + (double)(random.nextFloat() * 0.05F);
                         double zzz = zz * 0.15D + (double)(random.nextFloat() * 0.05F);
-                        blaze.setDeltaMovement(xxx, yyy, zzz);
                         blaze.moveTo(x, y, z, getYRot(), 0.0F);
+                        blaze.setDeltaMovement(xxx, yyy, zzz);
                         blaze.setTarget(getTarget());
                         level.addFreshEntity(blaze);
                     }
@@ -579,14 +624,10 @@ public class WildfireEntity extends Monster implements PowerableMob {
                         }
 
                         SmallCrack smallCrack = new SmallCrack(level, this.wildfire, d2, d3, d4);
-                        double x = this.wildfire.getX() + vec3.x * 5.0D;
-                        double y = this.wildfire.getY(0.5D) + 0.5D;
-                        double z = smallCrack.getZ() + vec3.z * 5.0D;
                         smallCrack.setExplosionPower(entityData.get(SMALL_CRACK_POWER));
                         smallCrack.setSharedFlagOnFire(true);
                         smallCrack.setSecondsOnFire(10);
-                        smallCrack.setPos(x, y, z);
-                        level.addFreshEntity(smallCrack);
+                        launchProjectile(smallCrack);
                         this.chargeTime = -40;
                     }
                 } else if (this.chargeTime > 0) {
