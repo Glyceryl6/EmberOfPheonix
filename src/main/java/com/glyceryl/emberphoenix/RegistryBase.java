@@ -1,6 +1,7 @@
 package com.glyceryl.emberphoenix;
 
 import com.glyceryl.emberphoenix.registry.EPItems;
+import net.minecraft.core.particles.ParticleType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EntityType;
@@ -25,8 +26,10 @@ public class RegistryBase {
     public static final DeferredRegister<Biome> BIOMES = create(ForgeRegistries.BIOMES);
     public static final DeferredRegister<SoundEvent> SOUNDS = create(ForgeRegistries.SOUND_EVENTS);
     public static final DeferredRegister<Enchantment> ENCHANTMENTS = create(ForgeRegistries.ENCHANTMENTS);
+
     public static final DeferredRegister<Feature<?>> FEATURES = create(ForgeRegistries.FEATURES);
     public static final DeferredRegister<EntityType<?>> ENTITY = create(ForgeRegistries.ENTITIES);
+    public static final DeferredRegister<ParticleType<?>> PARTICLES = create(ForgeRegistries.PARTICLE_TYPES);
     public static final DeferredRegister<BlockEntityType<?>> CONTAINER = create(ForgeRegistries.BLOCK_ENTITIES);
 
     private static <B extends IForgeRegistryEntry<B>> DeferredRegister<B> create(IForgeRegistry<B> reg) {
