@@ -25,6 +25,8 @@ import net.minecraft.world.phys.Vec3;
 public class GatewayCreator extends Entity {
 
     private int delay = 0;
+    public float offset = 0.0F;
+    public float rotateSpeed = 0.0F;
 
     public static final EntityDataAccessor<Boolean> ACTIVATED = SynchedEntityData.defineId(GatewayCreator.class, EntityDataSerializers.BOOLEAN);
 
@@ -67,13 +69,15 @@ public class GatewayCreator extends Entity {
         int r = 3;
         double d = 0.1D;
         double y = 0.05D;
+        this.offset += 0.01F;
+        this.rotateSpeed += this.offset;
         if (this.isActivated()) {
             if (this.delay <= 100) {
                 Block fire = EPBlocks.ETERNAL_FIRE.get();
                 BlockPos centerPos = new BlockPos(Vec3.atCenterOf(this.getOnPos()));
                 AABB aabb = (new AABB(centerPos)).inflate(2);
                 int playerCount = level.getEntitiesOfClass(Player.class, aabb).size();
-                //召唤时，将以自身为中心 7×7×7 范围内的所有空气方块替换为无碰撞箱的屏障方块，以防止召唤仪式被破坏
+                //召唤时，将以自身为中心 7×5×7 范围内的所有空气方块替换为无碰撞箱的屏障方块，以防止召唤仪式被破坏
                 for (BlockPos blockPos : BlockPos.withinManhattan(centerPos, r, 2, r)) {
                     if (this.level.getBlockState(blockPos).isAir()) {
                         this.level.setBlock(blockPos, EPBlocks.INVISIBLE_BARRIER.get().defaultBlockState(), 2);
