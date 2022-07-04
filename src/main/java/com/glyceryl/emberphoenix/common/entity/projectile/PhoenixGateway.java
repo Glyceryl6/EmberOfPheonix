@@ -100,10 +100,9 @@ public class PhoenixGateway extends Entity {
             this.discard();
         }
 
-
         if (!this.level.isClientSide) {
             for (Entity entity : this.level.getEntities(this, getBoundingBox())) {
-                if (!entity.isPassenger() && !entity.isVehicle() && entity.canChangeDimensions()) {
+                if (!entity.isPassenger() && !entity.isVehicle() && entity.canChangeDimensions() && entity.getServer() != null && this.level.getServer() != null) {
                     if (this.level.getServer().getLevel(EPDimensions.PHOENIX_KEY) == this.level) {
                         this.teleport(entity, entity.getServer().getLevel(Level.OVERWORLD), entity.getOnPos(), true);
                     } else if (this.level.getServer().getLevel(Level.OVERWORLD) == this.level) {
