@@ -624,9 +624,14 @@ public class WildfireEntity extends Monster implements PowerableMob {
                         }
 
                         SmallCrack smallCrack = new SmallCrack(level, this.wildfire, d2, d3, d4);
+                        double x = this.wildfire.getX() + vec3.x * 5.0D;
+                        double y = this.wildfire.getY(0.5D) + 0.5D;
+                        double z = smallCrack.getZ() + vec3.z * 5.0D;
                         smallCrack.setExplosionPower(entityData.get(SMALL_CRACK_POWER));
                         smallCrack.setSharedFlagOnFire(true);
                         smallCrack.setSecondsOnFire(10);
+                        smallCrack.setPos(x, y, z);
+                        level.addFreshEntity(smallCrack);
                         launchProjectile(smallCrack);
                         this.chargeTime = -40;
                     }
