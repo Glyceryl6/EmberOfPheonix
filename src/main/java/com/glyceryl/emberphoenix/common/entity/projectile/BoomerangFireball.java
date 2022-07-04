@@ -92,7 +92,7 @@ public class BoomerangFireball extends AbstractHurtingProjectile {
                     Vec3 motion = ownerPos.subtract(position());
                     setDeltaMovement(motion.normalize().scale(0.75f));
                 }
-                if (this.age > 16 && distance < 4.0F && isAlive()) {
+                if (this.age > 8 && distance < 5.0F && isAlive()) {
                     remove(RemovalReason.DISCARDED);
                 }
             } else {
