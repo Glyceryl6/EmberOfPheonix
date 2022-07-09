@@ -6,6 +6,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -21,8 +22,10 @@ import java.util.Random;
 
 public class BoomerangFireball extends AbstractHurtingProjectile {
 
-    public float damage;
+    private static final DamageSource ARROW = (new DamageSource("arrow")).setProjectile();
+
     public int age;
+    public float damage;
     public boolean returning;
 
     public BoomerangFireball(EntityType<? extends BoomerangFireball> type, Level level) {
@@ -42,6 +45,7 @@ public class BoomerangFireball extends AbstractHurtingProjectile {
             return;
         }
         if (entity instanceof LivingEntity livingEntity && this.returning) {
+            livingEntity.hurt(ARROW, 8.0F); //给火球添加箭的伤害，预设伤害值为8点
             this.level.explode(null, this.getX(), this.getY(), this.getZ(), 2.0F, false, Explosion.BlockInteraction.NONE);
             livingEntity.setSecondsOnFire(10);
             remove(RemovalReason.DISCARDED);

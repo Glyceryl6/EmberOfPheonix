@@ -8,7 +8,6 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.damagesource.IndirectEntityDamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -19,9 +18,9 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.network.NetworkHooks;
 
-import javax.annotation.Nullable;
-
 public class SmallCrack extends AbstractHurtingProjectile {
+
+    private static final DamageSource ARROW = (new DamageSource("arrow")).setProjectile();
 
     public int time;
     private int explosionPower = 2;
@@ -32,10 +31,6 @@ public class SmallCrack extends AbstractHurtingProjectile {
 
     public SmallCrack(Level level, LivingEntity entity, double x, double y, double z) {
         super(EPEntity.SMALL_CRACK.get(), entity, x, y, z, level);
-    }
-
-    private static DamageSource fireball(SmallCrack smallCrack, @Nullable Entity entity) {
-        return entity == null ? (new IndirectEntityDamageSource("onFire", smallCrack, smallCrack)).setIsFire().setProjectile() : (new IndirectEntityDamageSource("fireball", smallCrack, entity)).setIsFire().setProjectile();
     }
 
     //设置火球在生成时间超过10秒之后消失
@@ -59,7 +54,8 @@ public class SmallCrack extends AbstractHurtingProjectile {
         if (!this.level.isClientSide) {
             Entity entity = hitResult.getEntity();
             Entity entity1 = this.getOwner();
-            entity.hurt(fireball(this, entity1), 6.0F);
+            //给火球添加箭的伤害，预设伤害值为6点
+            entity.hurt(ARROW, 5.0F);
             if (entity1 instanceof LivingEntity) {
                 this.doEnchantDamageEffects((LivingEntity)entity1, entity);
             }
