@@ -225,13 +225,15 @@ public class WildfireEntity extends Monster implements PowerableMob {
     //检测跟踪范围内是否存在远古烈焰人，有则回血
     private void checkBlazesForHeal() {
         BlockPos blockPos = this.getOnPos();
-        AABB aabb = (new AABB(blockPos)).inflate(128.0D);
+        AABB aabb = (new AABB(blockPos)).inflate(64.0D);
         List<AncientBlaze> blazeList = this.level.getEntitiesOfClass(AncientBlaze.class, aabb);
         int blazeCount = getBlazeAround(this.getAttributeValue(Attributes.FOLLOW_RANGE)).size();
         if (this.getHealth() < this.getMaxHealth() && blazeCount > 0) {
             this.bossEvent.setColor(BossEvent.BossBarColor.GREEN);
             for (AncientBlaze blaze : blazeList) {
-                this.makeParticlesTo(blaze);
+                if (blaze.isPowerSource()) {
+                    this.makeParticlesTo(blaze);
+                }
             }
             if (this.tickCount % 10 == 0) {
                 this.heal(1.0F);
@@ -544,6 +546,7 @@ public class WildfireEntity extends Monster implements PowerableMob {
                         blaze.moveTo(x, y, z, getYRot(), 0.0F);
                         blaze.setDeltaMovement(xxx, yyy, zzz);
                         blaze.setTarget(getTarget());
+                        blaze.setPowerSource(true);
                         level.addFreshEntity(blaze);
                     }
                 }
@@ -572,7 +575,7 @@ public class WildfireEntity extends Monster implements PowerableMob {
         public void tick() {
             this.counter++;
             LivingEntity livingentity = getTarget();
-            if (isPowered() && isOnFire() && this.counter % 10 == 0 && livingentity != null) {
+            if (isPowered() && isOnFire() && this.counter % 5 == 0 && livingentity != null) {
                 if (distanceTo(livingentity) > 30.0D || distanceTo(livingentity) < 8.0D) {
                     spawnFlameShower();
                     teleportToSightOfEntity(getTarget());
@@ -614,7 +617,7 @@ public class WildfireEntity extends Monster implements PowerableMob {
                         level.levelEvent(null, 1018, this.wildfire.blockPosition(), 0);
                     }
 
-                    if (this.wildfire.isOnFire() || this.chargeTime == 40) {
+                    if (this.chargeTime == 30) {
                         Vec3 vec3 = this.wildfire.getViewVector(1.0F);
                         double d2 = livingentity.getX() - (this.wildfire.getX() + vec3.x * 4.0D);
                         double d3 = livingentity.getY(0.5D) - (0.5D + this.wildfire.getY(0.5D));
