@@ -1,8 +1,13 @@
 package com.glyceryl.emberphoenix.common.entity.monster;
 
+import com.glyceryl.emberphoenix.common.entity.boss.WildfireEntity;
 import com.glyceryl.emberphoenix.common.entity.projectile.PaleFireball;
 import com.glyceryl.emberphoenix.registry.EPSounds;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
@@ -22,6 +27,8 @@ import net.minecraft.world.phys.Vec3;
 import java.util.EnumSet;
 
 public class AncientBlaze extends Monster {
+
+    public static final EntityDataAccessor<Boolean> POWER_SOURCE = SynchedEntityData.defineId(AncientBlaze.class, EntityDataSerializers.BOOLEAN);
 
     private float allowedHeightOffset = 0.5F;
     private int nextHeightOffsetChangeTick;
@@ -91,6 +98,32 @@ public class AncientBlaze extends Monster {
     }
 
     @Override
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+        compound.putBoolean("PowerSource", this.isPowerSource());
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
+        setPowerSource(compound.getBoolean("PowerSource"));
+    }
+
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(POWER_SOURCE, false);
+    }
+
+    public boolean isPowerSource() {
+        return this.entityData.get(POWER_SOURCE);
+    }
+
+    public void setPowerSource(boolean powerSource) {
+        this.entityData.set(POWER_SOURCE, powerSource);
+    }
+
+    @Override
     public boolean isSensitiveToWater() {
         return true;
     }
@@ -125,7 +158,7 @@ public class AncientBlaze extends Monster {
 
     @Override
     public boolean hurt(DamageSource source, float amount) {
-        if (isInvulnerableTo(source)) {
+        if (isInvulnerable()) {
             playSound(SoundEvents.SHIELD_BLOCK, 0.3F, 0.5F);
             if (source.getDirectEntity() != null) {
                 int seconds = source.isProjectile() ? 12 : 8;
