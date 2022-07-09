@@ -12,18 +12,20 @@ import net.minecraft.resources.ResourceLocation;
 
 public class WildfireRenderer extends MobRenderer<WildfireEntity, WildfireModel<WildfireEntity>> {
 
-    private static final ResourceLocation BLAZE_LOCATION = EmberOfPhoenix.prefix("textures/entity/wildfire.png");
+    private static final ResourceLocation WILDFIRE_LOCATION = EmberOfPhoenix.prefix("textures/entity/wildfire.png");
 
     public WildfireRenderer(EntityRendererProvider.Context context) {
         super(context, new WildfireModel<>(context.bakeLayer(EPModelLayers.WILDFIRE_LAYER)), 0.5F);
     }
 
+    @Override
     protected int getBlockLightLevel(WildfireEntity wildfireEntity, BlockPos blockPos) {
         return 15;
     }
 
+    @Override
     public ResourceLocation getTextureLocation(WildfireEntity entity) {
-        return BLAZE_LOCATION;
+        return WILDFIRE_LOCATION;
     }
 
     @Override
