@@ -24,8 +24,10 @@ public class RenderEnvironment {
             Level level = player.level;
             ResourceKey<Level> resourceKey = level.dimension();
             if (resourceKey == EPDimensions.PHOENIX_KEY) {
+                LevelRenderer.MOON_LOCATION = EmberOfPhoenix.prefix("textures/misc/black.png");
                 LevelRenderer.SUN_LOCATION = EmberOfPhoenix.prefix("textures/environment/sun.png");
             } else {
+                LevelRenderer.MOON_LOCATION = new ResourceLocation("textures/environment/moon_phases.png");
                 LevelRenderer.SUN_LOCATION = new ResourceLocation("textures/environment/sun.png");
             }
         }
