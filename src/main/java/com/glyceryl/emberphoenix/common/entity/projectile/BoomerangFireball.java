@@ -45,7 +45,8 @@ public class BoomerangFireball extends AbstractHurtingProjectile {
             return;
         }
         if (entity instanceof LivingEntity livingEntity && this.returning) {
-            livingEntity.hurt(ARROW, 8.0F); //给火球添加箭的伤害，预设伤害值为8点
+            livingEntity.hurt(ARROW, 8.0F);
+            livingEntity.hurt(DamageSource.ON_FIRE, 4.0F);
             this.level.explode(null, this.getX(), this.getY(), this.getZ(), 2.0F, false, Explosion.BlockInteraction.NONE);
             livingEntity.setSecondsOnFire(10);
             remove(RemovalReason.DISCARDED);
