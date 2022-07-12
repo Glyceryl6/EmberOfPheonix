@@ -1,8 +1,8 @@
 package com.glyceryl.emberphoenix.common.entity.monster;
 
-import com.glyceryl.emberphoenix.common.entity.boss.WildfireEntity;
 import com.glyceryl.emberphoenix.common.entity.projectile.PaleFireball;
 import com.glyceryl.emberphoenix.registry.EPSounds;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -35,8 +35,8 @@ public class AncientBlaze extends Monster {
 
     public AncientBlaze(EntityType<? extends AncientBlaze> type, Level level) {
         super(type, level);
-        this.setPathfindingMalus(BlockPathTypes.WATER, -1.0F);
         this.setPathfindingMalus(BlockPathTypes.LAVA, 8.0F);
+        this.setPathfindingMalus(BlockPathTypes.WATER, -1.0F);
         this.setPathfindingMalus(BlockPathTypes.DANGER_FIRE, 0.0F);
         this.setPathfindingMalus(BlockPathTypes.DAMAGE_FIRE, 0.0F);
         this.xpReward = 10;
@@ -90,7 +90,8 @@ public class AncientBlaze extends Monster {
             }
 
             for(int i = 0; i < 2; ++i) {
-                this.level.addParticle(ParticleTypes.POOF, this.getRandomX(0.5D), this.getRandomY(), this.getRandomZ(0.5D), 0.0D, 0.0D, 0.0D);
+                ParticleOptions particle = this.isPowerSource() ? ParticleTypes.FLAME : ParticleTypes.POOF;
+                this.level.addParticle(particle, this.getRandomX(0.5D), this.getRandomY(), this.getRandomZ(0.5D), 0.0D, 0.0D, 0.0D);
             }
         }
 
