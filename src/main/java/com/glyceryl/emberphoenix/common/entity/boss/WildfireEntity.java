@@ -46,11 +46,14 @@ import net.minecraft.world.phys.Vec3;
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Predicate;
 
 public class WildfireEntity extends Monster implements PowerableMob {
 
+    public static final Predicate<AncientBlaze> IS_POWER_SOURCE = (entity) -> !entity.isSpectator() && entity.isPowerSource();
     public static final EntityDataAccessor<Byte> ON_FIRE = SynchedEntityData.defineId(WildfireEntity.class, EntityDataSerializers.BYTE);
     public static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(WildfireEntity.class, EntityDataSerializers.INT);
+    public static final EntityDataAccessor<Boolean> ENCHANT = SynchedEntityData.defineId(WildfireEntity.class, EntityDataSerializers.BOOLEAN);
     public static final EntityDataAccessor<Boolean> SHIELDING = SynchedEntityData.defineId(WildfireEntity.class, EntityDataSerializers.BOOLEAN);
     public static final EntityDataAccessor<Boolean> ATTACKING = SynchedEntityData.defineId(WildfireEntity.class, EntityDataSerializers.BOOLEAN);
     public static final EntityDataAccessor<Integer> FIREBALL_COUNT = SynchedEntityData.defineId(WildfireEntity.class, EntityDataSerializers.INT);
@@ -93,6 +96,7 @@ public class WildfireEntity extends Monster implements PowerableMob {
         this.goalSelector.addGoal(1, new WildFireAttackGoal(this));
         this.goalSelector.addGoal(1, new WildfireEntity.SpawnMinionsGoal());
         this.goalSelector.addGoal(3, new WildfireEntity.SpawnFlameRainGoal());
+        this.goalSelector.addGoal(5, new WildfireEntity.SpawnPowerSourceGoal());
         this.goalSelector.addGoal(4, new WildfireEntity.ShootSmallCrackGoal(this));
         this.goalSelector.addGoal(4, new WildfireEntity.ShootBoomerangFireball(this));
         this.goalSelector.addGoal(4, new WildfireEntity.FireballFusilladeGoal(this));
@@ -227,19 +231,21 @@ public class WildfireEntity extends Monster implements PowerableMob {
         BlockPos blockPos = this.getOnPos();
         AABB aabb = (new AABB(blockPos)).inflate(64.0D);
         List<AncientBlaze> blazeList = this.level.getEntitiesOfClass(AncientBlaze.class, aabb);
-        int blazeCount = getBlazeAround(this.getAttributeValue(Attributes.FOLLOW_RANGE)).size();
+        int blazeCount = getBlazeAround(64.0D, IS_POWER_SOURCE).size();
         if (this.getHealth() < this.getMaxHealth() && blazeCount > 0) {
             this.bossEvent.setColor(BossEvent.BossBarColor.GREEN);
+            this.entityData.set(ENCHANT, true);
             for (AncientBlaze blaze : blazeList) {
                 if (blaze.isPowerSource()) {
                     this.makeParticlesTo(blaze);
                 }
             }
-            if (this.tickCount % 10 == 0) {
-                this.heal(1.0F);
+            if (this.tickCount % 5 == 0) {
+                this.heal(0.2F);
             }
         } else {
             this.bossEvent.setColor(BossEvent.BossBarColor.YELLOW);
+            this.entityData.set(ENCHANT, false);
         }
     }
 
@@ -259,6 +265,10 @@ public class WildfireEntity extends Monster implements PowerableMob {
         }
     }
 
+    public boolean isFoil() {
+        return this.entityData.get(ENCHANT);
+    }
+
     @Override
     protected void tickDeath() {
         this.triggerEvent();
@@ -271,6 +281,7 @@ public class WildfireEntity extends Monster implements PowerableMob {
         }
 
         if (this.level.isClientSide) {
+
             if (!this.isSilent() && --this.roarTime < 0) {
                 this.level.playLocalSound(this.getX(), this.getY(), this.getZ(), EPSounds.WILDFIRE_ROAR, this.getSoundSource(), 2.5F, 0.8F + this.random.nextFloat() * 0.3F, false);
                 this.roarTime = 200 + this.random.nextInt(200);
@@ -300,6 +311,7 @@ public class WildfireEntity extends Monster implements PowerableMob {
 
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
+        compound.putBoolean("hasFoil", this.isFoil());
         compound.putInt("Variant", this.entityData.get(VARIANT));
         compound.putInt("FireballCount", this.entityData.get(FIREBALL_COUNT));
         compound.putInt("SmallCrackPower", this.entityData.get(SMALL_CRACK_POWER));
@@ -309,6 +321,7 @@ public class WildfireEntity extends Monster implements PowerableMob {
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         this.entityData.set(VARIANT, compound.getInt("Variant"));
+        this.entityData.set(ENCHANT, compound.getBoolean("hasFoil"));
         this.entityData.set(FIREBALL_COUNT, compound.getInt("FireballCount"));
         this.entityData.set(SMALL_CRACK_POWER, compound.getInt("SmallCrackPower"));
         this.entityData.set(FLAME_SHOWER_DENSITY, compound.getInt("FlameShowerDensity"));
@@ -319,8 +332,9 @@ public class WildfireEntity extends Monster implements PowerableMob {
 
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(SHIELDING, Boolean.FALSE);
-        this.entityData.define(ATTACKING, Boolean.FALSE);
+        this.entityData.define(SHIELDING, false);
+        this.entityData.define(ATTACKING, false);
+        this.entityData.define(ENCHANT, false);
         this.entityData.define(ON_FIRE, (byte) 0);
         this.entityData.define(VARIANT, 0);
         this.entityData.define(FIREBALL_COUNT, 17);
@@ -413,10 +427,10 @@ public class WildfireEntity extends Monster implements PowerableMob {
     }
 
     //获取一定范围内的远古烈焰人数量
-    private List<AncientBlaze> getBlazeAround(double radius) {
+    private List<AncientBlaze> getBlazeAround(double radius, Predicate<? super AncientBlaze> predicate) {
         BlockPos blockpos = this.getOnPos();
         AABB aabb = (new AABB(blockpos)).inflate(radius);
-        return level.getEntitiesOfClass(AncientBlaze.class, aabb);
+        return level.getEntitiesOfClass(AncientBlaze.class, aabb, predicate);
     }
 
     public void setShielding(boolean shielding) {
@@ -505,7 +519,7 @@ public class WildfireEntity extends Monster implements PowerableMob {
 
     @Override
     public boolean isInvulnerableTo(DamageSource source) {
-        boolean b = source instanceof EntityDamageSource && this.isOnFire();
+        boolean b = source instanceof EntityDamageSource && this.isFoil();
         if ((source == DamageSource.GENERIC || b || source.isExplosion()) && !source.isCreativePlayer())
             return isInvulnerable();
         return false;
@@ -528,9 +542,10 @@ public class WildfireEntity extends Monster implements PowerableMob {
         @Override
         public void tick() {
             LivingEntity livingentity = getTarget();
+            int blazeCount = getBlazeAround(32.0D, EntitySelector.NO_SPECTATORS).size();
             int count = random.nextInt(4) + 3;
-            int blazeCount = getBlazeAround(32.0D).size();
-            if (blazeCount < 3 && isPowered() && livingentity != null && distanceTo(livingentity) < 12.0D) {
+            boolean p = random.nextInt(10) < 6;
+            if (blazeCount < 3 && p && livingentity != null && distanceTo(livingentity) < 12.0D) {
                 double xx = livingentity.getX() - getX();
                 double yy = livingentity.getY() - getY();
                 double zz = livingentity.getZ() - getZ();
@@ -546,7 +561,6 @@ public class WildfireEntity extends Monster implements PowerableMob {
                         blaze.moveTo(x, y, z, getYRot(), 0.0F);
                         blaze.setDeltaMovement(xxx, yyy, zzz);
                         blaze.setTarget(getTarget());
-                        blaze.setPowerSource(true);
                         level.addFreshEntity(blaze);
                     }
                 }
@@ -575,10 +589,51 @@ public class WildfireEntity extends Monster implements PowerableMob {
         public void tick() {
             this.counter++;
             LivingEntity livingentity = getTarget();
-            if (isPowered() && isOnFire() && this.counter % 5 == 0 && livingentity != null) {
+            boolean higherThanHalfHealth = getHealth() > getMaxHealth() / 2.0F;
+            if (higherThanHalfHealth && isOnFire() && this.counter % 5 == 0 && livingentity != null) {
                 if (distanceTo(livingentity) > 30.0D || distanceTo(livingentity) < 8.0D) {
                     spawnFlameShower();
                     teleportToSightOfEntity(getTarget());
+                }
+            }
+        }
+
+    }
+
+    //召唤特殊烈焰人作为能量源
+    class SpawnPowerSourceGoal extends Goal {
+
+        @Override
+        public boolean canUse() {
+            return getTarget() != null && distanceToSqr(getTarget()) <= 1024.0D && random.nextFloat() * 100.0F < 0.6F;
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            LivingEntity livingentity = getTarget();
+            return livingentity != null && livingentity.isAlive() && canAttack(livingentity);
+        }
+
+        @Override
+        public void tick() {
+            LivingEntity livingentity = getTarget();
+            boolean lowHealth = getHealth() < getMaxHealth() * 0.6F;
+            int blazeCount = getBlazeAround(32.0D, IS_POWER_SOURCE).size();
+            if (blazeCount == 0 && lowHealth && isOnFire() && livingentity != null && distanceTo(livingentity) < 24.0D) {
+                if (isOnGround()) {
+                    moveTo(getX(), getY() + 5.0D, getZ());
+                }
+                for (int i = (int)Math.ceil((double)(getHealth() / getMaxHealth()) * 5.0D); i > 0; --i) {
+                    AncientBlaze blaze = EPEntity.ANCIENT_BLAZE.get().create(level);
+                    if (blaze != null) {
+                        double x = getX() + (double)(random.nextFloat() - random.nextFloat());
+                        double y = getY() + (double)(random.nextFloat() * 0.5F);
+                        double z = getZ() + (double)(random.nextFloat() - random.nextFloat());
+                        blaze.moveTo(x, y, z, getYRot(), 0.0F);
+                        blaze.setTarget(getTarget());
+                        blaze.setPowerSource(true);
+                        level.addFreshEntity(blaze);
+                    }
                 }
             }
         }
@@ -635,7 +690,6 @@ public class WildfireEntity extends Monster implements PowerableMob {
                         smallCrack.setSecondsOnFire(10);
                         smallCrack.setPos(x, y, z);
                         level.addFreshEntity(smallCrack);
-                        launchProjectile(smallCrack);
                         this.chargeTime = -40;
                     }
                 } else if (this.chargeTime > 0) {
