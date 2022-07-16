@@ -8,6 +8,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -26,6 +27,7 @@ public class EPBlocks {
     //注册一般的方块
     public static final RegistryObject<Block> HARD_SLATE = normal("hardslate", STRENGTH_HARD_SLATE);
     public static final RegistryObject<Block> SCARLET_STONE = normal("scarlet_stone", STRENGTH_SCARLET_STONE);
+    public static final RegistryObject<Block> TUMBLEWEED_PLANKS = normal("tumbleweed_planks", BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS));
     //注册一些有特定功能的方块
     public static final RegistryObject<Block> SCARLET_DIRT = RegistryBase.registerBlock("scarlet_dirt",
             () -> new ScarletDirt(BlockBehaviour.Properties.copy(Blocks.DIRT)));
@@ -86,9 +88,24 @@ public class EPBlocks {
     public static final RegistryObject<Block> HARD_SLATE_TILES_STAIR = stair("hardslate_tile_stair", HARD_SLATE_TILES, STRENGTH_HARD_SLATE);
     public static final RegistryObject<Block> SCARLET_STONE_STAIR = stair("scarlet_stone_stair", SCARLET_STONE, STRENGTH_SCARLET_STONE);
     public static final RegistryObject<Block> HARD_SLATE_STAIR = stair("hardslate_stair", HARD_SLATE, STRENGTH_HARD_SLATE);
+    //添加一系列的风滚草木制品
+    public static final RegistryObject<Block> TUMBLEWEED_PRESSURE_PLATE = RegistryBase.registerBlock("tumbleweed_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, copy(Blocks.OAK_PRESSURE_PLATE)));
+    public static final RegistryObject<Block> TUMBLEWEED_FENCE_GATE = RegistryBase.registerBlock("tumbleweed_fence_gate", () -> new FenceGateBlock(copy(Blocks.OAK_FENCE_GATE)));
+    public static final RegistryObject<Block> TUMBLEWEED_WALL_SIGN = RegistryBase.BLOCKS.register("tumbleweed_wall_sign", () -> new WallSignBlock(copy(Blocks.OAK_WALL_SIGN), WoodType.create("tumbleweed")));
+    public static final RegistryObject<Block> TUMBLEWEED_TRAPDOOR = RegistryBase.registerBlock("tumbleweed_trapdoor", () -> new TrapDoorBlock(copy(Blocks.OAK_TRAPDOOR)));
+    public static final RegistryObject<Block> TUMBLEWEED_BUTTON = RegistryBase.registerBlock("tumbleweed_button", () -> new WoodButtonBlock(copy(Blocks.OAK_BUTTON)));
+    public static final RegistryObject<Block> TUMBLEWEED_FENCE = RegistryBase.registerBlock("tumbleweed_fence", () -> new FenceBlock(copy(Blocks.OAK_FENCE)));
+    public static final RegistryObject<Block> TUMBLEWEED_DOOR = RegistryBase.registerBlock("tumbleweed_door", () -> new DoorBlock(copy(Blocks.OAK_DOOR)));
+    public static final RegistryObject<Block> TUMBLEWEED_SLAB = RegistryBase.registerBlock("tumbleweed_slab", () -> new SlabBlock(copy(Blocks.OAK_SLAB)));
+    public static final RegistryObject<Block> TUMBLEWEED_SIGN = RegistryBase.registerBlock("tumbleweed_sign", () -> new StandingSignBlock(copy(Blocks.OAK_SIGN), WoodType.create("tumbleweed")));
+    public static final RegistryObject<Block> TUMBLEWEED_STAIR = RegistryBase.registerBlock("tumbleweed_stairs", () -> new StairBlock(() -> TUMBLEWEED_PLANKS.get().defaultBlockState(), copy(Blocks.OAK_STAIRS)));
 
     public static Boolean never(BlockState state, BlockGetter getter, BlockPos pos, EntityType<?> type) {
         return false;
+    }
+
+    public static BlockBehaviour.Properties copy(BlockBehaviour blockBehaviour) {
+        return BlockBehaviour.Properties.copy(blockBehaviour);
     }
 
     public static RegistryObject<Block> fireProof(String name, BlockBehaviour.Properties properties) {

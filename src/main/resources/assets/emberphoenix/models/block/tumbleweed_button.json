@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/button",
+  "textures": {
+    "texture": "emberphoenix:block/tumbleweed_planks"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/door_bottom",
+  "textures": {
+    "top": "emberphoenix:block/tumbleweed_door_top",
+    "bottom": "emberphoenix:block/tumbleweed_door_bottom"
+  }
+}

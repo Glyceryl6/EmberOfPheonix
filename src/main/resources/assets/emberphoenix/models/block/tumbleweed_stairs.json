@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "emberphoenix:block/tumbleweed_planks",
+    "top": "emberphoenix:block/tumbleweed_planks",
+    "side": "emberphoenix:block/tumbleweed_planks"
+  }
+}

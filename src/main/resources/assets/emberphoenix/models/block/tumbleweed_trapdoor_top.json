@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_orientable_trapdoor_top",
+  "textures": {
+    "texture": "emberphoenix:block/tumbleweed_trapdoor"
+  }
+}

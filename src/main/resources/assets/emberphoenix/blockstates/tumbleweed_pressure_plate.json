@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "emberphoenix:block/tumbleweed_pressure_plate"
+    },
+    "powered=true": {
+      "model": "emberphoenix:block/tumbleweed_pressure_plate_down"
+    }
+  }
+}

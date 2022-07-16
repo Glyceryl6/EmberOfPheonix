@@ -12,6 +12,7 @@
   "block.emberphoenix.raw_silver_block":"Raw Silver Block",
   "block.emberphoenix.silver_block":"Silver Block",
   "block.emberphoenix.emberium_block":"Emberium Block",
+  "block.emberphoenix.tumbleweed_planks":"Tumbleweed Planks",
   "block.emberphoenix.eternal_fire_altar":"Eternal Fire Altar",
 
   "block.emberphoenix.tumbleweed":"Tumbleweed",
@@ -43,6 +44,16 @@
   "block.emberphoenix.polished_hardslate_stair":"Polished Scarlet Stair",
   "block.emberphoenix.hardslate_brick_stair":"Hardslate Brick Stair",
   "block.emberphoenix.hardslate_tile_stair":"Hardslate Tile Stair",
+
+  "block.emberphoenix.tumbleweed_pressure_plate":"Tumbleweed Pressure Plate",
+  "block.emberphoenix.tumbleweed_fence_gate":"Tumbleweed Fence Gate",
+  "block.emberphoenix.tumbleweed_trapdoor":"Tumbleweed Trapdoor",
+  "block.emberphoenix.tumbleweed_button":"Tumbleweed Button",
+  "block.emberphoenix.tumbleweed_fence":"Tumbleweed Fence",
+  "block.emberphoenix.tumbleweed_door":"Tumbleweed Door",
+  "block.emberphoenix.tumbleweed_slab":"Tumbleweed Slab",
+  "block.emberphoenix.tumbleweed_sign":"Tumbleweed Sign",
+  "block.emberphoenix.tumbleweed_stairs":"Tumbleweed Stairs",
 
   "item.emberphoenix.dead_heart_of_the_vulcan":"Dead Heart of the Vulcan",
   "item.emberphoenix.dying_heart_of_the_vulcan":"Dying Heart of the Vulcan",

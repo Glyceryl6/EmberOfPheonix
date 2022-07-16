@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "emberphoenix:block/tumbleweed_slab"
+    },
+    "type=double": {
+      "model": "emberphoenix:block/tumbleweed_planks"
+    },
+    "type=top": {
+      "model": "emberphoenix:block/tumbleweed_slab_top"
+    }
+  }
+}
