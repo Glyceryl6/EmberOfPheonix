@@ -53,7 +53,9 @@ public class EmberOfPhoenix {
         ItemBlockRenderTypes.setRenderLayer(EPBlocks.FIRE_FLOWER.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(EPBlocks.ETERNAL_FIRE.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(EPBlocks.BARREN_GRASS.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(EPBlocks.TUMBLEWEED_DOOR.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(EPBlocks.BARREN_TALL_GRASS.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(EPBlocks.TUMBLEWEED_TRAPDOOR.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(EPBlocks.REDSTONE_BERRY_BUSH.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(EPBlocks.ETERNAL_FIRE_ALTAR.get(), RenderType.cutoutMipped());
     }
