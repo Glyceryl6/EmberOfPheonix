@@ -78,6 +78,7 @@
   "item.emberphoenix.emberium_leggings":"余烬钢护腿",
   "item.emberphoenix.emberium_boots":"余烬钢靴子",
   "item.emberphoenix.redstone_berries":"红石浆果",
+  "item.emberphoenix.cinder_cannon":"灰烬手炮",
   "item.emberphoenix.tumbleseed":"风滚草种子",
   "item.emberphoenix.spark":"火种",
 
@@ -94,6 +95,7 @@
   "biome.emberphoenix.tumbleweed_plain": "风滚草平原",
   "biome.emberphoenix.ash_plain": "灰烬平原",
 
+  "sound.emberphoenix.pop": "灰烬手炮：发射",
   "sound.emberphoenix.ash_block_dig": "灰烬：散落",
   "sound.emberphoenix.ash_block_step": "灰烬：挤压",
   "sound.emberphoenix.emberium_dig": "余烬：迸发",

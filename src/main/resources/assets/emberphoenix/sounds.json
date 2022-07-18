@@ -120,5 +120,12 @@
       "emberphoenix:wildfire_hit_3",
       "emberphoenix:wildfire_hit_4"
     ]
+  },
+  "pop": {
+    "subtitle": "sound.emberphoenix.pop",
+    "sounds": [
+      "emberphoenix:pop_1",
+      "emberphoenix:pop_2"
+    ]
   }
 }

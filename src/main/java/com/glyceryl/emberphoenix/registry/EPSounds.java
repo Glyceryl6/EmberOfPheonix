@@ -16,6 +16,8 @@ public class EPSounds {
     private static final SoundEvent EMBERIUM_STEP = createSoundEvent("emberium_step");
     private static final SoundEvent ASH_BLOCK_DIG = createSoundEvent("ash_block_dig");
     private static final SoundEvent ASH_BLOCK_STEP = createSoundEvent("ash_block_step");
+    //物品类音效
+    public static final SoundEvent CANNON_SHOOTING = createSoundEvent("pop");
     //装备穿戴的音效
     public static final SoundEvent EQUIP_BLAZE = createSoundEvent("equip_blaze");
     public static final SoundEvent EQUIP_EMBERIUM = createSoundEvent("equip_emberium");
@@ -39,7 +41,7 @@ public class EPSounds {
     }
 
     public static void registerSounds(RegistryEvent.Register<SoundEvent> event) {
-        event.getRegistry().registerAll(EQUIP_BLAZE, EQUIP_EMBERIUM,
+        event.getRegistry().registerAll(EQUIP_BLAZE, EQUIP_EMBERIUM, CANNON_SHOOTING,
                 ANCIENT_BLAZE_BREATHE, ANCIENT_BLAZE_DEATH, ANCIENT_BLAZE_HIT,
                 WILDFIRE_TELEPORT, WILDFIRE_RESPIRE, WILDFIRE_IGNITE, WILDFIRE_DEATH, WILDFIRE_ROAR, WILDFIRE_HIT);
     }

@@ -38,6 +38,7 @@ public class EPItems {
     public static final RegistryObject<Item> REDSTONE_BERRIES = RegistryBase.ITEMS.register("redstone_berries", () -> new ItemNameBlockItem(EPBlocks.REDSTONE_BERRY_BUSH.get(), defaultBuilder().food(EPFoods.REDSTONE_BERRIES)));
     //注册带有特殊性质的物品
     public static final RegistryObject<Item> SPARK = RegistryBase.ITEMS.register("spark", () -> new Spark(defaultBuilder()));
+    public static final RegistryObject<Item> CINDER_CANNON = RegistryBase.ITEMS.register("cinder_cannon", () -> new CinderCannon(defaultBuilder().stacksTo(1)));
     public static final RegistryObject<Item> PHOENIX_GATEWAY = RegistryBase.ITEMS.register("phoenix_gateway", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> BOOMERANG_FIREBALL = RegistryBase.ITEMS.register("boomerang_fireball", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> DEAD_HEART_OF_THE_VULCAN = RegistryBase.ITEMS.register("dead_heart_of_the_vulcan", () -> new Item(defaultBuilder().rarity(Rarity.RARE)));

@@ -78,6 +78,7 @@
   "item.emberphoenix.emberium_leggings":"Ember Leggings",
   "item.emberphoenix.emberium_boots":"Ember Boots",
   "item.emberphoenix.redstone_berries":"Redstone Berries",
+  "item.emberphoenix.cinder_cannon":"Cinder Cannon",
   "item.emberphoenix.tumbleseed":"Tumbleweed Seed",
   "item.emberphoenix.spark":"Spark",
 
@@ -94,6 +95,7 @@
   "biome.emberphoenix.tumbleweed_plain": "Tumbleweed Plains",
   "biome.emberphoenix.ash_plain": "Ash Plains",
 
+  "sound.emberphoenix.pop": "Cinder Cannon Shooting",
   "sound.emberphoenix.ash_block_dig": "Ashes dispersed",
   "sound.emberphoenix.ash_block_step": "Ashes crushed",
   "sound.emberphoenix.emberium_dig": "Ember emitted",

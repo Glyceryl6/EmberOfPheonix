@@ -8,7 +8,8 @@
     "MixinTridentItem"
   ],
   "client": [
-    "MixinFogRenderer"
+    "MixinFogRenderer",
+    "MixinPlayerModel"
   ],
   "injectors": {
     "defaultRequire": 1
