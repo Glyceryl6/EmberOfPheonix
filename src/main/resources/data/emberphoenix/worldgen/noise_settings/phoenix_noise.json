@@ -1,6 +1,6 @@
 {
   "name": "ember:phoenix",
-  "sea_level": -20,
+  "sea_level": -10,
   "legacy_random_source": false,
   "disable_mob_generation": false,
   "noodle_caves_enabled": false,
@@ -22,14 +22,14 @@
   },
   "noise": {
     "min_y": -64,
-    "height": 80,
-    "size_horizontal": 2,
-    "size_vertical": 1,
+    "height": 128,
+    "size_horizontal": 1,
+    "size_vertical": 2,
     "sampling": {
-      "xz_scale": 3,
-      "y_scale": 1,
-      "xz_factor": 160,
-      "y_factor": 160
+      "xz_scale": 3.0,
+      "y_scale": 1.0,
+      "xz_factor": 80.0,
+      "y_factor": 160.0
     },
     "bottom_slide": {
       "target": 0.1171875,
