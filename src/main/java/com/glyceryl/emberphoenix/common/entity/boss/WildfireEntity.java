@@ -68,6 +68,7 @@ public class WildfireEntity extends Monster implements PowerableMob {
 
     private float heightOffset = 0.5F;
     private int roarTime = 100;
+    private int respireTime = 100;
     private int heightOffsetUpdateTime;
     public boolean shieldDisabled = false;
 
@@ -282,9 +283,9 @@ public class WildfireEntity extends Monster implements PowerableMob {
 
         if (this.level.isClientSide) {
 
-            if (!this.isSilent() && --this.roarTime < 0) {
-                this.level.playLocalSound(this.getX(), this.getY(), this.getZ(), EPSounds.WILDFIRE_ROAR, this.getSoundSource(), 2.5F, 0.8F + this.random.nextFloat() * 0.3F, false);
-                this.roarTime = 200 + this.random.nextInt(200);
+            if (!this.isSilent() && --this.respireTime < 0) {
+                this.level.playLocalSound(this.getX(), this.getY(), this.getZ(), EPSounds.WILDFIRE_RESPIRE, this.getSoundSource(), 2.5F, 0.8F + this.random.nextFloat() * 0.3F, false);
+                this.respireTime = 200 + this.random.nextInt(200);
             }
 
             if (this.random.nextInt(24) == 0 && !this.isSilent()) {
@@ -301,6 +302,10 @@ public class WildfireEntity extends Monster implements PowerableMob {
             this.level.addParticle(ParticleTypes.LAVA, getRandomX(0.5D), this.getRandomY(), this.getRandomZ(0.5D), 0.0D, 0.0D, 0.0D);
         }
         if (this.entityData.get(ATTACKING)) {
+            if (!this.isSilent() && --this.roarTime < 0) {
+                this.level.playLocalSound(this.getX(), this.getY(), this.getZ(), EPSounds.WILDFIRE_ROAR, this.getSoundSource(), 2.5F, 0.8F + this.random.nextFloat() * 0.3F, false);
+                this.roarTime = 200 + this.random.nextInt(200);
+            }
             for (int i = 0; i < 16; i++) {
                 this.level.addParticle(ParticleTypes.LAVA, getRandomX(0.75D), this.getRandomY(), this.getRandomZ(0.75D), 0.0D, 0.0D, 0.0D);
             }
