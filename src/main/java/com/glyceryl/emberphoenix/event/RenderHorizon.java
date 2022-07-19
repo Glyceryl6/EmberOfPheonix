@@ -1,7 +1,6 @@
 package com.glyceryl.emberphoenix.event;
 
 import com.glyceryl.emberphoenix.common.enchantments.EPEnchantHelper;
-import net.minecraft.tags.FluidTags;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
