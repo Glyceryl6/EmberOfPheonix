@@ -14,6 +14,7 @@
   "block.emberphoenix.emberium_block":"余烬钢块",
   "block.emberphoenix.tumbleweed_planks":"风滚草木板",
   "block.emberphoenix.eternal_fire_altar":"永恒之火祭坛",
+  "block.emberphoenix.wildfire_figure":"野火模型",
 
   "block.emberphoenix.tumbleweed":"风滚草",
   "block.emberphoenix.fire_flower":"火流花",
@@ -52,7 +53,6 @@
   "block.emberphoenix.tumbleweed_fence":"风滚草木栅栏",
   "block.emberphoenix.tumbleweed_door":"风滚草木门",
   "block.emberphoenix.tumbleweed_slab":"风滚草木台阶",
-  "block.emberphoenix.tumbleweed_sign":"风滚草木告示牌",
   "block.emberphoenix.tumbleweed_stairs":"风滚草木楼梯",
 
   "item.emberphoenix.dead_heart_of_the_vulcan":"熄灭的火神之心",

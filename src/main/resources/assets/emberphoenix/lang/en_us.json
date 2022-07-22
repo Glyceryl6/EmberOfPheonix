@@ -14,6 +14,7 @@
   "block.emberphoenix.emberium_block":"Emberium Block",
   "block.emberphoenix.tumbleweed_planks":"Tumbleweed Planks",
   "block.emberphoenix.eternal_fire_altar":"Eternal Fire Altar",
+  "block.emberphoenix.wildfire_figure":"Wildfire Figure",
 
   "block.emberphoenix.tumbleweed":"Tumbleweed",
   "block.emberphoenix.fire_flower":"Fire Flower",
@@ -52,7 +53,6 @@
   "block.emberphoenix.tumbleweed_fence":"Tumbleweed Fence",
   "block.emberphoenix.tumbleweed_door":"Tumbleweed Door",
   "block.emberphoenix.tumbleweed_slab":"Tumbleweed Slab",
-  "block.emberphoenix.tumbleweed_sign":"Tumbleweed Sign",
   "block.emberphoenix.tumbleweed_stairs":"Tumbleweed Stairs",
 
   "item.emberphoenix.dead_heart_of_the_vulcan":"Dead Heart of the Vulcan",
