@@ -23,7 +23,7 @@ public class CinderCannon extends Item {
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
-        if(player.getCooldowns().isOnCooldown(this)) return new InteractionResultHolder<>(InteractionResult.FAIL, player.getItemInHand(hand));
+        if (player.getCooldowns().isOnCooldown(this)) return new InteractionResultHolder<>(InteractionResult.FAIL, player.getItemInHand(hand));
         player.playSound(EPSounds.CANNON_SHOOTING, 1.0F + level.random.nextFloat(), level.random.nextFloat() * 0.7F + 0.3F);
         if (!level.isClientSide) {
             this.doBounce(level, player);
@@ -31,10 +31,10 @@ public class CinderCannon extends Item {
             AABB aabb = getEffectAABB(player);
             Vec3 lookVec = player.getLookAngle();
             for (int i = 0; i < 50; i++) {
-                level.addParticle(ParticleTypes.CLOUD, aabb.minX + level.random.nextFloat() * (aabb.maxX - aabb.minX),
-                        aabb.minY + level.random.nextFloat() * (aabb.maxY - aabb.minY),
-                        aabb.minZ + level.random.nextFloat() * (aabb.maxZ - aabb.minZ),
-                        lookVec.x, lookVec.y, lookVec.z);
+                double x = aabb.minX + level.random.nextFloat() * (aabb.maxX - aabb.minX);
+                double y = aabb.minY + level.random.nextFloat() * (aabb.maxY - aabb.minY);
+                double z = aabb.minZ + level.random.nextFloat() * (aabb.maxZ - aabb.minZ);
+                level.addParticle(ParticleTypes.CLOUD, x, y, z, lookVec.x, lookVec.y, lookVec.z);
             }
         }
         player.startUsingItem(hand);
