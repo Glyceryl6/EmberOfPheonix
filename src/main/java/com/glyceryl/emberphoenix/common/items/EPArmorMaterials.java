@@ -14,12 +14,14 @@ import java.util.function.Supplier;
 @SuppressWarnings("deprecation")
 public enum EPArmorMaterials implements ArmorMaterial {
 
-    EMBERIUM("emberium", 15, new int[]{3, 6, 7, 3}, 10, EPSounds.EQUIP_EMBERIUM,
-            2.0F, 0.0F, () -> Ingredient.of(EPItems.EMBERIUM_INGOT.get()));
+    EMBERIUM("emberium", new int[]{429, 495, 528, 363}, new int[]{3, 6, 7, 3}, 10, EPSounds.EQUIP_EMBERIUM,
+            2.0F, 0.0F, () -> Ingredient.of(EPItems.EMBERIUM_INGOT.get())),
 
-    private static final int[] HEALTH_PER_SLOT = new int[]{13, 15, 16, 11};
+    BLAZE("blaze", new int[]{273, 315, 336, 231}, new int[]{4, 8, 10, 4}, 10, EPSounds.EQUIP_BLAZE,
+            3.0F, 0.05F, () -> Ingredient.of(EPItems.BLAZE_RUBY.get()));
+
     private final String name;
-    private final int durabilityMultiplier;
+    private final int[] slotDurability;
     private final int[] slotProtections;
     private final int enchantmentValue;
     private final SoundEvent sound;
@@ -27,20 +29,20 @@ public enum EPArmorMaterials implements ArmorMaterial {
     private final float knockbackResistance;
     private final LazyLoadedValue<Ingredient> repairIngredient;
 
-    EPArmorMaterials(String name, int durabilityMultiplier, int[] slotProtections, int enchantmentValue, SoundEvent soundEvent,
+    EPArmorMaterials(String name, int[] slotDurability, int[] slotProtections, int enchantmentValue, SoundEvent soundEvent,
                      float toughness, float knockbackResistance, Supplier<Ingredient> supplier) {
-        this.name = name;
-        this.durabilityMultiplier = durabilityMultiplier;
-        this.slotProtections = slotProtections;
-        this.enchantmentValue = enchantmentValue;
-        this.sound = soundEvent;
-        this.toughness = toughness;
-        this.knockbackResistance = knockbackResistance;
         this.repairIngredient = new LazyLoadedValue<>(supplier);
+        this.knockbackResistance = knockbackResistance;
+        this.enchantmentValue = enchantmentValue;
+        this.slotProtections = slotProtections;
+        this.slotDurability = slotDurability;
+        this.toughness = toughness;
+        this.sound = soundEvent;
+        this.name = name;
     }
 
     public int getDurabilityForSlot(EquipmentSlot slot) {
-        return HEALTH_PER_SLOT[slot.getIndex()] * this.durabilityMultiplier;
+        return this.slotDurability[slot.getIndex()];
     }
 
     public int getDefenseForSlot(EquipmentSlot slot) {
@@ -70,4 +72,5 @@ public enum EPArmorMaterials implements ArmorMaterial {
     public float getKnockbackResistance() {
         return this.knockbackResistance;
     }
+
 }
