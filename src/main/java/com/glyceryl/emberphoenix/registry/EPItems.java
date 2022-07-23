@@ -13,7 +13,8 @@ public class EPItems {
 
     //注册一般的物品
     public static final RegistryObject<Item> SPARK = RegistryBase.ITEMS.register("spark", () -> new Spark(defaultBuilder()));
-    public static final RegistryObject<Item> TUMBLE_SEED = RegistryBase.ITEMS.register("tumbleseed",  () -> new Item(defaultBuilder()));
+    public static final RegistryObject<Item> BLAZE_WAND = RegistryBase.ITEMS.register("blaze_wand", () -> new BlazeWand(defaultBuilder()));
+    public static final RegistryObject<Item> TUMBLEWEED_SEED = RegistryBase.ITEMS.register("tumbleseed",  () -> new Item(defaultBuilder()));
     public static final RegistryObject<Item> CINDER_CANNON = RegistryBase.ITEMS.register("cinder_cannon", () -> new CinderCannon(defaultBuilder().stacksTo(1)));
     public static final RegistryObject<Item> DEAD_HEART_OF_THE_VULCAN = RegistryBase.ITEMS.register("dead_heart_of_the_vulcan", () -> new Item(defaultBuilder().rarity(Rarity.RARE)));
     public static final RegistryObject<Item> DYING_HEART_OF_THE_VULCAN = RegistryBase.ITEMS.register("dying_heart_of_the_vulcan", () -> new Item(defaultBuilder().rarity(Rarity.RARE)));
