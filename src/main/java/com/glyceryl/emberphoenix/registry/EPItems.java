@@ -13,7 +13,6 @@ public class EPItems {
 
     //注册一般的物品
     public static final RegistryObject<Item> SPARK = RegistryBase.ITEMS.register("spark", () -> new Spark(defaultBuilder()));
-    public static final RegistryObject<Item> BLAZE_WAND = RegistryBase.ITEMS.register("blaze_wand", () -> new BlazeWand(defaultBuilder()));
     public static final RegistryObject<Item> TUMBLEWEED_SEED = RegistryBase.ITEMS.register("tumbleseed",  () -> new Item(defaultBuilder()));
     public static final RegistryObject<Item> CINDER_CANNON = RegistryBase.ITEMS.register("cinder_cannon", () -> new CinderCannon(defaultBuilder().stacksTo(1)));
     public static final RegistryObject<Item> DEAD_HEART_OF_THE_VULCAN = RegistryBase.ITEMS.register("dead_heart_of_the_vulcan", () -> new Item(defaultBuilder().rarity(Rarity.RARE)));
@@ -26,6 +25,7 @@ public class EPItems {
     public static final RegistryObject<Item> BLAZE_RUBY = RegistryBase.ITEMS.register("blaze_ruby", () -> new Item(fireProof()));
     public static final RegistryObject<Item> EMBERIUM_INGOT = RegistryBase.ITEMS.register("emberium_ingot", () -> new Item(fireProof()));
     //注册新的工具
+    public static final RegistryObject<Item> BLAZE_WAND = RegistryBase.ITEMS.register("blaze_wand", () -> new BlazeWand(defaultBuilder()));
     public static final RegistryObject<Item> BLAZE_HOE = RegistryBase.ITEMS.register("blaze_hoe", () -> new HoeItem(EPItemTier.BLAZE, 0,-3.0F, fireProof()));
     public static final RegistryObject<Item> BLAZE_AXE = RegistryBase.ITEMS.register("blaze_axe", () -> new AxeItem(EPItemTier.BLAZE, 6.0F,-3.0F, fireProof()));
     public static final RegistryObject<Item> BLAZE_SWORD = RegistryBase.ITEMS.register("blaze_sword", () -> new SwordItem(EPItemTier.BLAZE, 3,-2.4F, fireProof()));
