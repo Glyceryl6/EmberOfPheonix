@@ -3,6 +3,6 @@
   "ingredient": {
     "item": "emberphoenix:hardslate"
   },
-  "result": "emberphoenix:hardslate_stair",
-  "count": 1
+  "result": "emberphoenix:hardslate_brick_slab",
+  "count": 2
 }

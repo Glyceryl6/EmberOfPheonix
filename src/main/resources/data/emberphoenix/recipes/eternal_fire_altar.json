@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "igi",
+    " _ ",
+    " 0 "
+  ],
+  "key": {
+    "0": {
+      "tag": "forge:stone"
+    },
+    "i": {
+      "item": "minecraft:iron_ingot"
+    },
+    "g": {
+      "item": "minecraft:gold_ingot"
+    },
+    "_": {
+      "item": "minecraft:red_carpet"
+    }
+  },
+  "result": {
+    "item": "emberphoenix:eternal_fire_altar"
+  }
+}

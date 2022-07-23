@@ -2,7 +2,7 @@
 	"credit": "Made with Blockbench",
 	"texture_size": [128, 128],
 	"textures": {
-		"0": "entity/wildfire"
+		"0": "emberphoenix:entity/wildfire"
 	},
 	"elements": [
 		{
@@ -32,8 +32,8 @@
 			}
 		},
 		{
-			"from": [-2, 0, 3],
-			"to": [0, 17, 13],
+			"from": [-1.99, 0, 3],
+			"to": [0.01, 17, 13],
 			"rotation": {"angle": 0, "axis": "y", "origin": [8, 0, 8]},
 			"faces": {
 				"north": {"uv": [1.25, 3.5, 1.5, 5.625], "texture": "#0"},
@@ -45,8 +45,8 @@
 			}
 		},
 		{
-			"from": [3, 0, 16],
-			"to": [13, 17, 18],
+			"from": [3, 0, 15.99],
+			"to": [13, 17, 17.99],
 			"rotation": {"angle": 0, "axis": "x", "origin": [8, 0, 8]},
 			"faces": {
 				"north": {"uv": [0.25, 5.875, 1.5, 8], "texture": "#0"},
@@ -58,8 +58,8 @@
 			}
 		},
 		{
-			"from": [16, 0, 3],
-			"to": [18, 17, 13],
+			"from": [15.9, 0, 3],
+			"to": [17.9, 17, 13],
 			"rotation": {"angle": 0, "axis": "y", "origin": [8, 0, 8]},
 			"faces": {
 				"north": {"uv": [4.25, 3.5, 4.5, 5.625], "texture": "#0"},
@@ -71,8 +71,8 @@
 			}
 		},
 		{
-			"from": [3, 0, -2],
-			"to": [13, 17, 0],
+			"from": [3, 0, -1.99],
+			"to": [13, 17, 0.01],
 			"rotation": {"angle": 0, "axis": "x", "origin": [8, 0, 8]},
 			"faces": {
 				"north": {"uv": [3.25, 5.875, 4.5, 8], "texture": "#0"},
@@ -98,9 +98,24 @@
 		}
 	],
 	"display": {
+		"firstperson_righthand": {
+			"rotation": [0, 135, 5],
+			"translation": [0, 1, 0],
+			"scale": [0.5, 0.5, 0.5]
+		},
+		"firstperson_lefthand": {
+			"rotation": [0, 135, 5],
+			"translation": [0, 1, 0],
+			"scale": [0.5, 0.5, 0.5]
+		},
 		"ground": {
 			"translation": [0, 10, 0],
 			"scale": [2, 2, 2]
+		},
+		"gui": {
+			"rotation": [9, -155, -5],
+			"translation": [0, -2.5, 0],
+			"scale": [0.5, 0.5, 0.5]
 		}
 	},
 	"groups": [
@@ -108,36 +123,48 @@
 			"name": "head",
 			"origin": [0, 0, 0],
 			"color": 0,
+			"nbt": "{}",
+			"armAnimationEnabled": false,
 			"children": [0, 1]
 		},
 		{
 			"name": "shield4",
 			"origin": [0, 0, 0],
 			"color": 0,
+			"nbt": "{}",
+			"armAnimationEnabled": false,
 			"children": [2]
 		},
 		{
 			"name": "shield3",
 			"origin": [0, 0, 0],
 			"color": 0,
+			"nbt": "{}",
+			"armAnimationEnabled": false,
 			"children": [3]
 		},
 		{
 			"name": "shield2",
 			"origin": [0, 0, 0],
 			"color": 0,
+			"nbt": "{}",
+			"armAnimationEnabled": false,
 			"children": [4]
 		},
 		{
 			"name": "shield1",
 			"origin": [0, 0, 0],
 			"color": 0,
+			"nbt": "{}",
+			"armAnimationEnabled": false,
 			"children": [5]
 		},
 		{
 			"name": "body",
 			"origin": [0, 0, 0],
 			"color": 0,
+			"nbt": "{}",
+			"armAnimationEnabled": false,
 			"children": [6]
 		}
 	]
