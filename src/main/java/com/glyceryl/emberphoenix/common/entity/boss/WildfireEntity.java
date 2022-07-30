@@ -83,7 +83,7 @@ public class WildfireEntity extends Monster implements PowerableMob {
 
     public static AttributeSupplier.Builder setCustomAttributes() {
         return Monster.createMonsterAttributes()
-                .add(Attributes.ARMOR, 12.0D)
+                .add(Attributes.ARMOR, 8.0D)
                 .add(Attributes.MAX_HEALTH, 200.0D)
                 .add(Attributes.ATTACK_DAMAGE, 6.0D)
                 .add(Attributes.FOLLOW_RANGE, 128.0D)
