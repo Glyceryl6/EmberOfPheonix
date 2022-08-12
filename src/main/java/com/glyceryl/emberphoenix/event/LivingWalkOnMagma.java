@@ -16,7 +16,7 @@ import java.util.Objects;
 public class LivingWalkOnMagma {
 
     @SubscribeEvent
-    public void onLivingTravel(LivingEvent event) {
+    public void onLivingTravel(LivingEvent.LivingUpdateEvent event) {
         LivingEntity living = event.getEntityLiving();
         if (living instanceof Player) {
             float f6 = (float) EPEnchantHelper.getMagmaStrider(living);
