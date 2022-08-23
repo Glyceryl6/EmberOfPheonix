@@ -7,16 +7,16 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.MoverType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.ThrownTrident;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.Event;
@@ -47,14 +47,24 @@ public class PlayerUseTrident {
             InteractionHand hand = player.getUsedItemHand();
             ItemStack itemStack = player.getItemInHand(hand);
             int n = player.getUseItemRemainingTicks();
-            int i = itemStack.getUseDuration() - n;
             if (itemStack.is(Items.TRIDENT)) {
-                if (i >= 10) {
+                if (itemStack.getUseDuration() - n >= 10) {
                     int k = EPEnchantHelper.getHeatWave(itemStack);
                     if (k <= 0 || this.isInLavaOrNoRain(player)) {
-                        this.judgeEnvironment(itemStack, player.level, livingEntity, player, k);
+                        this.judgeEnvironment(player.level, player, k);
                     }
                 }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public void onTridentSpawn(EntityJoinWorldEvent event) {
+        Entity entity = event.getEntity();
+        if (entity instanceof ThrownTrident trident) {
+            ItemStack itemStack = trident.getPickupItem();
+            if (EPEnchantHelper.getHeatWave(itemStack) > 0) {
+                event.setCanceled(true);
             }
         }
     }
@@ -63,26 +73,7 @@ public class PlayerUseTrident {
         return player.isInLava() || !player.isInRain();
     }
 
-    public void judgeEnvironment(ItemStack itemStack, Level level, LivingEntity livingEntity, Player player, int n) {
-        int j = EnchantmentHelper.getRiptide(itemStack);
-        int k = EPEnchantHelper.getHeatWave(itemStack);
-        if (!level.isClientSide) {
-            itemStack.hurtAndBreak(1, player, (event) -> event.broadcastBreakEvent(livingEntity.getUsedItemHand()));
-            if (j == 0 && k == 0) {
-                ThrownTrident thrownTrident = new ThrownTrident(level, player, itemStack);
-                thrownTrident.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 2.5F + (float)n * 0.5F, 1.0F);
-                if (player.getAbilities().instabuild) {
-                    thrownTrident.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
-                }
-
-                level.addFreshEntity(thrownTrident);
-                level.playSound(null, thrownTrident, SoundEvents.TRIDENT_THROW, SoundSource.PLAYERS, 1.0F, 1.0F);
-                if (!player.getAbilities().instabuild) {
-                    player.getInventory().removeItem(itemStack);
-                }
-            }
-        }
-
+    public void judgeEnvironment(Level level, Player player, int n) {
         player.awardStat(Stats.ITEM_USED.get(Items.TRIDENT));
         if (n > 0) {
             float f7 = player.getYRot();
