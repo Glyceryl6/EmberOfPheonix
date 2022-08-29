@@ -10,7 +10,7 @@ public class BurningHeartOfTheVulcan extends Item {
     }
 
     @Override
-    public boolean isFoil(ItemStack p_41453_) {
+    public boolean isFoil(ItemStack stack) {
         return true;
     }
 

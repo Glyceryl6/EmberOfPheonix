@@ -17,11 +17,11 @@ public class AncientBlazeRenderer extends MobRenderer<AncientBlaze, BlazeModel<A
         super(context, new BlazeModel<>(context.bakeLayer(ModelLayers.BLAZE)), 0.5F);
     }
 
-    protected int getBlockLightLevel(AncientBlaze p_113910_, BlockPos p_113911_) {
+    protected int getBlockLightLevel(AncientBlaze ancientBlaze, BlockPos blockPos) {
         return 15;
     }
 
-    public ResourceLocation getTextureLocation(AncientBlaze p_113908_) {
+    public ResourceLocation getTextureLocation(AncientBlaze ancientBlaze) {
         return BLAZE_LOCATION;
     }
 

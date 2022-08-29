@@ -28,24 +28,24 @@ public class PaleFireballRenderer extends EntityRenderer<PaleFireball> {
         return 15;
     }
 
-    public void render(PaleFireball paleFireball, float p_114081_, float p_114082_, PoseStack poseStack, MultiBufferSource source, int p_114085_) {
+    public void render(PaleFireball paleFireball, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource source, int packedLight) {
         poseStack.pushPose();
         poseStack.mulPose(this.entityRenderDispatcher.cameraOrientation());
         poseStack.mulPose(Vector3f.YP.rotationDegrees(180.0F));
-        PoseStack.Pose posestack$pose = poseStack.last();
-        Matrix4f matrix4f = posestack$pose.pose();
-        Matrix3f matrix3f = posestack$pose.normal();
+        PoseStack.Pose poseStack$pose = poseStack.last();
+        Matrix4f matrix4f = poseStack$pose.pose();
+        Matrix3f matrix3f = poseStack$pose.normal();
         VertexConsumer vertexconsumer = source.getBuffer(RENDER_TYPE);
-        vertex(vertexconsumer, matrix4f, matrix3f, p_114085_, 0.0F, 0, 0, 1);
-        vertex(vertexconsumer, matrix4f, matrix3f, p_114085_, 1.0F, 0, 1, 1);
-        vertex(vertexconsumer, matrix4f, matrix3f, p_114085_, 1.0F, 1, 1, 0);
-        vertex(vertexconsumer, matrix4f, matrix3f, p_114085_, 0.0F, 1, 0, 0);
+        vertex(vertexconsumer, matrix4f, matrix3f, packedLight, 0.0F, 0, 0, 1);
+        vertex(vertexconsumer, matrix4f, matrix3f, packedLight, 1.0F, 0, 1, 1);
+        vertex(vertexconsumer, matrix4f, matrix3f, packedLight, 1.0F, 1, 1, 0);
+        vertex(vertexconsumer, matrix4f, matrix3f, packedLight, 0.0F, 1, 0, 0);
         poseStack.popPose();
-        super.render(paleFireball, p_114081_, p_114082_, poseStack, source, p_114085_);
+        super.render(paleFireball, entityYaw, partialTicks, poseStack, source, packedLight);
     }
 
-    private static void vertex(VertexConsumer consumer, Matrix4f matrix4f, Matrix3f matrix3f, int p_114093_, float p_114094_, int p_114095_, int p_114096_, int p_114097_) {
-        consumer.vertex(matrix4f, p_114094_ - 0.5F, (float)p_114095_ - 0.25F, 0.0F).color(255, 255, 255, 255).uv((float)p_114096_, (float)p_114097_).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(p_114093_).normal(matrix3f, 0.0F, 1.0F, 0.0F).endVertex();
+    private static void vertex(VertexConsumer consumer, Matrix4f matrix4f, Matrix3f matrix3f, int lightmapUV, float x, int y, int u, int v) {
+        consumer.vertex(matrix4f, x - 0.5F, (float)y - 0.25F, 0.0F).color(255, 255, 255, 255).uv((float)u, (float)v).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(lightmapUV).normal(matrix3f, 0.0F, 1.0F, 0.0F).endVertex();
     }
 
     public ResourceLocation getTextureLocation(PaleFireball paleFireball) {

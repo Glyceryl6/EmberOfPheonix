@@ -51,7 +51,7 @@ public class PlayerUseTrident {
                 if (itemStack.getUseDuration() - n >= 10) {
                     int k = EPEnchantHelper.getHeatWave(itemStack);
                     if (k <= 0 || this.isInLavaOrNoRain(player)) {
-                        this.judgeEnvironment(player.level, player, k);
+                        this.flyWithTrident(player.level, player, k);
                     }
                 }
             }
@@ -73,7 +73,7 @@ public class PlayerUseTrident {
         return player.isInLava() || !player.isInRain();
     }
 
-    public void judgeEnvironment(Level level, Player player, int n) {
+    private void flyWithTrident(Level level, Player player, int n) {
         player.awardStat(Stats.ITEM_USED.get(Items.TRIDENT));
         if (n > 0) {
             float f7 = player.getYRot();
@@ -89,7 +89,7 @@ public class PlayerUseTrident {
             player.push(f1, f2, f3);
             player.startAutoSpinAttack(20);
             if (player.isOnGround()) {
-                player.move(MoverType.SELF, new Vec3(0.0D, 1.1999999F, 0.0D));
+                player.move(MoverType.SELF, new Vec3(0.0D, 1.2F, 0.0D));
             }
 
             SoundEvent soundevent;
