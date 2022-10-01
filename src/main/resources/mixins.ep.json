@@ -5,6 +5,7 @@
   "refmap": "mixins.ep.refmap.json",
   "compatibilityLevel": "JAVA_16",
   "mixins": [
+    "MixinTridentItem"
   ],
   "client": [
     "MixinFogRenderer",

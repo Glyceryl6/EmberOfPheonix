@@ -8,14 +8,15 @@ import net.minecraft.stats.Stats;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ThrownTrident;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -49,9 +50,14 @@ public class PlayerUseTrident {
             int n = player.getUseItemRemainingTicks();
             if (itemStack.is(Items.TRIDENT)) {
                 if (itemStack.getUseDuration() - n >= 10) {
+                    int j = EnchantmentHelper.getRiptide(itemStack);
                     int k = EPEnchantHelper.getHeatWave(itemStack);
                     if (k <= 0 || this.isInLavaOrNoRain(player)) {
                         this.flyWithTrident(player.level, player, k);
+                        if (!player.level.isClientSide && j > 0) {
+                            itemStack.hurtAndBreak(1, player, (player1) ->
+                            player1.broadcastBreakEvent(player.getUsedItemHand()));
+                        }
                     }
                 }
             }
@@ -69,10 +75,12 @@ public class PlayerUseTrident {
         }
     }
 
+    //判断玩家是否处在岩浆或无雨的地面
     public boolean isInLavaOrNoRain(Player player) {
         return player.isInLava() || !player.isInRain();
     }
 
+    //使玩家能够破空飞行
     private void flyWithTrident(Level level, Player player, int n) {
         player.awardStat(Stats.ITEM_USED.get(Items.TRIDENT));
         if (n > 0) {
