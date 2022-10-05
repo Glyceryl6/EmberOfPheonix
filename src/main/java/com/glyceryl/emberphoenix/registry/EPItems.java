@@ -4,6 +4,7 @@ import com.glyceryl.emberphoenix.RegistryBase;
 import com.glyceryl.emberphoenix.common.items.*;
 import com.glyceryl.emberphoenix.data.EPItemTier;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.RegistryObject;
@@ -25,7 +26,8 @@ public class EPItems {
     public static final RegistryObject<Item> BLAZE_RUBY = RegistryBase.ITEMS.register("blaze_ruby", () -> new Item(fireProof()));
     public static final RegistryObject<Item> EMBERIUM_INGOT = RegistryBase.ITEMS.register("emberium_ingot", () -> new Item(fireProof()));
     //注册新的工具
-    public static final RegistryObject<Item> BLAZE_WAND = RegistryBase.ITEMS.register("blaze_wand", () -> new BlazeWand(defaultBuilder()));
+    public static final RegistryObject<Item> BLAZE_WAND = RegistryBase.ITEMS.register("blaze_wand", () -> new BlazeWand(defaultBuilder().durability(500)));
+    public static final RegistryObject<Item> BLAZE_BOW = RegistryBase.ITEMS.register("blaze_bow", () -> new BlazeBow(defaultBuilder().durability(500)));
     public static final RegistryObject<Item> BLAZE_HOE = RegistryBase.ITEMS.register("blaze_hoe", () -> new HoeItem(EPItemTier.BLAZE, 0,-3.0F, fireProof()));
     public static final RegistryObject<Item> BLAZE_AXE = RegistryBase.ITEMS.register("blaze_axe", () -> new AxeItem(EPItemTier.BLAZE, 6.0F,-3.0F, fireProof()));
     public static final RegistryObject<Item> BLAZE_SWORD = RegistryBase.ITEMS.register("blaze_sword", () -> new SwordItem(EPItemTier.BLAZE, 3,-2.4F, fireProof()));
@@ -46,7 +48,8 @@ public class EPItems {
     public static final RegistryObject<Item> BLAZE_LEGGINGS = RegistryBase.ITEMS.register("blaze_leggings", () -> new ArmorItem(EPArmorMaterials.BLAZE, EquipmentSlot.LEGS, fireProof()));
     public static final RegistryObject<Item> BLAZE_BOOTS = RegistryBase.ITEMS.register("blaze_boots", () -> new ArmorItem(EPArmorMaterials.BLAZE, EquipmentSlot.FEET, fireProof()));
     //注册新的食物
-    public static final RegistryObject<Item> REDSTONE_BERRIES = RegistryBase.ITEMS.register("redstone_berries", () -> new ItemNameBlockItem(EPBlocks.REDSTONE_BERRY_BUSH.get(), defaultBuilder().food(EPFoods.REDSTONE_BERRIES)));
+    public static final RegistryObject<Item> REDSTONE_BERRIES = RegistryBase.ITEMS.register("redstone_berries", () -> new ItemNameBlockItem(EPBlocks.REDSTONE_BERRY_BUSH.get(),
+            defaultBuilder().food((new FoodProperties.Builder()).nutrition(3).saturationMod(1.2F).build())));
     //注册带有特殊性质的物品
     public static final RegistryObject<Item> PHOENIX_GATEWAY = RegistryBase.ITEMS.register("phoenix_gateway", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> BOOMERANG_FIREBALL = RegistryBase.ITEMS.register("boomerang_fireball", () -> new Item(new Item.Properties()));

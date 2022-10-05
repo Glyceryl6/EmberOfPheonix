@@ -63,6 +63,8 @@
   "item.emberphoenix.silver_ingot":"银锭",
   "item.emberphoenix.raw_silver":"粗银",
   "item.emberphoenix.blaze_ruby":"炽焰红宝石",
+  "item.emberphoenix.blaze_wand":"炽焰法杖",
+  "item.emberphoenix.blaze_bow":"炽焰弓",
   "item.emberphoenix.blaze_sword":"炽焰剑",
   "item.emberphoenix.blaze_shovel":"炽焰锹",
   "item.emberphoenix.blaze_pickaxe":"炽焰镐",
@@ -84,7 +86,6 @@
   "item.emberphoenix.redstone_berries":"红石浆果",
   "item.emberphoenix.cinder_cannon":"灰烬手炮",
   "item.emberphoenix.tumbleseed":"风滚草种子",
-  "item.emberphoenix.blaze_wand":"炽焰法杖",
   "item.emberphoenix.spark":"火种",
 
   "item.emberphoenix.wildfire_spawn_egg":"野火刷怪蛋",

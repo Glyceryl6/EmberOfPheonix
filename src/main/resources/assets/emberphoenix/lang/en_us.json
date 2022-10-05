@@ -63,6 +63,8 @@
   "item.emberphoenix.silver_ingot":"Silver Ingot",
   "item.emberphoenix.raw_silver":"Raw Silver Ingot",
   "item.emberphoenix.blaze_ruby":"Blaze Ruby",
+  "item.emberphoenix.blaze_wand":"Blaze Wand",
+  "item.emberphoenix.blaze_bow":"Blaze Bow",
   "item.emberphoenix.blaze_sword":"Blaze Sword",
   "item.emberphoenix.blaze_shovel":"Blaze Shovel",
   "item.emberphoenix.blaze_pickaxe":"Blaze Pickaxe",
@@ -84,7 +86,6 @@
   "item.emberphoenix.redstone_berries":"Redstone Berries",
   "item.emberphoenix.cinder_cannon":"Cinder Cannon",
   "item.emberphoenix.tumbleseed":"Tumbleweed Seed",
-  "item.emberphoenix.blaze_wand":"Blaze Wand",
   "item.emberphoenix.spark":"Spark",
 
   "item.emberphoenix.wildfire_spawn_egg":"Wildfire Spawn Egg",

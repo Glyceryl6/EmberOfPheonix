@@ -1,0 +1,6 @@
+{
+    "parent": "emberphoenix:item/blaze_bow",
+    "textures": {
+        "layer0": "emberphoenix:item/blaze_bow_pulling_1"
+    }
+}
