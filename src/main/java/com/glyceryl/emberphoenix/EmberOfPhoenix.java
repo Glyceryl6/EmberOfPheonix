@@ -33,7 +33,7 @@ public class EmberOfPhoenix {
         EPSounds.register(eventBus);
         EPFeatures.register(eventBus);
         EPParticles.register(eventBus);
-        EPContainers.register(eventBus);
+        EPBlockEntity.register(eventBus);
         EPEnchantments.register(eventBus);
         eventBus.addListener(this::registerBow);
         eventBus.addListener(this::registerRenderLayer);
@@ -60,17 +60,12 @@ public class EmberOfPhoenix {
         ItemBlockRenderTypes.setRenderLayer(EPBlocks.BARREN_TALL_GRASS.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(EPBlocks.TUMBLEWEED_TRAPDOOR.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(EPBlocks.REDSTONE_BERRY_BUSH.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(EPBlocks.ETERNAL_FIRE_ALTAR.get(), RenderType.cutoutMipped());
+        ItemBlockRenderTypes.setRenderLayer(EPBlocks.ETERNAL_FIRE_ALTAR.get(), RenderType.cutout());
     }
 
     private void registerBow(FMLClientSetupEvent event) {
-        ItemProperties.register(EPItems.BLAZE_BOW.get(), new ResourceLocation("pull"), (stack, level, entity, seed) -> {
-            if (entity == null) {
-                return 0.0F;
-            } else {
-                return entity.getUseItem() != stack ? 0.0F : (float)(stack.getUseDuration() - entity.getUseItemRemainingTicks()) / 20.0F;
-            }
-        });
+        ItemProperties.register(EPItems.BLAZE_BOW.get(), new ResourceLocation("pull"), (stack, level, entity, seed) ->
+                entity == null ? 0.0F :(entity.getUseItem() != stack ? 0.0F : (float)(stack.getUseDuration() - entity.getUseItemRemainingTicks()) / 20.0F));
         ItemProperties.register(EPItems.BLAZE_BOW.get(), new ResourceLocation("pulling"), (stack, level, entity, seed) ->
                 entity != null && entity.isUsingItem() && entity.getUseItem() == stack ? 1.0F : 0.0F);
     }

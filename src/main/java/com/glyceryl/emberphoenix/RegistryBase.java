@@ -30,7 +30,7 @@ public class RegistryBase {
     public static final DeferredRegister<Feature<?>> FEATURES = create(ForgeRegistries.FEATURES);
     public static final DeferredRegister<EntityType<?>> ENTITY = create(ForgeRegistries.ENTITIES);
     public static final DeferredRegister<ParticleType<?>> PARTICLES = create(ForgeRegistries.PARTICLE_TYPES);
-    public static final DeferredRegister<BlockEntityType<?>> CONTAINER = create(ForgeRegistries.BLOCK_ENTITIES);
+    public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITY = create(ForgeRegistries.BLOCK_ENTITIES);
 
     private static <B extends IForgeRegistryEntry<B>> DeferredRegister<B> create(IForgeRegistry<B> reg) {
         return DeferredRegister.create(reg, EmberOfPhoenix.MOD_ID);
@@ -60,4 +60,5 @@ public class RegistryBase {
             return new ItemStack(EPItems.SPARK.get());
         }
     };
+
 }
